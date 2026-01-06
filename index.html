@@ -106,7 +106,7 @@
             backdrop-filter: blur(15px);
             box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15); 
             font-size: 1rem; transition: all 0.3s;
-            pointer-events: auto; color: #0f172a; font-weight: 600;
+            pointer-events: auto; color: #0f172a; font-weight: 600; line-height: 1.6;
         }
         .search-input:focus { 
             border-color: var(--primary); 
@@ -253,7 +253,7 @@
         .modal-search {
             width: 100%; padding: 14px 20px 14px 50px; 
             border-radius: 12px; border: 1px solid #cbd5e1;
-            font-size: 1rem; color: #334155; transition: 0.2s; background: #f8fafc;
+            font-size: 1rem; color: #334155; transition: 0.2s; background: #f8fafc; line-height: 1.6;
         }
         .modal-search:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(0, 104, 255, 0.1); }
         .search-container { position: relative; width: 100%; }
@@ -464,7 +464,7 @@
         <div class="chat-header">
             <div style="display: flex; align-items: center; gap: 10px;">
                 <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" width="24">
-                <span>Trợ lý ảo AI</span>
+                <span>Trợ lý ảo VNPT</span>
             </div>
             <span class="close-chat" onclick="toggleChat()">&times;</span>
         </div>
@@ -481,8 +481,56 @@
 </div>
 
 <script>
-    // --- 1. DỮ LIỆU ĐẦU MỐI HỖ TRỢ (CHUẨN TỪ EXCEL) ---
-    // I. DANH SÁCH CẤP TỈNH (SỞ NGÀNH - 2 người/sở)
+    // --- 1. CẤU HÌNH "KHO KIẾN THỨC" (NOTEBOOK) ---
+    // Danh sách nguồn dữ liệu bên ngoài
+    const KNOWLEDGE_SOURCES = [
+        {
+            type: "sheet",
+            name: "DANH SÁCH TTHC CẤP TỈNH/XÃ TRIỂN KHAI TẠI CỔNG BỘ NGÀNH từ 01/01/2026",
+            // Link CSV bạn vừa cung cấp
+            url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSkciv2ef5m8K63jH2MG56o9WqFGoE3eGtrAw43FN_wpwxssR-txHyXNK86zR1wd5DgwqzpegNwbyFu/pub?output=csv"
+        }
+    ];
+
+    // Biến lưu trữ kiến thức đã tải
+    let fullNotebookData = "";
+
+    // Hàm tải dữ liệu tự động
+    async function loadNotebook() {
+        console.log("Đang nạp dữ liệu từ " + KNOWLEDGE_SOURCES.length + " nguồn...");
+        
+        const promises = KNOWLEDGE_SOURCES.map(async (source) => {
+            try {
+                const response = await fetch(source.url);
+                const textData = await response.text();
+                let cleanContent = "";
+
+                if (source.type === 'sheet') {
+                    // Xử lý CSV: bỏ dòng trống, nối lại
+                    cleanContent = textData.split('\n')
+                        .map(row => row.trim())
+                        .filter(row => row.length > 0)
+                        .join('\n');
+                } 
+                // Có thể mở rộng thêm type: 'doc' ở đây nếu cần
+
+                return `=== NGUỒN DỮ LIỆU: ${source.name} ===\n${cleanContent}\n==================\n`;
+            } catch (error) {
+                console.error(`Lỗi tải nguồn ${source.name}:`, error);
+                return ""; 
+            }
+        });
+
+        // Đợi tất cả tải xong và gộp lại
+        const results = await Promise.all(promises);
+        fullNotebookData = results.join("\n");
+        console.log("Đã học xong toàn bộ kiến thức!", fullNotebookData.length + " ký tự.");
+    }
+
+    // Chạy ngay khi mở web
+    loadNotebook();
+
+    // --- 2. DỮ LIỆU CỨNG (ĐẦU MỐI HỖ TRỢ) ---
     const provincialData = [
         { stt: 1, phamvi: "Trung tâm Phục vụ hành chính công", ten: "Vũ Văn Đam", sdt: "0911741555" },
         { stt: "", phamvi: "Trung tâm Phục vụ hành chính công", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
@@ -502,7 +550,6 @@
         { stt: "", phamvi: "Sở Tài nguyên và Môi trường", ten: "Phạm Đăng Khoa", sdt: "0918576363" }
     ];
 
-    // II. DANH SÁCH CẤP XÃ/PHƯỜNG (129 ĐƠN VỊ - CHUẨN)
     const communeData = [
         { stt: 1, phamvi: "Phường Tây Hoa Lư", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
         { stt: 2, phamvi: "Phường Hoa Lư", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
@@ -817,39 +864,52 @@
         renderCards(filtered);
     });
 
-    // --- 4. CHATBOT GEMINI INTEGRATION (BẢN FIX LỖI 404 & QUOTA) ---
-    const API_KEY = "AIzaSyACgFcP_GufhJa_3x0-OKmttdkSPbf_tVw"; 
+    // --- 4. CHATBOT GEMINI INTEGRATION ---
+    const API_KEY = "AIzaSyApzGowCHYGxvzv08odhgruCgb079sjkbI"; 
     
-    // SỬ DỤNG DUY NHẤT 1 MODEL CHUẨN ĐÃ ĐƯỢC XÁC NHẬN CÓ TRONG DANH SÁCH
-    const MODEL_NAME = "gemini-2.5-flash"; 
+    // Sử dụng model gemini-2.0-flash (theo danh sách khả dụng)
+    const MODEL_NAME = "gemini-2.0-flash"; 
     const API_VERSION = "v1beta";
     const API_URL = `https://generativelanguage.googleapis.com/${API_VERSION}/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
 
     function getSystemContext() {
-        let context = "Bạn là nhân viên hỗ trợ. Hãy trả lời ngắn gọn, chính xác bằng tiếng Việt dựa trên dữ liệu sau đây:\n\n";
+        let context = "Bạn là trợ lý ảo hỗ trợ của VNPT Ninh Bình. Hãy trả lời ngắn gọn, chính xác, lịch sự bằng tiếng Việt.\n\n";
         
-        // --- BỔ SUNG PHẦN NÀY ---
-        context += "0. HỆ THỐNG CHUNG QUAN TRỌNG:\n";
-        context += "- Link truy cập Hệ thống điều phối giải quyết TTHC: https://dieuphoi.dichvucong.gov.vn\n";
-        context += "- Tài liệu Hướng dẫn sử dụng (HDSD) Hệ thống điều phối: https://drive.google.com/drive/folders/1AmPIs4bBpmnxkXBeQDzFFc6PX6szIV-J\n\n";
-        // -------------------------
+        // --- THÔNG TIN HỆ THỐNG CHUNG ---
+        context += "THÔNG TIN QUAN TRỌNG:\n";
+        context += "- Link Hệ thống điều phối: https://dieuphoi.dichvucong.gov.vn\n";
+        context += "- Tài liệu HDSD Hệ thống điều phối: https://drive.google.com/drive/folders/1AmPIs4bBpmnxkXBeQDzFFc6PX6szIV-J\n\n";
 
-        context += "1. THÔNG TIN BỘ NGÀNH:\n";
-        config.forEach(c => {
-            context += `- ${c.name}: Tài liệu (${c.doc}), Nhóm Zalo (${c.zalo || 'Không có'}), Form hỗ trợ (${c.request})\n`;
-        });
+        // --- NẠP DỮ LIỆU TỪ SHEET (TTHC) ---
+        if (fullNotebookData) {
+            context += "\n=============================\n";
+            context += "DỮ LIỆU CHI TIẾT TỪ GOOGLE SHEET (TTHC):\n";
+            context += fullNotebookData;
+            context += "\n=============================\n";
+        } else {
+            context += "\n(Đang tải dữ liệu từ Google Sheet...)\n";
+        }
 
-        context += "\n2. ĐẦU MỐI CẤP TỈNH (SỞ NGÀNH):\n";
+        // --- NẠP DANH BẠ ĐIỆN THOẠI (HARDCODED) ---
+        context += "\nDANH BẠ LIÊN HỆ:\n";
         provincialData.forEach(p => {
             if(p.ten) context += `- Đơn vị: ${p.phamvi}, Người phụ trách: ${p.ten}, SĐT: ${p.sdt}\n`;
         });
-
-        context += "\n3. ĐẦU MỐI CẤP XÃ/PHƯỜNG:\n";
         communeData.forEach(c => {
             if(c.ten) context += `- Đơn vị: ${c.phamvi}, Người phụ trách: ${c.ten}, SĐT: ${c.sdt}\n`;
         });
         
-        context += "\nQUY TẮC: Nếu người dùng hỏi số điện thoại hoặc người phụ trách, hãy tìm chính xác trong danh sách trên. Nếu không thấy, hãy bảo họ không tìm thấy thông tin.";
+        // --- NẠP LINK TÀI LIỆU BỘ NGÀNH ---
+        context += "\nTÀI LIỆU VÀ NHÓM ZALO BỘ NGÀNH:\n";
+        config.forEach(c => {
+            context += `- ${c.name}: Tài liệu (${c.doc}), Nhóm Zalo (${c.zalo || 'Không có'}), Form hỗ trợ (${c.request})\n`;
+        });
+
+        context += "\nQUY TẮC TRẢ LỜI:\n";
+        context += "- Nếu hỏi số điện thoại, tìm trong phần DANH BẠ LIÊN HỆ.\n";
+        context += "- Nếu hỏi về thủ tục hành chính (TTHC), tìm trong phần DỮ LIỆU TỪ GOOGLE SHEET.\n";
+        context += "- Nếu không tìm thấy thông tin, hãy xin lỗi và gợi ý liên hệ tổng đài.";
+        
         return context;
     }
 
@@ -889,8 +949,6 @@
         chatMessages.appendChild(loadingDiv);
 
         try {
-            console.log("Đang gửi yêu cầu tới:", API_URL); // Debug log
-            
             const response = await fetch(API_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -909,8 +967,6 @@
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                console.error("API Error Response:", errorData); // Log lỗi chi tiết ra console
-                
                 let errorMessage = errorData.error?.message || `Lỗi HTTP ${response.status}`;
                 throw new Error(errorMessage);
             }
@@ -929,7 +985,6 @@
 
         } catch (error) {
             document.getElementById(loadingId).remove();
-            // HIỂN THỊ LỖI CHI TIẾT RA KHUNG CHAT ĐỂ BẠN BIẾT NGUYÊN NHÂN
             appendMessage(`⚠️ Lỗi: ${error.message}<br><br>👉 Gợi ý: Hãy thử tắt giới hạn tên miền (Restrictions) của API Key nếu bạn đang chạy trên localhost.`, 'bot');
             console.error("Gemini Critical Error:", error);
         }
@@ -937,5 +992,4 @@
 </script>
 
 </body>
-
 </html>
