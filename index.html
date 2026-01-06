@@ -71,7 +71,7 @@
         .divider { width: 2px; height: 50px; background: #cbd5e1; opacity: 0.7; }
         .vnpt-logo { height: 40px; object-fit: contain; }
 
-        /* --- FIX 1: SỬA LỖI MẤT DẤU MŨ --- */
+        /* --- TYPOGRAPHY FIX --- */
         .header h1 { 
             font-size: 1.5rem;
             margin-bottom: 8px; 
@@ -81,12 +81,10 @@
             background: linear-gradient(90deg, #0068ff 0%, #1e293b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            
-            /* Tăng line-height và padding để không bị cắt chữ */
             line-height: 1.6 !important; 
             padding-top: 5px;
             padding-bottom: 5px;
-            display: inline-block; /* Giúp padding hoạt động tốt hơn */
+            display: inline-block; 
         }
         
         .header h2 { 
@@ -138,12 +136,11 @@
         .content-area { padding: 10px 40px; min-height: 200px; }
         #linkGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
         
-        /* --- FIX 2: SỬA LỖI CARD MỜ --- */
         .department-card {
-            background: #ffffff; /* Đổi sang nền trắng tuyệt đối */
+            background: #ffffff;
             border-radius: 16px; 
-            border: 1px solid #d1d5db; /* Viền xám đậm hơn chút */
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Bóng đổ rõ khối */
+            border: 1px solid #d1d5db;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
             overflow: hidden;
             transition: all 0.3s ease; display: flex; flex-direction: column;
         }
@@ -154,18 +151,16 @@
         }
 
         .card-header { 
-            background: #f8fafc; /* Nền header card nhạt */
+            background: #f8fafc;
             padding: 18px 25px; border-bottom: 1px solid #e2e8f0;
             display: flex; align-items: center; gap: 12px; flex-grow: 1; 
         }
         .header-deco { width: 6px; height: 24px; background: var(--danger); border-radius: 4px; box-shadow: 0 2px 4px rgba(239,68,68,0.3); }
         .dept-name { font-size: 1.15rem; font-weight: 800; color: #0f172a; text-transform: uppercase; line-height: 1.3; }
 
-        /* --- FIX 3: LOGIC LAYOUT NÚT BẤM --- */
         .card-actions { 
             padding: 25px; 
             display: grid; 
-            /* Tự động chia cột: nếu đủ chỗ thì 3, không thì 2 hoặc 1 */
             grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); 
             gap: 15px; 
             background: transparent; 
@@ -175,13 +170,12 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
             padding: 15px 10px; border-radius: 12px; text-decoration: none; 
             transition: all 0.2s; border: 1px solid #f1f5f9; height: 100%; text-align: center; gap: 10px; 
-            background: #f8fafc; /* Nút có nền nhẹ */
+            background: #f8fafc;
             color: #334155;
         }
         .action-btn img { width: 36px; height: 36px; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1)); }
         .action-btn span { font-size: 0.85rem; font-weight: 700; color: #334155; }
         
-        /* Hiệu ứng nút con */
         .btn-doc-new:hover { background: #ecfdf5; border-color: #34d399; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(52, 211, 153, 0.2); }
         .btn-zalo-new:hover { background: #eff6ff; border-color: #60a5fa; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(96, 165, 250, 0.2); }
         .btn-req-new:hover { background: #fffbeb; border-color: #fbbf24; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(251, 191, 36, 0.2); }
@@ -298,7 +292,7 @@
         @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
         @keyframes slideIn { from {transform: translateY(30px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
 
-        /* --- MEDIA QUERY CHO MOBILE (FIX RESPONSIVE) --- */
+        /* --- MEDIA QUERY --- */
         @media (max-width: 850px) {
             body { padding: 15px 10px; }
             .container { border-radius: 0; border: none; box-shadow: none; background: rgba(255,255,255,0.95); }
@@ -306,25 +300,63 @@
             .header h2 { font-size: 1.2rem; }
             .main-action-box { grid-template-columns: 1fr; padding: 30px 20px; }
             #linkGrid { grid-template-columns: 1fr; }
-            
-            /* Sửa lỗi mất nút trên mobile */
-            .card-actions { 
-                grid-template-columns: 1fr !important; /* Bắt buộc xếp dọc 1 cột */
-                gap: 10px; 
-                padding: 15px; 
-            }
-            
-            .action-btn { 
-                flex-direction: row; /* Icon trái, chữ phải cho gọn */
-                justify-content: flex-start; 
-                padding: 12px 20px; 
-                text-align: left; 
-                width: 100%;
-            }
+            .card-actions { grid-template-columns: 1fr !important; gap: 10px; padding: 15px; }
+            .action-btn { flex-direction: row; justify-content: flex-start; padding: 12px 20px; text-align: left; width: 100%; }
             .action-btn img { width: 32px; height: 32px; margin-right: 15px; }
-            
             .modal-content { width: 100%; height: 100%; margin: 0; border-radius: 0; max-height: 100vh; }
         }
+
+        /* --- CHATBOT STYLE --- */
+        .chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 9999; }
+        
+        /* CSS NÚT CHAT VIÊN THUỐC */
+        .chat-toggle-btn {
+            min-width: 60px; height: 50px; border-radius: 30px;
+            background: linear-gradient(135deg, #0068ff 0%, #1e293b 100%);
+            border: none; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 104, 255, 0.4);
+            transition: all 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 0 20px;
+        }
+        .chat-toggle-btn:hover { 
+            transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 104, 255, 0.5); padding-right: 25px; 
+        }
+        .chat-toggle-btn img { 
+            width: 24px; height: 24px; filter: invert(1); animation: pulse 2s infinite; 
+        }
+        .chat-btn-text {
+            color: white; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+        .chat-window {
+            position: absolute; bottom: 80px; right: 0;
+            width: 350px; height: 500px;
+            background: #fff; border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            display: none; flex-direction: column; overflow: hidden;
+            border: 1px solid #e2e8f0;
+            animation: slideInUp 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        .chat-header {
+            background: #0068ff; color: white; padding: 15px;
+            font-weight: 700; display: flex; justify-content: space-between; align-items: center;
+        }
+        .close-chat { cursor: pointer; font-size: 20px; }
+        .chat-messages {
+            flex: 1; padding: 15px; overflow-y: auto; background: #f8fafc;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .message { max-width: 80%; padding: 10px 15px; border-radius: 15px; font-size: 0.9rem; line-height: 1.4; word-wrap: break-word; }
+        .bot-message { background: #e2e8f0; color: #334155; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .user-message { background: #0068ff; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .chat-input-area { padding: 10px; border-top: 1px solid #eee; display: flex; gap: 10px; background: #fff; }
+        .chat-input-area input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 20px; outline: none; font-family: 'Inter', sans-serif; }
+        .chat-input-area button { background: #0068ff; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 480px) { .chat-window { width: 90vw; right: -10px; bottom: 70px; height: 60vh; } }
     </style>
 </head>
 <body>
@@ -422,32 +454,50 @@
     </div>
 </div>
 
+<div class="chat-widget">
+    <button id="chatToggle" class="chat-toggle-btn" onclick="toggleChat()">
+        <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" alt="AI">
+        <span class="chat-btn-text">Trợ lý AI</span>
+    </button>
+    
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" width="24">
+                <span>Trợ lý ảo AI</span>
+            </div>
+            <span class="close-chat" onclick="toggleChat()">&times;</span>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                Xin chào! Tôi là AI hỗ trợ tra cứu thông tin đầu mối và tài liệu. Bạn cần tìm gì ạ?
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="userMsg" placeholder="Hỏi gì đó..." onkeypress="handleEnter(event)">
+            <button onclick="sendMessage()">&#10148;</button>
+        </div>
+    </div>
+</div>
+
 <script>
     // --- 1. DỮ LIỆU ĐẦU MỐI HỖ TRỢ (CHUẨN TỪ EXCEL) ---
-    
     // I. DANH SÁCH CẤP TỈNH (SỞ NGÀNH - 2 người/sở)
     const provincialData = [
         { stt: 1, phamvi: "Trung tâm Phục vụ hành chính công", ten: "Vũ Văn Đam", sdt: "0911741555" },
         { stt: "", phamvi: "Trung tâm Phục vụ hành chính công", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
-        
         { stt: 2, phamvi: "Sở Khoa học và Công nghệ", ten: "Đỗ Thị Minh Oanh", sdt: "0917525345" },
         { stt: "", phamvi: "Sở Khoa học và Công nghệ", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
-        
         { stt: 3, phamvi: "Sở Nội vụ", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
         { stt: "", phamvi: "Sở Nội vụ", ten: "Phạm Văn Thao", sdt: "0947480904" },
-        
         { stt: 4, phamvi: "Sở Y tế", ten: "Vũ Văn Đam", sdt: "0911741555" },
         { stt: "", phamvi: "Sở Y tế", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
-        
         { stt: 5, phamvi: "Sở Giáo dục và Đào tạo", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
         { stt: "", phamvi: "Sở Giáo dục và Đào tạo", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
-        
         { stt: 6, phamvi: "Sở Công thương", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
         { stt: "", phamvi: "Sở Công thương", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
-        
         { stt: 7, phamvi: "Sở Xây dựng", ten: "Đỗ Trung Tín", sdt: "0948522828" },
         { stt: "", phamvi: "Sở Xây dựng", ten: "Lê Cao Cường", sdt: "0888932199" },
-        
         { stt: 8, phamvi: "Sở Tài nguyên và Môi trường", ten: "Tống Văn Tiến", sdt: "0911107726" },
         { stt: "", phamvi: "Sở Tài nguyên và Môi trường", ten: "Phạm Đăng Khoa", sdt: "0918576363" }
     ];
@@ -735,13 +785,8 @@
                         <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg">
                         <span>Nhóm Zalo hỗ trợ</span>
                     </a>` : '';
-
-                // FIX: Xóa logic tính toán Grid style inline
-                // const gridStyle = ... (ĐÃ XÓA)
-
                 const row = document.createElement('div');
                 row.className = 'department-card';
-                // FIX: Xóa attribute style="${gridStyle}"
                 row.innerHTML = `
                     <div class="card-header">
                         <div class="header-deco"></div>
@@ -771,6 +816,118 @@
         const filtered = config.filter(item => item.name.toLowerCase().includes(keyword));
         renderCards(filtered);
     });
+
+    // --- 4. CHATBOT GEMINI INTEGRATION (BẢN FIX LỖI 404 & QUOTA) ---
+    const API_KEY = "AIzaSyACgFcP_GufhJa_3x0-OKmttdkSPbf_tVw"; 
+    
+    // SỬ DỤNG DUY NHẤT 1 MODEL CHUẨN ĐÃ ĐƯỢC XÁC NHẬN CÓ TRONG DANH SÁCH
+    const MODEL_NAME = "gemini-2.5-flash"; 
+    const API_VERSION = "v1beta";
+    const API_URL = `https://generativelanguage.googleapis.com/${API_VERSION}/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
+
+    function getSystemContext() {
+        let context = "Bạn là nhân viên hỗ trợ. Hãy trả lời ngắn gọn, chính xác bằng tiếng Việt dựa trên dữ liệu sau đây:\n\n";
+        
+        context += "1. THÔNG TIN BỘ NGÀNH:\n";
+        config.forEach(c => {
+            context += `- ${c.name}: Tài liệu (${c.doc}), Nhóm Zalo (${c.zalo || 'Không có'}), Form hỗ trợ (${c.request})\n`;
+        });
+
+        context += "\n2. ĐẦU MỐI CẤP TỈNH (SỞ NGÀNH):\n";
+        provincialData.forEach(p => {
+            if(p.ten) context += `- Đơn vị: ${p.phamvi}, Người phụ trách: ${p.ten}, SĐT: ${p.sdt}\n`;
+        });
+
+        context += "\n3. ĐẦU MỐI CẤP XÃ/PHƯỜNG:\n";
+        communeData.forEach(c => {
+            if(c.ten) context += `- Đơn vị: ${c.phamvi}, Người phụ trách: ${c.ten}, SĐT: ${c.sdt}\n`;
+        });
+        
+        context += "\nQUY TẮC: Nếu người dùng hỏi số điện thoại hoặc người phụ trách, hãy tìm chính xác trong danh sách trên. Nếu không thấy, hãy bảo họ là không tìm thấy thông tin.";
+        return context;
+    }
+
+    const chatWindow = document.getElementById('chatWindow');
+    const chatMessages = document.getElementById('chatMessages');
+    const userMsgInput = document.getElementById('userMsg');
+
+    function toggleChat() {
+        chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+        if(chatWindow.style.display === 'flex') userMsgInput.focus();
+    }
+
+    function handleEnter(e) {
+        if (e.key === 'Enter') sendMessage();
+    }
+
+    function appendMessage(text, sender) {
+        const div = document.createElement('div');
+        div.className = `message ${sender}-message`;
+        div.innerHTML = text.replace(/\n/g, '<br>').replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color:white;text-decoration:underline;">$1</a>');
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    async function sendMessage() {
+        const text = userMsgInput.value.trim();
+        if (!text) return;
+
+        appendMessage(text, 'user');
+        userMsgInput.value = '';
+        
+        const loadingId = 'loading-' + Date.now();
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'message bot-message';
+        loadingDiv.id = loadingId;
+        loadingDiv.innerText = 'Đang tra cứu...';
+        chatMessages.appendChild(loadingDiv);
+
+        try {
+            console.log("Đang gửi yêu cầu tới:", API_URL); // Debug log
+            
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    contents: [
+                        {
+                            role: "user",
+                            parts: [
+                                { text: getSystemContext() },
+                                { text: "Câu hỏi của người dùng: " + text }
+                            ]
+                        }
+                    ]
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                console.error("API Error Response:", errorData); // Log lỗi chi tiết ra console
+                
+                let errorMessage = errorData.error?.message || `Lỗi HTTP ${response.status}`;
+                throw new Error(errorMessage);
+            }
+
+            const data = await response.json();
+            const botReply = data.candidates[0].content.parts[0].text;
+            
+            document.getElementById(loadingId).remove();
+            
+            const formattedReply = botReply.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color:#0068ff;">$1</a>');
+            const div = document.createElement('div');
+            div.className = `message bot-message`;
+            div.innerHTML = formattedReply.replace(/\n/g, '<br>');
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        } catch (error) {
+            document.getElementById(loadingId).remove();
+            // HIỂN THỊ LỖI CHI TIẾT RA KHUNG CHAT ĐỂ BẠN BIẾT NGUYÊN NHÂN
+            appendMessage(`⚠️ Lỗi: ${error.message}<br><br>👉 Gợi ý: Hãy thử tắt giới hạn tên miền (Restrictions) của API Key nếu bạn đang chạy trên localhost.`, 'bot');
+            console.error("Gemini Critical Error:", error);
+        }
+    }
 </script>
 
 </body>
