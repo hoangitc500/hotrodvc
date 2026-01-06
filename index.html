@@ -486,7 +486,7 @@
     const KNOWLEDGE_SOURCES = [
         {
             type: "sheet",
-            name: "DANH SÁCH TTHC CẤP TỈNH/XÃ TRIỂN KHAI TẠI CỔNG BỘ NGÀNH từ 01/01/2026",
+            name: "DANH SÁCH TTHC CẤP TỈNH/XÃ TRIỂN KHAI TẠI CỔNG BỘ NGÀNH",
             // Link CSV bạn vừa cung cấp
             url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSkciv2ef5m8K63jH2MG56o9WqFGoE3eGtrAw43FN_wpwxssR-txHyXNK86zR1wd5DgwqzpegNwbyFu/pub?output=csv"
         }
@@ -682,140 +682,6 @@
         { stt: 129, phamvi: "UBND Phường Duy Tân", ten: "Nguyễn Thị Xuân", sdt: "0888000328" }
     ];
 
-    // --- 2. LOGIC MODAL & TÌM KIẾM ---
-    const modal = document.getElementById("supportModal");
-    const tableBody = document.getElementById("supportTableBody");
-    const modalSearchInput = document.getElementById("modalSearchInput");
-
-    function openSupportModal() {
-        renderTable(provincialData, communeData); // Mặc định render hết
-        modalSearchInput.value = "";
-        modal.style.display = "block";
-        document.body.style.overflow = "hidden"; // Khóa cuộn trang chính
-        setTimeout(() => modalSearchInput.focus(), 100);
-    }
-
-    function closeSupportModal() {
-        modal.style.display = "none";
-        document.body.style.overflow = "auto";
-    }
-
-    // Render bảng có phân tách 2 khối
-    function renderTable(province, commune) {
-        tableBody.innerHTML = "";
-        
-        // Render Khối Sở Ngành
-        if (province.length > 0) {
-            const header1 = document.createElement("tr");
-            header1.className = "section-header";
-            header1.innerHTML = `<td colspan="4">I. KHỐI SỞ BAN NGÀNH (CẤP TỈNH)</td>`;
-            tableBody.appendChild(header1);
-
-            province.forEach(item => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td style="text-align: center; color: #64748b;">${item.stt}</td>
-                    <td><span class="badge-scope">${item.phamvi}</span></td>
-                    <td class="user-name">${item.ten}</td>
-                    <td><a href="tel:${item.sdt}" class="phone-link">${item.sdt}</a></td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
-
-        // Render Khối Xã Phường
-        if (commune.length > 0) {
-            const header2 = document.createElement("tr");
-            header2.className = "section-header";
-            header2.innerHTML = `<td colspan="4">II. KHỐI XÃ/PHƯỜNG (129 ĐƠN VỊ)</td>`;
-            tableBody.appendChild(header2);
-
-            commune.forEach(item => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td style="text-align: center; color: #64748b;">${item.stt}</td>
-                    <td><span class="badge-scope">${item.phamvi}</span></td>
-                    <td class="user-name">${item.ten}</td>
-                    <td><a href="tel:${item.sdt}" class="phone-link">${item.sdt}</a></td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
-
-        if (province.length === 0 && commune.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 30px; color:#94a3b8;">Không tìm thấy kết quả</td></tr>`;
-        }
-    }
-
-    // Tìm kiếm (Lọc cả 2 danh sách)
-    function filterSupportTable() {
-        const keyword = modalSearchInput.value.toLowerCase().trim();
-        
-        const filteredProvince = provincialData.filter(item => 
-            item.phamvi.toLowerCase().includes(keyword) || 
-            item.ten.toLowerCase().includes(keyword) || 
-            item.sdt.includes(keyword)
-        );
-
-        const filteredCommune = communeData.filter(item => 
-            item.phamvi.toLowerCase().includes(keyword) || 
-            item.ten.toLowerCase().includes(keyword) || 
-            item.sdt.includes(keyword)
-        );
-
-        renderTable(filteredProvince, filteredCommune);
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) closeSupportModal();
-    }
-
-    // --- 3. DANH SÁCH BỘ NGÀNH CHÍNH ---
-    const config = [
-        {
-            name: "Bộ Nông nghiệp và Môi trường", 
-            zalo: "https://zalo.me/g/zwqtnk714",
-            request: "https://forms.gle/FKAbim7xTrBDiHuU9",
-            doc: "https://drive.google.com/drive/mobile/folders/1Y6EM__Zi_j1ypErH2wHn8df2txSPSLJB"
-        },
-        {
-            name: "Bộ Giáo dục và Đào tạo",
-            zalo: "https://zalo.me/g/lequfi377",
-            request: "https://forms.gle/gTXS4hQHmFvquAxF8",
-            doc: "https://drive.google.com/drive/mobile/folders/1IUsYnmNbYNixJzwoMmkkhZc_DQAkfI9f"
-        },
-        {
-            name: "Bộ Công Thương",
-            zalo: "https://zalo.me/g/jjsdtc222",
-            request: "https://forms.gle/w3C2LnRoLFbBowbi6",
-            doc: "https://drive.google.com/drive/folders/1wu4tSrAmbxt0ITQSF-0HApnZxjjFzgeB"
-        },
-        {
-            name: "Bộ Xây dựng",
-            zalo: "https://zalo.me/g/tnfjxs703",
-            request: "https://forms.gle/HcUJcZTBNqs6wJnw7",
-            doc: "https://drive.google.com/drive/folders/16oWLLemMDbB8NRpxCQ6GpkMg-EpnNbJd"
-        },
-        {
-            name: "Bộ Nội vụ",
-            zalo: "https://zalo.me/g/izahnx601",
-            request: "https://forms.gle/hsUi5c3v2U5jMgT8A",
-            doc: "https://drive.google.com/drive/mobile/folders/1cm3H_7O6QHeeztj1FZm8tKQqBgEvqbea"
-        },
-        {
-            name: "Bộ Y tế",
-            zalo: "https://zalo.me/g/gelmej477",
-            request: "https://forms.gle/GbLmjmhGCrGKfWmW7",
-            doc: "https://drive.google.com/drive/mobile/folders/1LK-0VbaytXhOKOC9Z5DhYjVAywITZ7Xt"
-        },
-        {
-            name: "Bộ Khoa học và Công nghệ",
-            zalo: "https://zalo.me/g/tsopxh923",
-            request: "https://forms.gle/6es1UVB2puWZxVED7",
-            doc: "https://drive.google.com/drive/folders/11l2k8RRawEgPaDPeSjVQ62qHMfI6QTW6"
-        }
-    ];
-
     const grid = document.getElementById('linkGrid');
     const searchInput = document.getElementById('searchInput');
     const noResultMsg = document.getElementById('noResult');
@@ -864,52 +730,39 @@
         renderCards(filtered);
     });
 
-    // --- 4. CHATBOT GEMINI INTEGRATION ---
-    const API_KEY = "AIzaSyApzGowCHYGxvzv08odhgruCgb079sjkbI"; 
+    // --- 4. CHATBOT GEMINI INTEGRATION (BẢN FIX LỖI 404 & QUOTA) ---
+    const API_KEY = "DÁN_KEY_MỚI_CỦA_BẠN_VÀO_ĐÂY"; 
     
-    // Sử dụng model gemini-2.0-flash (theo danh sách khả dụng)
-    const MODEL_NAME = "gemini-2.0-flash"; 
+    // SỬ DỤNG DUY NHẤT 1 MODEL CHUẨN ĐÃ ĐƯỢC XÁC NHẬN CÓ TRONG DANH SÁCH
+    const MODEL_NAME = "gemini-2.0-flash-exp"; // Model ổn định nhất hiện tại
     const API_VERSION = "v1beta";
     const API_URL = `https://generativelanguage.googleapis.com/${API_VERSION}/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
 
     function getSystemContext() {
-        let context = "Bạn là trợ lý ảo hỗ trợ của VNPT Ninh Bình. Hãy trả lời ngắn gọn, chính xác, lịch sự bằng tiếng Việt.\n\n";
+        let context = "Bạn là nhân viên hỗ trợ. Hãy trả lời ngắn gọn, chính xác bằng tiếng Việt dựa trên dữ liệu sau đây:\n\n";
         
-        // --- THÔNG TIN HỆ THỐNG CHUNG ---
-        context += "THÔNG TIN QUAN TRỌNG:\n";
-        context += "- Link Hệ thống điều phối: https://dieuphoi.dichvucong.gov.vn\n";
-        context += "- Tài liệu HDSD Hệ thống điều phối: https://drive.google.com/drive/folders/1AmPIs4bBpmnxkXBeQDzFFc6PX6szIV-J\n\n";
+        // --- BỔ SUNG PHẦN NÀY ---
+        context += "0. HỆ THỐNG CHUNG QUAN TRỌNG:\n";
+        context += "- Link truy cập Hệ thống điều phối giải quyết TTHC: https://dieuphoi.dichvucong.gov.vn\n";
+        context += "- Tài liệu Hướng dẫn sử dụng (HDSD) Hệ thống điều phối: https://drive.google.com/drive/folders/1AmPIs4bBpmnxkXBeQDzFFc6PX6szIV-J\n\n";
+        // -------------------------
 
-        // --- NẠP DỮ LIỆU TỪ SHEET (TTHC) ---
-        if (fullNotebookData) {
-            context += "\n=============================\n";
-            context += "DỮ LIỆU CHI TIẾT TỪ GOOGLE SHEET (TTHC):\n";
-            context += fullNotebookData;
-            context += "\n=============================\n";
-        } else {
-            context += "\n(Đang tải dữ liệu từ Google Sheet...)\n";
-        }
-
-        // --- NẠP DANH BẠ ĐIỆN THOẠI (HARDCODED) ---
-        context += "\nDANH BẠ LIÊN HỆ:\n";
-        provincialData.forEach(p => {
-            if(p.ten) context += `- Đơn vị: ${p.phamvi}, Người phụ trách: ${p.ten}, SĐT: ${p.sdt}\n`;
-        });
-        communeData.forEach(c => {
-            if(c.ten) context += `- Đơn vị: ${c.phamvi}, Người phụ trách: ${c.ten}, SĐT: ${c.sdt}\n`;
-        });
-        
-        // --- NẠP LINK TÀI LIỆU BỘ NGÀNH ---
-        context += "\nTÀI LIỆU VÀ NHÓM ZALO BỘ NGÀNH:\n";
+        context += "1. THÔNG TIN BỘ NGÀNH:\n";
         config.forEach(c => {
             context += `- ${c.name}: Tài liệu (${c.doc}), Nhóm Zalo (${c.zalo || 'Không có'}), Form hỗ trợ (${c.request})\n`;
         });
 
-        context += "\nQUY TẮC TRẢ LỜI:\n";
-        context += "- Nếu hỏi số điện thoại, tìm trong phần DANH BẠ LIÊN HỆ.\n";
-        context += "- Nếu hỏi về thủ tục hành chính (TTHC), tìm trong phần DỮ LIỆU TỪ GOOGLE SHEET.\n";
-        context += "- Nếu không tìm thấy thông tin, hãy xin lỗi và gợi ý liên hệ tổng đài.";
+        context += "\n2. ĐẦU MỐI CẤP TỈNH (SỞ NGÀNH):\n";
+        provincialData.forEach(p => {
+            if(p.ten) context += `- Đơn vị: ${p.phamvi}, Người phụ trách: ${p.ten}, SĐT: ${p.sdt}\n`;
+        });
+
+        context += "\n3. ĐẦU MỐI CẤP XÃ/PHƯỜNG:\n";
+        communeData.forEach(c => {
+            if(c.ten) context += `- Đơn vị: ${c.phamvi}, Người phụ trách: ${c.ten}, SĐT: ${c.sdt}\n`;
+        });
         
+        context += "\nQUY TẮC: Nếu người dùng hỏi số điện thoại hoặc người phụ trách, hãy tìm chính xác trong danh sách trên. Nếu không thấy, hãy bảo họ không tìm thấy thông tin.";
         return context;
     }
 
@@ -949,6 +802,8 @@
         chatMessages.appendChild(loadingDiv);
 
         try {
+            console.log("Đang gửi yêu cầu tới:", API_URL); // Debug log
+            
             const response = await fetch(API_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -967,6 +822,8 @@
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
+                console.error("API Error Response:", errorData); // Log lỗi chi tiết ra console
+                
                 let errorMessage = errorData.error?.message || `Lỗi HTTP ${response.status}`;
                 throw new Error(errorMessage);
             }
@@ -985,6 +842,7 @@
 
         } catch (error) {
             document.getElementById(loadingId).remove();
+            // HIỂN THỊ LỖI CHI TIẾT RA KHUNG CHAT ĐỂ BẠN BIẾT NGUYÊN NHÂN
             appendMessage(`⚠️ Lỗi: ${error.message}<br><br>👉 Gợi ý: Hãy thử tắt giới hạn tên miền (Restrictions) của API Key nếu bạn đang chạy trên localhost.`, 'bot');
             console.error("Gemini Critical Error:", error);
         }
