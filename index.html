@@ -828,6 +828,12 @@
     function getSystemContext() {
         let context = "Bạn là nhân viên hỗ trợ. Hãy trả lời ngắn gọn, chính xác bằng tiếng Việt dựa trên dữ liệu sau đây:\n\n";
         
+        // --- BỔ SUNG PHẦN NÀY ---
+        context += "0. HỆ THỐNG CHUNG QUAN TRỌNG:\n";
+        context += "- Link truy cập Hệ thống điều phối giải quyết TTHC: https://dieuphoi.dichvucong.gov.vn\n";
+        context += "- Tài liệu Hướng dẫn sử dụng (HDSD) Hệ thống điều phối: https://drive.google.com/drive/folders/1AmPIs4bBpmnxkXBeQDzFFc6PX6szIV-J\n\n";
+        // -------------------------
+
         context += "1. THÔNG TIN BỘ NGÀNH:\n";
         config.forEach(c => {
             context += `- ${c.name}: Tài liệu (${c.doc}), Nhóm Zalo (${c.zalo || 'Không có'}), Form hỗ trợ (${c.request})\n`;
@@ -843,7 +849,7 @@
             if(c.ten) context += `- Đơn vị: ${c.phamvi}, Người phụ trách: ${c.ten}, SĐT: ${c.sdt}\n`;
         });
         
-        context += "\nQUY TẮC: Nếu người dùng hỏi số điện thoại hoặc người phụ trách, hãy tìm chính xác trong danh sách trên. Nếu không thấy, hãy bảo họ là không tìm thấy thông tin.";
+        context += "\nQUY TẮC: Nếu người dùng hỏi số điện thoại hoặc người phụ trách, hãy tìm chính xác trong danh sách trên. Nếu không thấy, hãy bảo họ không tìm thấy thông tin.";
         return context;
     }
 
@@ -931,4 +937,5 @@
 </script>
 
 </body>
+
 </html>
