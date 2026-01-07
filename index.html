@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cổng thông tin hỗ trợ Hệ thống thông tin Giải quyết TTHC Bộ ngành của VNPT triển khai">
+    <meta name="description"
+        content="Cổng thông tin hỗ trợ Hệ thống thông tin Giải quyết TTHC Bộ ngành của VNPT triển khai">
     <meta name="author" content="Đỗ Việt Hoàng - VNPT Ninh Bình">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://hoangitc500.github.io/hotrodvc/">
     <meta property="og:title" content="Cổng thông tin Hỗ trợ HTTT GQ TTHC Bộ ngành">
-    <meta property="og:description" content="Tra cứu nhanh tài liệu HDSD, tham gia nhóm Zalo hỗ trợ và gửi yêu cầu kỹ thuật cho 07 Bộ ngành.">
+    <meta property="og:description"
+        content="Tra cứu nhanh tài liệu HDSD, tham gia nhóm Zalo hỗ trợ và gửi yêu cầu kỹ thuật cho 07 Bộ ngành.">
     <meta property="og:image" content="https://hoangitc500.github.io/hotrodvc/thumbnail.png">
-    
-    <link rel="icon" href="favicon-vnpt.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="favicon-vnpt.ico" type="image/x-icon">
-    
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
     <title>Cổng thông tin Hỗ trợ HTTT GQ TTHC Bộ ngành</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
     <style>
         /* --- 1. CẤU HÌNH GIAO DIỆN CHUNG --- */
         :root {
@@ -26,607 +30,1281 @@
             --text-gray: #64748b;
         }
 
-        * { box-sizing: border-box; outline: none; }
+        * {
+            box-sizing: border-box;
+            outline: none;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
-            margin: 0; padding: 40px 20px;
+            margin: 0;
+            padding: 40px 20px;
             color: var(--text-dark);
             line-height: 1.5;
             min-height: 100vh;
             background-color: #f0f9ff;
-            background-image: 
-                radial-gradient(at 0% 0%, hsla(253,16%,7%,0) 0, transparent 50%), 
-                radial-gradient(at 50% 0%, hsla(225,39%,30%,0) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(339,49%,30%,0) 0, transparent 50%);
-            background: 
-                radial-gradient(at 0% 0%, hsla(215,98%,61%,0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, hsla(250,100%,70%,0.1) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, hsla(189,100%,56%,0.1) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, hsla(340,100%,76%,0.1) 0px, transparent 50%);
+            background-image:
+                radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 0) 0, transparent 50%),
+                radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 0) 0, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 0) 0, transparent 50%);
+            background:
+                radial-gradient(at 0% 0%, hsla(215, 98%, 61%, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(250, 100%, 70%, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(189, 100%, 56%, 0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(340, 100%, 76%, 0.1) 0px, transparent 50%);
             background-attachment: fixed;
             background-size: cover;
         }
 
         .container {
-            max-width: 1200px; margin: 0 auto;
+            max-width: 1200px;
+            margin: 0 auto;
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.6);
             border-radius: 24px;
             box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.15);
-            overflow: hidden; 
+            overflow: hidden;
         }
 
         /* --- HEADER --- */
         .header {
-            padding: 40px 20px; text-align: center;
+            padding: 40px 20px;
+            text-align: center;
             background: transparent;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
-        
-        .brand-logos { display: flex; justify-content: center; align-items: center; gap: 25px; margin-bottom: 20px; }
-        .coat-of-arms { height: 75px; object-fit: contain; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1)); }
-        .divider { width: 2px; height: 50px; background: #cbd5e1; opacity: 0.7; }
-        .vnpt-logo { height: 40px; object-fit: contain; }
 
-        /* --- TYPOGRAPHY FIX --- */
-        .header h1 { 
+        .brand-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .coat-of-arms {
+            height: 75px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .divider {
+            width: 2px;
+            height: 50px;
+            background: #cbd5e1;
+            opacity: 0.7;
+        }
+
+        .vnpt-logo {
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .header h1 {
             font-size: 1.5rem;
-            margin-bottom: 8px; 
-            text-transform: uppercase; 
+            margin-bottom: 8px;
+            text-transform: uppercase;
             font-weight: 900;
             letter-spacing: 0.5px;
             background: linear-gradient(90deg, #0068ff 0%, #1e293b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            line-height: 1.6 !important; 
+            line-height: 1.6 !important;
             padding-top: 5px;
             padding-bottom: 5px;
-            display: inline-block; 
+            display: inline-block;
         }
-        
-        .header h2 { 
-            font-size: 1.6rem; 
-            color: var(--danger); 
-            text-transform: uppercase; 
-            font-weight: 800; 
-            margin: 0; 
+
+        .header h2 {
+            font-size: 1.6rem;
+            color: var(--danger);
+            text-transform: uppercase;
+            font-weight: 800;
+            margin: 0;
             text-shadow: 0 2px 10px rgba(239, 68, 68, 0.1);
         }
 
         /* --- SEARCH BOX --- */
-        .search-wrapper { position: sticky; top: 15px; z-index: 90; padding: 0 30px; margin-top: -28px; pointer-events: none; }
+        .search-wrapper {
+            position: sticky;
+            top: 15px;
+            z-index: 90;
+            padding: 0 30px;
+            margin-top: -28px;
+            pointer-events: none;
+        }
+
         .search-input {
-            width: 100%; max-width: 650px; display: block; margin: 0 auto; padding: 16px 30px; 
+            width: 100%;
+            max-width: 650px;
+            display: block;
+            margin: 0 auto;
+            padding: 16px 30px;
             border-radius: 50px;
-            border: 1px solid rgba(255,255,255,0.8); 
+            border: 1px solid rgba(255, 255, 255, 0.8);
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(15px);
-            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15); 
-            font-size: 1rem; transition: all 0.3s;
-            pointer-events: auto; color: #0f172a; font-weight: 600; line-height: 1.6;
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15);
+            font-size: 1rem;
+            transition: all 0.3s;
+            pointer-events: auto;
+            color: #0f172a;
+            font-weight: 600;
+            line-height: 1.6;
         }
-        .search-input:focus { 
-            border-color: var(--primary); 
-            box-shadow: 0 0 0 5px rgba(0, 104, 255, 0.15), 0 20px 40px -10px rgba(0,0,0,0.2); 
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 5px rgba(0, 104, 255, 0.15), 0 20px 40px -10px rgba(0, 0, 0, 0.2);
             transform: translateY(-2px);
         }
 
         /* --- MAIN BUTTONS --- */
-        .main-action-box { padding: 50px 40px 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-        
+        .main-action-box {
+            padding: 50px 40px 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
         .card-btn-main {
-            display: flex; align-items: center; justify-content: center; gap: 15px;
-            padding: 22px; border-radius: 16px; text-decoration: none; color: white;
-            font-weight: 800; text-transform: uppercase; font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 22px;
+            border-radius: 16px;
+            text-decoration: none;
+            color: white;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 1.05rem;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
             box-shadow: 0 10px 20px -5px rgba(220, 38, 38, 0.4);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
+
         .card-btn-doc {
             background: linear-gradient(135deg, #059669 0%, #10b981 100%);
             box-shadow: 0 10px 20px -5px rgba(5, 150, 105, 0.4);
         }
-        .card-btn-main:hover { transform: translateY(-4px) scale(1.01); filter: brightness(1.1); box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3); }
+
+        .card-btn-main:hover {
+            transform: translateY(-4px) scale(1.01);
+            filter: brightness(1.1);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.3);
+        }
 
         /* --- CONTENT AREA --- */
-        .content-area { padding: 10px 40px; min-height: 200px; }
-        #linkGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-        
+        .content-area {
+            padding: 10px 40px;
+            min-height: 200px;
+        }
+
+        #linkGrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
         .department-card {
             background: #ffffff;
-            border-radius: 16px; 
+            border-radius: 16px;
             border: 1px solid #d1d5db;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
             overflow: hidden;
-            transition: all 0.3s ease; display: flex; flex-direction: column;
-        }
-        .department-card:hover { 
-            border-color: var(--primary); 
-            box-shadow: 0 15px 35px -5px rgba(0, 104, 255, 0.2); 
-            transform: translateY(-5px); 
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
-        .card-header { 
+        .department-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 15px 35px -5px rgba(0, 104, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .card-header {
             background: #f8fafc;
-            padding: 18px 25px; border-bottom: 1px solid #e2e8f0;
-            display: flex; align-items: center; gap: 12px; flex-grow: 1; 
+            padding: 18px 25px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-grow: 1;
         }
-        .header-deco { width: 6px; height: 24px; background: var(--danger); border-radius: 4px; box-shadow: 0 2px 4px rgba(239,68,68,0.3); }
-        .dept-name { font-size: 1.15rem; font-weight: 800; color: #0f172a; text-transform: uppercase; line-height: 1.3; }
 
-        .card-actions { 
-            padding: 25px; 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); 
-            gap: 15px; 
-            background: transparent; 
+        .header-deco {
+            width: 6px;
+            height: 24px;
+            background: var(--danger);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
         }
-        
-        .action-btn { 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            padding: 15px 10px; border-radius: 12px; text-decoration: none; 
-            transition: all 0.2s; border: 1px solid #f1f5f9; height: 100%; text-align: center; gap: 10px; 
+
+        .dept-name {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #0f172a;
+            text-transform: uppercase;
+            line-height: 1.3;
+        }
+
+        .card-actions {
+            padding: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 15px;
+            background: transparent;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 10px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid #f1f5f9;
+            height: 100%;
+            text-align: center;
+            gap: 10px;
             background: #f8fafc;
             color: #334155;
         }
-        .action-btn img { width: 36px; height: 36px; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1)); }
-        .action-btn span { font-size: 0.85rem; font-weight: 700; color: #334155; }
-        
-        .btn-doc-new:hover { background: #ecfdf5; border-color: #34d399; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(52, 211, 153, 0.2); }
-        .btn-zalo-new:hover { background: #eff6ff; border-color: #60a5fa; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(96, 165, 250, 0.2); }
-        .btn-req-new:hover { background: #fffbeb; border-color: #fbbf24; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(251, 191, 36, 0.2); }
 
-        .no-result { text-align: center; color: #94a3b8; font-style: italic; margin-top: 20px; display: none; }
+        .action-btn img {
+            width: 36px;
+            height: 36px;
+            filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
+        }
+
+        .action-btn span {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .btn-doc-new:hover {
+            background: #ecfdf5;
+            border-color: #34d399;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(52, 211, 153, 0.2);
+        }
+
+        .btn-zalo-new:hover {
+            background: #eff6ff;
+            border-color: #60a5fa;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(96, 165, 250, 0.2);
+        }
+
+        .btn-req-new:hover {
+            background: #fffbeb;
+            border-color: #fbbf24;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.2);
+        }
+
+        .no-result {
+            text-align: center;
+            color: #94a3b8;
+            font-style: italic;
+            margin-top: 20px;
+            display: none;
+        }
 
         /* --- FOOTER --- */
-        .footer-actions { padding: 20px 40px 40px; display: flex; flex-direction: column; gap: 20px; }
-        
-        .card-btn-secondary {
-            display: flex; align-items: center; justify-content: center; gap: 15px;
-            padding: 20px; border-radius: 16px; text-decoration: none;
-            background: rgba(255,255,255,0.6); 
-            color: var(--danger); font-weight: 700;
-            border: 2px dashed #fca5a5; transition: 0.3s; text-transform: uppercase; font-size: 0.95rem;
+        .footer-actions {
+            padding: 20px 40px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
-        .card-btn-secondary:hover { background: #fff1f2; border-color: var(--danger); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(239,68,68,0.1); }
+
+        .card-btn-secondary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            border-radius: 16px;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.6);
+            color: var(--danger);
+            font-weight: 700;
+            border: 2px dashed #fca5a5;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+        }
+
+        .card-btn-secondary:hover {
+            background: #fff1f2;
+            border-color: var(--danger);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.1);
+        }
 
         .card-btn-support {
-            display: flex; align-items: center; justify-content: center; gap: 15px;
-            padding: 22px; border-radius: 16px; cursor: pointer;
-            background: #0f172a; color: white; font-weight: 800; text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 22px;
+            border-radius: 16px;
+            cursor: pointer;
+            background: #0f172a;
+            color: white;
+            font-weight: 800;
+            text-transform: uppercase;
             box-shadow: 0 10px 20px -5px rgba(15, 23, 42, 0.3);
-            transition: all 0.3s; font-size: 1.1rem; border: 1px solid rgba(255,255,255,0.1);
-        }
-        .card-btn-support:hover {
-            transform: translateY(-4px); background: #000; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4);
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .copyright-footer { text-align: center; padding: 25px; font-size: 0.9rem; color: var(--text-gray); border-top: 1px solid rgba(0,0,0,0.05); background: transparent; }
+        .card-btn-support:hover {
+            transform: translateY(-4px);
+            background: #000;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+        }
+
+        .copyright-footer {
+            text-align: center;
+            padding: 25px;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            background: transparent;
+        }
 
         .visitor-pill {
-            display: inline-flex; align-items: center; justify-content: center; gap: 12px;
-            background: #ffffff; padding: 10px 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #ffffff;
+            padding: 10px 20px;
             border-radius: 50px;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
-            border: 1px solid rgba(0,0,0,0.05); margin-top: 15px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            margin-top: 15px;
             transition: all 0.3s;
         }
-        .visitor-pill:hover { transform: translateY(-3px); box-shadow: 0 15px 30px -5px rgba(0, 104, 255, 0.2); border-color: var(--primary); }
-        .visitor-label { font-weight: 700; color: #475569; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
-        .visitor-icon { color: var(--primary); font-size: 1.2rem; }
+
+        .visitor-pill:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -5px rgba(0, 104, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .visitor-label {
+            font-weight: 700;
+            color: #475569;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .visitor-icon {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
 
         /* --- MODAL STYLE --- */
         .modal {
-            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px);
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(8px);
             animation: fadeIn 0.2s;
         }
-        
+
         .modal-content {
-            background-color: #fff; margin: 3% auto; padding: 0;
-            width: 95%; max-width: 1000px; height: 90vh;
-            border-radius: 20px; box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5);
-            display: flex; flex-direction: column; overflow: hidden;
+            background-color: #fff;
+            margin: 3% auto;
+            padding: 0;
+            width: 95%;
+            max-width: 1000px;
+            height: 90vh;
+            border-radius: 20px;
+            box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
             animation: slideIn 0.3s;
         }
 
         .modal-header {
-            padding: 25px 35px; background: #fff; border-bottom: 1px solid #f1f5f9;
-            display: flex; flex-direction: column; gap: 20px; z-index: 10;
+            padding: 25px 35px;
+            background: #fff;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 10;
         }
-        
-        .modal-title-row { display: flex; justify-content: space-between; align-items: center; }
-        .modal-title-row h2 { margin: 0; font-size: 1.4rem; font-weight: 800; text-transform: uppercase; color: #0f172a; letter-spacing: -0.5px; }
-        
-        .close-btn { 
-            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-            border-radius: 12px; background: #f1f5f9; color: #64748b; font-size: 24px; 
-            cursor: pointer; transition: 0.2s; 
+
+        .modal-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .close-btn:hover { background: #fee2e2; color: #ef4444; transform: rotate(90deg); }
+
+        .modal-title-row h2 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+        }
+
+        .close-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: #f1f5f9;
+            color: #64748b;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #fee2e2;
+            color: #ef4444;
+            transform: rotate(90deg);
+        }
 
         .modal-search {
-            width: 100%; padding: 14px 20px 14px 50px; 
-            border-radius: 12px; border: 1px solid #cbd5e1;
-            font-size: 1rem; color: #334155; transition: 0.2s; background: #f8fafc; line-height: 1.6;
+            width: 100%;
+            padding: 14px 20px 14px 50px;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            font-size: 1rem;
+            color: #334155;
+            transition: 0.2s;
+            background: #f8fafc;
+            line-height: 1.6;
         }
-        .modal-search:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(0, 104, 255, 0.1); }
-        .search-container { position: relative; width: 100%; }
-        .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 1.3rem; pointer-events: none; }
 
-        .modal-body { padding: 0; overflow-y: auto; flex-grow: 1; }
-        
-        .support-table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 800px; }
-        .support-table th { 
-            background-color: #f8fafc; font-weight: 800; color: #334155; 
-            position: sticky; top: 0; z-index: 5; padding: 18px 25px; 
-            text-align: left; border-bottom: 2px solid #e2e8f0; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px;
+        .modal-search:focus {
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(0, 104, 255, 0.1);
         }
-        .support-table td { padding: 16px 25px; border-bottom: 1px solid #f1f5f9; font-size: 0.95rem; color: #334155; vertical-align: middle; }
-        .support-table tr:hover td { background-color: #f0f9ff; }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1.3rem;
+            pointer-events: none;
+        }
+
+        .modal-body {
+            padding: 0;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .support-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            min-width: 800px;
+        }
+
+        .support-table th {
+            background-color: #f8fafc;
+            font-weight: 800;
+            color: #334155;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            padding: 18px 25px;
+            text-align: left;
+            border-bottom: 2px solid #e2e8f0;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .support-table td {
+            padding: 16px 25px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.95rem;
+            color: #334155;
+            vertical-align: middle;
+        }
+
+        .support-table tr:hover td {
+            background-color: #f0f9ff;
+        }
 
         .section-header td {
-            background-color: #eff6ff; color: #1e40af; font-weight: 900; 
-            text-transform: uppercase; padding: 15px 25px; border-bottom: 2px solid #dbeafe; border-top: 1px solid #fff;
+            background-color: #eff6ff;
+            color: #1e40af;
+            font-weight: 900;
+            text-transform: uppercase;
+            padding: 15px 25px;
+            border-bottom: 2px solid #dbeafe;
+            border-top: 1px solid #fff;
         }
 
-        .badge-scope { font-weight: 700; color: #0284c7; background: #e0f2fe; padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; display: inline-block; }
-        .user-name { font-weight: 700; color: #0f172a; font-size: 1rem; }
-        .phone-link { 
-            font-family: 'Inter', monospace; font-weight: 700; color: var(--danger); 
-            text-decoration: none; padding: 6px 12px; border-radius: 8px; background: #fef2f2;
-            white-space: nowrap; display: inline-block;
+        .badge-scope {
+            font-weight: 700;
+            color: #0284c7;
+            background: #e0f2fe;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            display: inline-block;
         }
-        .phone-link:hover { background: var(--danger); color: white; box-shadow: 0 4px 10px rgba(239,68,68,0.2); }
 
-        .modal-body::-webkit-scrollbar { width: 10px; }
-        .modal-body::-webkit-scrollbar-track { background: #f1f5f9; }
-        .modal-body::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; border: 2px solid #f1f5f9; }
-        .modal-body::-webkit-scrollbar-thumb:hover { background-color: #94a3b8; }
+        .user-name {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 1rem;
+        }
 
-        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-        @keyframes slideIn { from {transform: translateY(30px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+        .phone-link {
+            font-family: 'Inter', monospace;
+            font-weight: 700;
+            color: var(--danger);
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            background: #fef2f2;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .phone-link:hover {
+            background: var(--danger);
+            color: white;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
+        }
+
+        .modal-body::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .modal-body::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 10px;
+            border: 2px solid #f1f5f9;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb:hover {
+            background-color: #94a3b8;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* --- FLOATING GROUP (CONTAINER - MỚI) --- */
+        .floating-group {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 9999;
+            align-items: flex-end;
+        }
+
+        /* Style chung cho nút nổi */
+        .floating-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: white;
+            width: fit-content;
+        }
+
+        /* Style riêng nút Chat (Xanh tím gradient - Logo NotebookLM) */
+        .btn-chat {
+            background: linear-gradient(135deg, #0068ff 0%, #a142f4 100%);
+            padding: 12px 25px;
+            font-size: 1rem;
+        }
+
+        /* Style riêng nút Donate (Cam vàng) */
+        .btn-donate {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            font-size: 0.85rem;
+            padding: 8px 16px;
+            opacity: 0.95;
+        }
+
+        .floating-btn:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            padding-right: 25px;
+            opacity: 1;
+        }
+
+        /* --- STYLE RIÊNG CHO MODAL DONATE (MỚI) --- */
+        .donate-content {
+            max-width: 450px;
+            height: auto;
+            max-height: 90vh;
+        }
+
+        .qr-container {
+            display: flex;
+            justify-content: center;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 16px;
+            border: 2px dashed #cbd5e1;
+        }
+
+        .qr-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .donate-body {
+            padding: 20px 30px 40px;
+            overflow-y: auto;
+        }
+
+        /* ========================================= */
+        /* --- MOBILE RESPONSIVE (DƯỚI 768PX) --- */
+        /* ========================================= */
+        @media screen and (max-width: 768px) {
+
+            /* 1. Căn chỉnh lại lề Body cho thoáng hơn */
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                border-radius: 16px;
+                /* Bo góc nhỏ hơn xíu */
+            }
+
+            /* 2. Header: Logo và Tiêu đề */
+            .header {
+                padding: 25px 15px;
+            }
+
+            .brand-logos {
+                gap: 15px;
+                flex-wrap: nowrap;
+                /* Giữ logo cùng hàng */
+            }
+
+            .coat-of-arms {
+                height: 55px;
+                /* Thu nhỏ logo Quốc huy */
+            }
+
+            .divider {
+                height: 35px;
+                /* Thu ngắn vạch kẻ */
+            }
+
+            .vnpt-logo {
+                height: 30px;
+                /* Thu nhỏ logo VNPT */
+            }
+
+            .header h1 {
+                font-size: 1.1rem;
+                /* Giảm cỡ chữ tiêu đề */
+                line-height: 1.4 !important;
+            }
+
+            .header h2 {
+                font-size: 1.3rem;
+                margin-top: 5px;
+            }
+
+            /* 3. Thanh tìm kiếm */
+            .search-wrapper {
+                padding: 0 15px;
+                margin-top: -22px;
+                /* Căn lại vị trí đè lên header */
+            }
+
+            .search-input {
+                font-size: 0.9rem;
+                padding: 12px 20px;
+            }
+
+            /* 4. Chuyển Grid 2 cột thành 1 cột (QUAN TRỌNG NHẤT) */
+            .main-action-box {
+                grid-template-columns: 1fr;
+                /* Xếp dọc các nút to */
+                padding: 40px 15px 20px;
+                /* Giảm padding */
+                gap: 15px;
+            }
+
+            #linkGrid {
+                grid-template-columns: 1fr;
+                /* Xếp dọc các thẻ Bộ ngành */
+                gap: 15px;
+            }
+
+            .content-area {
+                padding: 10px 15px;
+                /* Giảm lề 2 bên */
+            }
+
+            /* 5. Tối ưu thẻ Card Bộ ngành */
+            .card-actions {
+                padding: 15px;
+                /* Giữ nguyên grid nhỏ bên trong để các nút con vẫn đẹp */
+            }
+
+            .action-btn {
+                padding: 10px 5px;
+                /* Nút gọn hơn */
+            }
+
+            /* 6. Footer */
+            .footer-actions {
+                padding: 10px 15px 30px;
+            }
+
+            .card-btn-secondary,
+            .card-btn-support {
+                font-size: 0.85rem;
+                /* Giảm cỡ chữ nút footer */
+                padding: 15px;
+            }
+
+            /* 7. Modal & Bảng danh bạ (Fix lỗi tràn) */
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+                height: 85vh;
+                /* Cao hơn chút trên mobile */
+            }
+
+            .modal-header {
+                padding: 15px;
+            }
+
+            .modal-title-row h2 {
+                font-size: 1.1rem;
+                /* Tiêu đề modal nhỏ lại */
+            }
+
+            /* Tạo thanh cuộn ngang cho bảng để không vỡ layout */
+            .table-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                /* Mượt hơn trên iPhone */
+                width: 100%;
+                display: block;
+            }
+
+            .support-table {
+                min-width: 700px;
+                /* Giữ độ rộng tối thiểu để bảng không bị bóp méo */
+            }
+
+            /* 8. Nút nổi (Floating Btn) */
+            .floating-group {
+                right: 15px;
+                /* Sát lề hơn */
+                bottom: 20px;
+            }
+
+            .floating-btn {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+
+            .btn-chat {
+                font-size: 0.9rem;
+                /* Chat to hơn chút */
+            }
+        }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <header class="header">
-        <div class="brand-logos">
-            <img src="cchc.png" class="coat-of-arms" alt="Quốc huy" onerror="this.style.display='none'">
-            <div class="divider"></div>
-            <img src="logo_cas.svg" class="vnpt-logo" alt="VNPT CAS" onerror="this.style.display='none'">
+    <div class="container">
+        <header class="header">
+            <div class="brand-logos">
+                <img src="cchc.png" class="coat-of-arms" alt="Quốc huy" onerror="this.style.display='none'">
+                <div class="divider"></div>
+                <img src="logo_cas.svg" class="vnpt-logo" alt="VNPT CAS" onerror="this.style.display='none'">
+            </div>
+            <h1>Cẩm nang hỗ trợ các Hệ thống thông tin giải quyết TTHC cấp Bộ ngành</h1>
+            <h2>TỈNH NINH BÌNH</h2>
+        </header>
+
+        <div class="search-wrapper">
+            <input type="text" id="searchInput" class="search-input"
+                placeholder="🔍 Tìm kiếm nhanh Bộ ngành (Ví dụ: Bộ Y tế)...">
         </div>
-        <h1>Cẩm nang hỗ trợ các Hệ thống thông tin giải quyết TTHC cấp Bộ ngành</h1>
-        <h2>TỈNH NINH BÌNH</h2>
-    </header>
 
-    <div class="search-wrapper">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Tìm kiếm nhanh Bộ ngành (Ví dụ: Bộ Y tế)...">
-    </div>
-
-    <div class="main-action-box">
-        <a href="https://dieuphoi.dichvucong.gov.vn" target="_blank" rel="noopener noreferrer" class="card-btn-main">
-            <img src="quochuy.png" width="32" onerror="this.src='https://img.icons8.com/color/48/vietnam.png'">
-            Hệ thống điều phối giải quyết TTHC
-        </a>
-        <a href="https://drive.google.com/drive/folders/1AmPIs4bBpmnxkXBeQDzFFc6PX6szIV-J" target="_blank" rel="noopener noreferrer" class="card-btn-main card-btn-doc">
-            <img src="https://img.icons8.com/fluency/48/book.png" width="32">
-            Tài liệu HDSD hệ thống điều phối
-        </a>
-    </div>
-
-    <div class="content-area">
-        <div id="linkGrid"></div>
-        <div id="noResult" class="no-result">Không tìm thấy Bộ ngành nào phù hợp.</div>
-    </div>
-
-    <div class="footer-actions">
-        <a href="https://docs.google.com/spreadsheets/d/1_aixBzdOYSboOhHGMFkx6aHcDpo9YWvN_TCg9bl8-KA/edit?gid=194106651#gid=194106651" target="_blank" rel="noopener noreferrer" class="card-btn-secondary">
-            <img src="https://img.icons8.com/fluency/48/list.png" width="28">
-            DANH SÁCH TTHC CẤP TỈNH/XÃ TRIỂN KHAI TẠI CỔNG BỘ NGÀNH
-        </a>
-        
-        <div onclick="openSupportModal()" class="card-btn-support">
-            <img src="https://img.icons8.com/fluency/48/service.png" width="32">
-            ĐẦU MỐI HỖ TRỢ 07 BỘ NGÀNH CỦA VNPT NINH BÌNH
+        <div class="main-action-box">
+            <a href="https://dieuphoi.dichvucong.gov.vn" target="_blank" rel="noopener noreferrer"
+                class="card-btn-main">
+                <img src="quochuy.png" width="32" onerror="this.src='https://img.icons8.com/color/48/vietnam.png'">
+                Hệ thống điều phối giải quyết TTHC
+            </a>
+            <a href="https://drive.google.com/drive/folders/1AmPIs4bBpmnxkXBeQDzFFc6PX6szIV-J" target="_blank"
+                rel="noopener noreferrer" class="card-btn-main card-btn-doc">
+                <img src="https://img.icons8.com/fluency/48/book.png" width="32">
+                Tài liệu HDSD hệ thống điều phối
+            </a>
         </div>
-    </div>
 
-    <footer class="copyright-footer">
-        <p>© 2026 <strong>Đỗ Việt Hoàng - Trung tâm Kinh doanh Giải pháp - Viễn thông Ninh Bình</strong>.</p>
-        
-        <div style="text-align: center;">
-            <div class="visitor-pill">
-                <span class="visitor-label">
-                    <span class="visitor-icon">&#128065;</span> Lượt truy cập:
-                </span>
-                <img src="https://visitor-badge.laobi.icu/badge?page_id=hoangitc500.hotrodvc&right_color=0068ff&left_text=&left_color=ffffff&format=true" 
-                     alt="Visitor Count" 
-                     style="height: 20px; display: block;">
+        <div class="content-area">
+            <div id="linkGrid"></div>
+            <div id="noResult" class="no-result">Không tìm thấy Bộ ngành nào phù hợp.</div>
+        </div>
+
+        <div class="footer-actions">
+            <a href="https://docs.google.com/spreadsheets/d/1_aixBzdOYSboOhHGMFkx6aHcDpo9YWvN_TCg9bl8-KA/edit?gid=194106651#gid=194106651"
+                target="_blank" rel="noopener noreferrer" class="card-btn-secondary">
+                <img src="https://img.icons8.com/fluency/48/list.png" width="28">
+                DANH SÁCH TTHC CẤP TỈNH/XÃ TRIỂN KHAI TẠI CỔNG BỘ NGÀNH
+            </a>
+
+            <div onclick="openSupportModal()" class="card-btn-support">
+                <img src="https://img.icons8.com/fluency/48/service.png" width="32">
+                ĐẦU MỐI HỖ TRỢ 07 BỘ NGÀNH CỦA VNPT NINH BÌNH
             </div>
         </div>
-    </footer>
-</div>
 
-<div id="supportModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <div class="modal-title-row">
-                <h2>Đầu mối hỗ trợ VNPT Ninh Bình</h2>
-                <div class="close-btn" onclick="closeSupportModal()">&times;</div>
+        <footer class="copyright-footer">
+            <p>© 2026 <strong>Đỗ Việt Hoàng - Trung tâm Kinh doanh Giải pháp - Viễn thông Ninh Bình</strong>.</p>
+
+            <div style="text-align: center;">
+                <div class="visitor-pill">
+                    <span class="visitor-label">
+                        <span class="visitor-icon">&#128065;</span> Lượt truy cập:
+                    </span>
+                    <img src="https://visitor-badge.laobi.icu/badge?page_id=hoangitc500.hotrodvc&right_color=0068ff&left_text=&left_color=ffffff&format=true"
+                        alt="Visitor Count" style="height: 20px; display: block;">
+                </div>
             </div>
-            
-            <div class="search-container">
-                <span class="search-icon">&#128269;</span>
-                <input type="text" id="modalSearchInput" class="modal-search" 
-                       placeholder="Nhập Tên, Đơn vị (VD: Sở Y tế, Hoa Lư...) hoặc SĐT để tìm..." 
-                       onkeyup="filterSupportTable()">
+        </footer>
+    </div>
+
+    <div id="supportModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-row">
+                    <h2>Đầu mối hỗ trợ VNPT Ninh Bình</h2>
+                    <div class="close-btn" onclick="closeSupportModal()">&times;</div>
+                </div>
+
+                <div class="search-container">
+                    <span class="search-icon">&#128269;</span>
+                    <input type="text" id="modalSearchInput" class="modal-search"
+                        placeholder="Nhập Tên, Đơn vị (VD: Sở Y tế, Hoa Lư...) hoặc SĐT để tìm..."
+                        onkeyup="filterSupportTable()">
+                </div>
             </div>
-        </div>
-        <div class="modal-body">
-            <div class="table-wrapper">
-                <table class="support-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 50px;">STT</th>
-                            <th style="width: 300px;">Cơ quan phụ trách</th>
-                            <th>Họ và tên</th>
-                            <th>Số điện thoại</th>
-                        </tr>
-                    </thead>
-                    <tbody id="supportTableBody">
+            <div class="modal-body">
+                <div class="table-wrapper">
+                    <table class="support-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">STT</th>
+                                <th style="width: 300px;">Cơ quan phụ trách</th>
+                                <th>Họ và tên</th>
+                                <th>Số điện thoại</th>
+                            </tr>
+                        </thead>
+                        <tbody id="supportTableBody">
                         </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    // --- 1. DỮ LIỆU CỨNG (ĐẦU MỐI HỖ TRỢ) ---
-    const provincialData = [
-        { stt: 1, phamvi: "Trung tâm Phục vụ hành chính công", ten: "Vũ Văn Đam", sdt: "0911741555" },
-        { stt: "", phamvi: "Trung tâm Phục vụ hành chính công", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
-        { stt: 2, phamvi: "Sở Khoa học và Công nghệ", ten: "Đỗ Thị Minh Oanh", sdt: "0917525345" },
-        { stt: "", phamvi: "Sở Khoa học và Công nghệ", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
-        { stt: 3, phamvi: "Sở Nội vụ", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
-        { stt: "", phamvi: "Sở Nội vụ", ten: "Phạm Văn Thao", sdt: "0947480904" },
-        { stt: 4, phamvi: "Sở Y tế", ten: "Vũ Văn Đam", sdt: "0911741555" },
-        { stt: "", phamvi: "Sở Y tế", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
-        { stt: 5, phamvi: "Sở Giáo dục và Đào tạo", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
-        { stt: "", phamvi: "Sở Giáo dục và Đào tạo", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
-        { stt: 6, phamvi: "Sở Công thương", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
-        { stt: "", phamvi: "Sở Công thương", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
-        { stt: 7, phamvi: "Sở Xây dựng", ten: "Đỗ Trung Tín", sdt: "0948522828" },
-        { stt: "", phamvi: "Sở Xây dựng", ten: "Lê Cao Cường", sdt: "0888932199" },
-        { stt: 8, phamvi: "Sở Tài nguyên và Môi trường", ten: "Tống Văn Tiến", sdt: "0911107726" },
-        { stt: "", phamvi: "Sở Tài nguyên và Môi trường", ten: "Phạm Đăng Khoa", sdt: "0918576363" }
-    ];
+    <div class="floating-group">
+        <a href="https://notebooklm.google.com/notebook/5438e17c-83b3-4d69-babc-464c85c188ef" target="_blank"
+            rel="noopener noreferrer" class="floating-btn btn-chat">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 4C4 2.9 4.9 2 6 2H18C19.1 2 20 2.9 20 4V20C20 21.1 19.1 22 18 22H6C4.9 22 4 21.1 4 20V4Z"
+                    fill="#E8F0FE" />
+                <path d="M12 6L13.5 9.5L17 11L13.5 12.5L12 16L10.5 12.5L7 11L10.5 9.5L12 6Z" fill="url(#grad1)" />
+                <defs>
+                    <linearGradient id="grad1" x1="7" y1="6" x2="17" y2="16" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#4285F4" />
+                        <stop offset="1" stop-color="#34A853" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <span class="btn-text" style="color: white; margin-left: 5px;">Hỏi đáp trực tuyến</span>
+        </a>
 
-    const communeData = [
-        { stt: 1, phamvi: "Phường Tây Hoa Lư", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
-        { stt: 2, phamvi: "Phường Hoa Lư", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
-        { stt: 3, phamvi: "Phường Nam Hoa Lư", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
-        { stt: 4, phamvi: "Phường Đông Hoa Lư", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
-        { stt: 5, phamvi: "Phường Tam Điệp", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
-        { stt: 6, phamvi: "Phường Yên Sơn", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
-        { stt: 7, phamvi: "Phường Trung Sơn", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
-        { stt: 8, phamvi: "Phường Yên Thắng", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
-        { stt: 9, phamvi: "Xã Nho Quan", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
-        { stt: 10, phamvi: "Xã Gia Lâm", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
-        { stt: 11, phamvi: "Xã Gia Tường", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
-        { stt: 12, phamvi: "Xã Phú Sơn", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
-        { stt: 13, phamvi: "Xã Cúc Phương", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
-        { stt: 14, phamvi: "Xã Phú Long", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
-        { stt: 15, phamvi: "Xã Thanh Sơn", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
-        { stt: 16, phamvi: "Xã Quỳnh Lưu", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
-        { stt: 17, phamvi: "Xã Gia Viễn", ten: "Đỗ Thị Minh Oanh", sdt: "0917525345" },
-        { stt: 18, phamvi: "Xã Đại Hoàng", ten: "Đỗ Thị Minh Oanh", sdt: "0917525345" },
-        { stt: 19, phamvi: "Xã Gia Hưng", ten: "Đỗ Thị Minh Oanh", sdt: "0917525345" },
-        { stt: 20, phamvi: "Xã Gia Phong", ten: "Đỗ Thị Minh Oanh", sdt: "0917525345" },
-        { stt: 21, phamvi: "Xã Gia Vân", ten: "Đỗ Thị Minh Oanh", sdt: "0917525345" },
-        { stt: 22, phamvi: "Xã Gia Trấn", ten: "Đỗ Thị Minh Oanh", sdt: "0917525345" },
-        { stt: 23, phamvi: "Xã Yên Khánh", ten: "Phạm Đăng Khoa", sdt: "0918576363" },
-        { stt: 24, phamvi: "Xã Khánh Nhạc", ten: "Phạm Đăng Khoa", sdt: "0918576363" },
-        { stt: 25, phamvi: "Xã Khánh Thiện", ten: "Phạm Đăng Khoa", sdt: "0918576363" },
-        { stt: 26, phamvi: "Xã Khánh Hội", ten: "Phạm Đăng Khoa", sdt: "0918576363" },
-        { stt: 27, phamvi: "Xã Khánh Trung", ten: "Phạm Đăng Khoa", sdt: "0918576363" },
-        { stt: 28, phamvi: "Xã Yên Mô", ten: "Tống Văn Tiến", sdt: "0911107726" },
-        { stt: 29,phamvi: "Xã Yên Từ", ten: "Tống Văn Tiến", sdt: "0911107726" },
-        { stt: 30, phamvi: "Xã Yên Mạc", ten: "Tống Văn Tiến", sdt: "0911107726" },
-        { stt: 31, phamvi: "Xã Đồng Thái", ten: "Tống Văn Tiến", sdt: "0911107726" },
-        { stt: 32, phamvi: "Xã Chất Bình", ten: "Phạm Văn Thao", sdt: "0911107726" },
-        { stt: 33, phamvi: "Xã Kim Sơn", ten: "Phạm Văn Thao", sdt: "0947480904" },
-        { stt: 34, phamvi: "Xã Quang Thiện", ten: "Phạm Văn Thao", sdt: "0947480904" },
-        { stt: 35, phamvi: "Xã Phát Diệm", ten: "Phạm Văn Thao", sdt: "0947480904" },
-        { stt: 36, phamvi: "Xã Lai Thành", ten: "Phạm Văn Thao", sdt: "0947480904" },
-        { stt: 37, phamvi: "Xã Định Hóa", ten: "Phạm Văn Thao", sdt: "0947480904" },
-        { stt: 38, phamvi: "Xã Bình Minh", ten: "Phạm Văn Thao", sdt: "0947480904" },
-        { stt: 39, phamvi: "Xã Kim Đông", ten: "Phạm Văn Thao", sdt: "0947480904" },
-        { stt: 40, phamvi: "Phường Đông A", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
-        { stt: 41, phamvi: "Phường Hồng Quang", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
-        { stt: 42, phamvi: "Phường Mỹ Lộc", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
-        { stt: 43, phamvi: "Phường Nam Định", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
-        { stt: 44, phamvi: "Phường Thành Nam", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
-        { stt: 45, phamvi: "Phường Thiên Trường", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
-        { stt: 46, phamvi: "Phường Trường Thi", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
-        { stt: 47, phamvi: "Phường Vị Khê", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
-        { stt: 48, phamvi: "Xã Vụ Bản", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
-        { stt: 49, phamvi: "Xã Cổ Lễ", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
-        { stt: 50, phamvi: "Xã Nam Hồng", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
-        { stt: 51, phamvi: "Xã Đồng Thịnh", ten: "Vũ Văn Đam", sdt: "0911741555" },
-        { stt: 52, phamvi: "Xã Giao Bình", ten: "Vũ Văn Đam", sdt: "0911741555" },
-        { stt: 53, phamvi: "Xã Giao Hòa", ten: "Vũ Văn Đam", sdt: "0911741555" },
-        { stt: 54, phamvi: "Xã Giao Hưng", ten: "Vũ Văn Đam", sdt: "0911741555" },
-        { stt: 55, phamvi: "Xã Giao Minh", ten: "Vũ Văn Đam", sdt: "0911741555" },
-        { stt: 56, phamvi: "Xã Giao Ninh", ten: "Vũ Văn Đam", sdt: "0911741555" },
-        { stt: 57, phamvi: "Xã Giao Phúc", ten: "Vũ Văn Đam", sdt: "0911741555" },
-        { stt: 58, phamvi: "Xã Giao Thủy", ten: "Vũ Văn Đam", sdt: "0911741555" },
-        { stt: 59, phamvi: "Xã Hải An", ten: "Vũ Văn Đam", sdt: "0911741555" },
-        { stt: 60, phamvi: "Xã Hải Anh", ten: "Vũ Văn Đam", sdt: "0911741555" },
-        { stt: 61, phamvi: "Xã Hải Hậu",ten: "Vũ Văn Đam", sdt: "0911741555" },
-        { stt: 62, phamvi: "Xã Hải Hưng", ten: "Vũ Văn Đam", sdt: "0911741555" },
-        { stt: 63, phamvi: "Xã Hải Quang", ten: "Đỗ Trung Tín", sdt: "0948522828" },
-        { stt: 64, phamvi: "Xã Hải Thịnh", ten: "Đỗ Trung Tín", sdt: "0948522828" },
-        { stt: 65, phamvi: "Xã Hải Tiến", ten: "Đỗ Trung Tín", sdt: "0948522828" },
-        { stt: 66, phamvi: "Xã Hải Xuân", ten: "Đỗ Trung Tín", sdt: "0948522828" },
-        { stt: 67, phamvi: "Xã Hiển Khánh", ten: "Đỗ Trung Tín", sdt: "0948522828" },
-        { stt: 68, phamvi: "Xã Hồng Phong", ten: "Đỗ Trung Tín", sdt: "0948522828" },
-        { stt: 69, phamvi: "Xã Liên Minh", ten: "Đỗ Trung Tín", sdt: "0948522828" },
-        { stt: 70, phamvi: "Xã Minh Tân", ten: "Đỗ Trung Tín", sdt: "0948522828" },
-        { stt: 71, phamvi: "Xã Minh Thái", ten: "Đỗ Trung Tín", sdt: "0948522828" },
-        { stt: 72, phamvi: "Xã Nam Đồng", ten: "Đỗ Trung Tín", sdt: "0948522828" },
-        { stt: 73, phamvi: "Xã Nam Minh", ten: "Đỗ Trung Tín", sdt: "0948522828" },
-        { stt: 74, phamvi: "Xã Nam Ninh", ten: "Đỗ Trung Tín", sdt: "0948522828" },
-        { stt: 75, phamvi: "Xã Nam Trực", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
-        { stt: 76, phamvi: "Xã Nghĩa Hưng", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
-        { stt: 77, phamvi: "Xã Nghĩa Lâm", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
-        { stt: 78, phamvi: "Xã Nghĩa Sơn", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
-        { stt: 79, phamvi: "Xã Ninh Cường", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
-        { stt: 80, phamvi: "Xã Ninh Giang", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
-        { stt: 81, phamvi: "Xã Phong Doanh", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
-        { stt: 82, phamvi: "Xã Quang Hưng", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
-        { stt: 83, phamvi: "Xã Quỹ Nhất", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
-        { stt: 84, phamvi: "Xã Rạng Đông", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
-        { stt: 85, phamvi: "Xã Tân Minh", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
-        { stt: 86, phamvi: "Xã Trực Ninh", ten: "Lê Cao Cường", sdt: "0888932199" },
-        { stt: 87, phamvi: "Xã Vạn Thắng", ten: "Lê Cao Cường", sdt: "0888932199" },
-        { stt: 88, phamvi: "Xã Cát Thành", ten: "Lê Cao Cường", sdt: "0888932199" },
-        { stt: 89, phamvi: "Xã Vũ Dương", ten: "Lê Cao Cường", sdt: "0888932199" },
-        { stt: 90, phamvi: "Xã Xuân Giang", ten: "Lê Cao Cường", sdt: "0888932199" },
-        { stt: 91, phamvi: "Xã Xuân Hồng", ten: "Lê Cao Cường", sdt: "0888932199" },
-        { stt: 92, phamvi: "Xã Xuân Hưng", ten: "Lê Cao Cường", sdt: "0888932199" },
-        { stt: 93, phamvi: "Xã Xuân Trường", ten: "Lê Cao Cường", sdt: "0888932199" },
-        { stt: 94, phamvi: "Xã Ý Yên", ten: "Lê Cao Cường", sdt: "0888932199" },
-        { stt: 95, phamvi: "Xã Yên Cường", ten: "Lê Cao Cường", sdt: "0888932199" },
-        { stt: 96, phamvi: "Xã Yên Đồng", ten: "Lê Cao Cường", sdt: "0888932199" },
-        { stt: 97, phamvi: "UBND Phường Tiên Sơn", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
-        { stt: 98, phamvi: "UBND Xã Thanh Lâm", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
-        { stt: 99, phamvi: "UBND Xã Lý Nhân", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
-        { stt: 100, phamvi: "UBND Phường Duy Hà", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
-        { stt: 101, phamvi: "UBND Xã Thanh Bình", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
-        { stt: 102, phamvi: "UBND Phường Kim Thanh", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
-        { stt: 103, phamvi: "UBND Xã Nam Xang", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
-        { stt: 104, phamvi: "UBND Xã Tân Thanh", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
-        { stt: 105, phamvi: "UBND Xã Bình Giang", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
-        { stt: 106, phamvi: "UBND Xã Bình Lục", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
-        { stt: 107, phamvi: "UBND Phường Duy Tiên", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
-        { stt: 108, phamvi: "UBND Phường Lý Thường Kiệt", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
-        { stt: 109, phamvi: "UBND Xã Nam Lý", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
-        { stt: 110, phamvi: "UBND Phường Phù Vân", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
-        { stt: 111, phamvi: "UBND Phường Hà Nam", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
-        { stt: 112, phamvi: "UBND Xã Thanh Liêm", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
-        { stt: 113, phamvi: "UBND Phường Liêm Tuyền", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
-        { stt: 114, phamvi: "UBND Phường Châu Sơn", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
-        { stt: 115, phamvi: "UBND Phường Tam Chúc", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
-        { stt: 116, phamvi: "UBND Xã Bắc Lý", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
-        { stt: 117, phamvi: "UBND Xã Bình Sơn", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
-        { stt: 118, phamvi: "UBND Phường Phủ Lý", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
-        { stt: 119, phamvi: "UBND Phường Đồng Văn", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
-        { stt: 120, phamvi: "UBND Phường Kim Bảng", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
-        { stt: 121, phamvi: "UBND Phường Lê Hồ", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
-        { stt: 122,phamvi: "UBND Xã Bình An", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
-        { stt: 123, phamvi: "UBND Phường Nguyễn Uý", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
-        { stt: 124, phamvi: "UBND Xã Bình Mỹ", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
-        { stt: 125, phamvi: "UBND Xã Liêm Hà", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
-        { stt: 126, phamvi: "UBND Xã Vĩnh Trụ", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
-        { stt: 127, phamvi: "UBND Xã Trần Thương", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
-        { stt: 128, phamvi: "UBND Xã Nhân Hà", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
-        { stt: 129, phamvi: "UBND Phường Duy Tân", ten: "Nguyễn Thị Xuân", sdt: "0888000328" }
-    ];
+        <button onclick="openDonateModal()" class="floating-btn btn-donate">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                </path>
+            </svg>
+            <span class="btn-text">Động viên Admin</span>
+        </button>
+    </div>
 
-    const config = [
-        { name: "Bộ Nông nghiệp và Môi trường", zalo: "https://zalo.me/g/zwqtnk714", request: "https://forms.gle/FKAbim7xTrBDiHuU9", doc: "https://drive.google.com/drive/mobile/folders/1Y6EM__Zi_j1ypErH2wHn8df2txSPSLJB" },
-        { name: "Bộ Giáo dục và Đào tạo", zalo: "https://zalo.me/g/lequfi377", request: "https://forms.gle/gTXS4hQHmFvquAxF8", doc: "https://drive.google.com/drive/mobile/folders/1IUsYnmNbYNixJzwoMmkkhZc_DQAkfI9f" },
-        { name: "Bộ Công Thương", zalo: "https://zalo.me/g/jjsdtc222", request: "https://forms.gle/w3C2LnRoLFbBowbi6", doc: "https://drive.google.com/drive/folders/1wu4tSrAmbxt0ITQSF-0HApnZxjjFzgeB" },
-        { name: "Bộ Xây dựng", zalo: "https://zalo.me/g/tnfjxs703", request: "https://forms.gle/HcUJcZTBNqs6wJnw7", doc: "https://drive.google.com/drive/folders/16oWLLemMDbB8NRpxCQ6GpkMg-EpnNbJd" },
-        { name: "Bộ Nội vụ", zalo: "https://zalo.me/g/izahnx601", request: "https://forms.gle/hsUi5c3v2U5jMgT8A", doc: "https://drive.google.com/drive/mobile/folders/1cm3H_7O6QHeeztj1FZm8tKQqBgEvqbea" },
-        { name: "Bộ Y tế", zalo: "https://zalo.me/g/gelmej477", request: "https://forms.gle/GbLmjmhGCrGKfWmW7", doc: "https://drive.google.com/drive/mobile/folders/1LK-0VbaytXhOKOC9Z5DhYjVAywITZ7Xt" },
-        { name: "Bộ Khoa học và Công nghệ", zalo: "https://zalo.me/g/tsopxh923", request: "https://forms.gle/6es1UVB2puWZxVED7", doc: "https://drive.google.com/drive/folders/11l2k8RRawEgPaDPeSjVQ62qHMfI6QTW6" }
-    ];
+    <div id="donateModal" class="modal">
+        <div class="modal-content donate-content">
+            <div class="modal-header">
+                <div class="modal-title-row">
+                    <h2>Cảm ơn bạn ❤️</h2>
+                    <div class="close-btn" onclick="closeDonateModal()">&times;</div>
+                </div>
+            </div>
+            <div class="modal-body donate-body">
+                <p
+                    style="text-align: center; color: #475569; margin-bottom: 25px; line-height: 1.6; padding: 0 10px;">
+                    Nếu bạn thấy Cổng thông tin này hữu ích cho công việc, sự ủng hộ của bạn sẽ là động lực lớn để mình
+                    tiếp tục duy trì và phát triển các tính năng mới phục vụ cộng đồng.
+                </p>
+                <div class="qr-container">
+                    <img src="bank.jpg" alt="QR Donate" class="qr-image">
+                </div>
+                <p style="text-align: center; font-weight: 700; color: #0068ff; margin-top: 20px; font-size: 1.1rem;">
+                    Đỗ Việt Hoàng
+                </p>
+                <p style="text-align: center; color: #64748b; font-size: 0.9rem; margin-top: 5px;">
+                    BIDV - CN Ninh Bình
+                </p>
+            </div>
+        </div>
+    </div>
 
-    const modal = document.getElementById("supportModal");
-    const tableBody = document.getElementById("supportTableBody");
-    const modalSearchInput = document.getElementById("modalSearchInput");
+    <script>
+        // --- 1. DỮ LIỆU CỨNG (ĐẦU MỐI HỖ TRỢ) ---
+        const provincialData = [
+            { stt: 1, phamvi: "Trung tâm Phục vụ hành chính công", ten: "Vũ Văn Đam", sdt: "0911741555" },
+            { stt: "", phamvi: "Trung tâm Phục vụ hành chính công", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
+            { stt: 2, phamvi: "Sở Khoa học và Công nghệ", ten: "Đỗ Thị Minh Oanh", sdt: "0917525345" },
+            { stt: "", phamvi: "Sở Khoa học và Công nghệ", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
+            { stt: 3, phamvi: "Sở Nội vụ", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
+            { stt: "", phamvi: "Sở Nội vụ", ten: "Phạm Văn Thao", sdt: "0947480904" },
+            { stt: 4, phamvi: "Sở Y tế", ten: "Vũ Văn Đam", sdt: "0911741555" },
+            { stt: "", phamvi: "Sở Y tế", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
+            { stt: 5, phamvi: "Sở Giáo dục và Đào tạo", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
+            { stt: "", phamvi: "Sở Giáo dục và Đào tạo", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
+            { stt: 6, phamvi: "Sở Công thương", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
+            { stt: "", phamvi: "Sở Công thương", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
+            { stt: 7, phamvi: "Sở Xây dựng", ten: "Đỗ Trung Tín", sdt: "0948522828" },
+            { stt: "", phamvi: "Sở Xây dựng", ten: "Lê Cao Cường", sdt: "0888932199" },
+            { stt: 8, phamvi: "Sở Tài nguyên và Môi trường", ten: "Tống Văn Tiến", sdt: "0911107726" },
+            { stt: "", phamvi: "Sở Tài nguyên và Môi trường", ten: "Phạm Đăng Khoa", sdt: "0918576363" }
+        ];
 
-    function openSupportModal() {
-        renderTable(provincialData, communeData); 
-        modalSearchInput.value = "";
-        modal.style.display = "block";
-        document.body.style.overflow = "hidden"; 
-        setTimeout(() => modalSearchInput.focus(), 100);
-    }
+        const communeData = [
+            { stt: 1, phamvi: "Phường Tây Hoa Lư", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
+            { stt: 2, phamvi: "Phường Hoa Lư", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
+            { stt: 3, phamvi: "Phường Nam Hoa Lư", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
+            { stt: 4, phamvi: "Phường Đông Hoa Lư", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
+            { stt: 5, phamvi: "Phường Tam Điệp", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
+            { stt: 6, phamvi: "Phường Yên Sơn", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
+            { stt: 7, phamvi: "Phường Trung Sơn", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
+            { stt: 8, phamvi: "Phường Yên Thắng", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
+            { stt: 9, phamvi: "Xã Nho Quan", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
+            { stt: 10, phamvi: "Xã Gia Lâm", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
+            { stt: 11, phamvi: "Xã Gia Tường", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
+            { stt: 12, phamvi: "Xã Phú Sơn", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
+            { stt: 13, phamvi: "Xã Cúc Phương", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
+            { stt: 14, phamvi: "Xã Phú Long", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
+            { stt: 15, phamvi: "Xã Thanh Sơn", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
+            { stt: 16, phamvi: "Xã Quỳnh Lưu", ten: "Ngô Văn Thịnh", sdt: "0888923878" },
+            { stt: 17, phamvi: "Xã Gia Viễn", ten: "Đỗ Thị Minh Oanh", sdt: "0917525345" },
+            { stt: 18, phamvi: "Xã Đại Hoàng", ten: "Đỗ Thị Minh Oanh", sdt: "0917525345" },
+            { stt: 19, phamvi: "Xã Gia Hưng", ten: "Đỗ Thị Minh Oanh", sdt: "0917525345" },
+            { stt: 20, phamvi: "Xã Gia Phong", ten: "Đỗ Thị Minh Oanh", sdt: "0917525345" },
+            { stt: 21, phamvi: "Xã Gia Vân", ten: "Đỗ Thị Minh Oanh", sdt: "0917525345" },
+            { stt: 22, phamvi: "Xã Gia Trấn", ten: "Đỗ Thị Minh Oanh", sdt: "0917525345" },
+            { stt: 23, phamvi: "Xã Yên Khánh", ten: "Phạm Đăng Khoa", sdt: "0918576363" },
+            { stt: 24, phamvi: "Xã Khánh Nhạc", ten: "Phạm Đăng Khoa", sdt: "0918576363" },
+            { stt: 25, phamvi: "Xã Khánh Thiện", ten: "Phạm Đăng Khoa", sdt: "0918576363" },
+            { stt: 26, phamvi: "Xã Khánh Hội", ten: "Phạm Đăng Khoa", sdt: "0918576363" },
+            { stt: 27, phamvi: "Xã Khánh Trung", ten: "Phạm Đăng Khoa", sdt: "0918576363" },
+            { stt: 28, phamvi: "Xã Yên Mô", ten: "Tống Văn Tiến", sdt: "0911107726" },
+            { stt: 29, phamvi: "Xã Yên Từ", ten: "Tống Văn Tiến", sdt: "0911107726" },
+            { stt: 30, phamvi: "Xã Yên Mạc", ten: "Tống Văn Tiến", sdt: "0911107726" },
+            { stt: 31, phamvi: "Xã Đồng Thái", ten: "Tống Văn Tiến", sdt: "0911107726" },
+            { stt: 32, phamvi: "Xã Chất Bình", ten: "Phạm Văn Thao", sdt: "0911107726" },
+            { stt: 33, phamvi: "Xã Kim Sơn", ten: "Phạm Văn Thao", sdt: "0947480904" },
+            { stt: 34, phamvi: "Xã Quang Thiện", ten: "Phạm Văn Thao", sdt: "0947480904" },
+            { stt: 35, phamvi: "Xã Phát Diệm", ten: "Phạm Văn Thao", sdt: "0947480904" },
+            { stt: 36, phamvi: "Xã Lai Thành", ten: "Phạm Văn Thao", sdt: "0947480904" },
+            { stt: 37, phamvi: "Xã Định Hóa", ten: "Phạm Văn Thao", sdt: "0947480904" },
+            { stt: 38, phamvi: "Xã Bình Minh", ten: "Phạm Văn Thao", sdt: "0947480904" },
+            { stt: 39, phamvi: "Xã Kim Đông", ten: "Phạm Văn Thao", sdt: "0947480904" },
+            { stt: 40, phamvi: "Phường Đông A", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
+            { stt: 41, phamvi: "Phường Hồng Quang", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
+            { stt: 42, phamvi: "Phường Mỹ Lộc", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
+            { stt: 43, phamvi: "Phường Nam Định", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
+            { stt: 44, phamvi: "Phường Thành Nam", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
+            { stt: 45, phamvi: "Phường Thiên Trường", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
+            { stt: 46, phamvi: "Phường Trường Thi", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
+            { stt: 47, phamvi: "Phường Vị Khê", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
+            { stt: 48, phamvi: "Xã Vụ Bản", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
+            { stt: 49, phamvi: "Xã Cổ Lễ", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
+            { stt: 50, phamvi: "Xã Nam Hồng", ten: "Nguyễn Thị Lý", sdt: "0949073694" },
+            { stt: 51, phamvi: "Xã Đồng Thịnh", ten: "Vũ Văn Đam", sdt: "0911741555" },
+            { stt: 52, phamvi: "Xã Giao Bình", ten: "Vũ Văn Đam", sdt: "0911741555" },
+            { stt: 53, phamvi: "Xã Giao Hòa", ten: "Vũ Văn Đam", sdt: "0911741555" },
+            { stt: 54, phamvi: "Xã Giao Hưng", ten: "Vũ Văn Đam", sdt: "0911741555" },
+            { stt: 55, phamvi: "Xã Giao Minh", ten: "Vũ Văn Đam", sdt: "0911741555" },
+            { stt: 56, phamvi: "Xã Giao Ninh", ten: "Vũ Văn Đam", sdt: "0911741555" },
+            { stt: 57, phamvi: "Xã Giao Phúc", ten: "Vũ Văn Đam", sdt: "0911741555" },
+            { stt: 58, phamvi: "Xã Giao Thủy", ten: "Vũ Văn Đam", sdt: "0911741555" },
+            { stt: 59, phamvi: "Xã Hải An", ten: "Vũ Văn Đam", sdt: "0911741555" },
+            { stt: 60, phamvi: "Xã Hải Anh", ten: "Vũ Văn Đam", sdt: "0911741555" },
+            { stt: 61, phamvi: "Xã Hải Hậu", ten: "Vũ Văn Đam", sdt: "0911741555" },
+            { stt: 62, phamvi: "Xã Hải Hưng", ten: "Vũ Văn Đam", sdt: "0911741555" },
+            { stt: 63, phamvi: "Xã Hải Quang", ten: "Đỗ Trung Tín", sdt: "0948522828" },
+            { stt: 64, phamvi: "Xã Hải Thịnh", ten: "Đỗ Trung Tín", sdt: "0948522828" },
+            { stt: 65, phamvi: "Xã Hải Tiến", ten: "Đỗ Trung Tín", sdt: "0948522828" },
+            { stt: 66, phamvi: "Xã Hải Xuân", ten: "Đỗ Trung Tín", sdt: "0948522828" },
+            { stt: 67, phamvi: "Xã Hiển Khánh", ten: "Đỗ Trung Tín", sdt: "0948522828" },
+            { stt: 68, phamvi: "Xã Hồng Phong", ten: "Đỗ Trung Tín", sdt: "0948522828" },
+            { stt: 69, phamvi: "Xã Liên Minh", ten: "Đỗ Trung Tín", sdt: "0948522828" },
+            { stt: 70, phamvi: "Xã Minh Tân", ten: "Đỗ Trung Tín", sdt: "0948522828" },
+            { stt: 71, phamvi: "Xã Minh Thái", ten: "Đỗ Trung Tín", sdt: "0948522828" },
+            { stt: 72, phamvi: "Xã Nam Đồng", ten: "Đỗ Trung Tín", sdt: "0948522828" },
+            { stt: 73, phamvi: "Xã Nam Minh", ten: "Đỗ Trung Tín", sdt: "0948522828" },
+            { stt: 74, phamvi: "Xã Nam Ninh", ten: "Đỗ Trung Tín", sdt: "0948522828" },
+            { stt: 75, phamvi: "Xã Nam Trực", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
+            { stt: 76, phamvi: "Xã Nghĩa Hưng", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
+            { stt: 77, phamvi: "Xã Nghĩa Lâm", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
+            { stt: 78, phamvi: "Xã Nghĩa Sơn", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
+            { stt: 79, phamvi: "Xã Ninh Cường", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
+            { stt: 80, phamvi: "Xã Ninh Giang", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
+            { stt: 81, phamvi: "Xã Phong Doanh", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
+            { stt: 82, phamvi: "Xã Quang Hưng", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
+            { stt: 83, phamvi: "Xã Quỹ Nhất", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
+            { stt: 84, phamvi: "Xã Rạng Đông", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
+            { stt: 85, phamvi: "Xã Tân Minh", ten: "Nguyễn Hồng Việt", sdt: "0915673768" },
+            { stt: 86, phamvi: "Xã Trực Ninh", ten: "Lê Cao Cường", sdt: "0888932199" },
+            { stt: 87, phamvi: "Xã Vạn Thắng", ten: "Lê Cao Cường", sdt: "0888932199" },
+            { stt: 88, phamvi: "Xã Cát Thành", ten: "Lê Cao Cường", sdt: "0888932199" },
+            { stt: 89, phamvi: "Xã Vũ Dương", ten: "Lê Cao Cường", sdt: "0888932199" },
+            { stt: 90, phamvi: "Xã Xuân Giang", ten: "Lê Cao Cường", sdt: "0888932199" },
+            { stt: 91, phamvi: "Xã Xuân Hồng", ten: "Lê Cao Cường", sdt: "0888932199" },
+            { stt: 92, phamvi: "Xã Xuân Hưng", ten: "Lê Cao Cường", sdt: "0888932199" },
+            { stt: 93, phamvi: "Xã Xuân Trường", ten: "Lê Cao Cường", sdt: "0888932199" },
+            { stt: 94, phamvi: "Xã Ý Yên", ten: "Lê Cao Cường", sdt: "0888932199" },
+            { stt: 95, phamvi: "Xã Yên Cường", ten: "Lê Cao Cường", sdt: "0888932199" },
+            { stt: 96, phamvi: "Xã Yên Đồng", ten: "Lê Cao Cường", sdt: "0888932199" },
+            { stt: 97, phamvi: "UBND Phường Tiên Sơn", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
+            { stt: 98, phamvi: "UBND Xã Thanh Lâm", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
+            { stt: 99, phamvi: "UBND Xã Lý Nhân", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
+            { stt: 100, phamvi: "UBND Phường Duy Hà", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
+            { stt: 101, phamvi: "UBND Xã Thanh Bình", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
+            { stt: 102, phamvi: "UBND Phường Kim Thanh", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
+            { stt: 103, phamvi: "UBND Xã Nam Xang", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
+            { stt: 104, phamvi: "UBND Xã Tân Thanh", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
+            { stt: 105, phamvi: "UBND Xã Bình Giang", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
+            { stt: 106, phamvi: "UBND Xã Bình Lục", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
+            { stt: 107, phamvi: "UBND Phường Duy Tiên", ten: "Nguyễn Thái Phong", sdt: "0844272727" },
+            { stt: 108, phamvi: "UBND Phường Lý Thường Kiệt", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
+            { stt: 109, phamvi: "UBND Xã Nam Lý", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
+            { stt: 110, phamvi: "UBND Phường Phù Vân", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
+            { stt: 111, phamvi: "UBND Phường Hà Nam", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
+            { stt: 112, phamvi: "UBND Xã Thanh Liêm", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
+            { stt: 113, phamvi: "UBND Phường Liêm Tuyền", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
+            { stt: 114, phamvi: "UBND Phường Châu Sơn", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
+            { stt: 115, phamvi: "UBND Phường Tam Chúc", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
+            { stt: 116, phamvi: "UBND Xã Bắc Lý", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
+            { stt: 117, phamvi: "UBND Xã Bình Sơn", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
+            { stt: 118, phamvi: "UBND Phường Phủ Lý", ten: "Nguyễn Thị Ngân", sdt: "0913289959" },
+            { stt: 119, phamvi: "UBND Phường Đồng Văn", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
+            { stt: 120, phamvi: "UBND Phường Kim Bảng", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
+            { stt: 121, phamvi: "UBND Phường Lê Hồ", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
+            { stt: 122, phamvi: "UBND Xã Bình An", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
+            { stt: 123, phamvi: "UBND Phường Nguyễn Uý", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
+            { stt: 124, phamvi: "UBND Xã Bình Mỹ", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
+            { stt: 125, phamvi: "UBND Xã Liêm Hà", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
+            { stt: 126, phamvi: "UBND Xã Vĩnh Trụ", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
+            { stt: 127, phamvi: "UBND Xã Trần Thương", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
+            { stt: 128, phamvi: "UBND Xã Nhân Hà", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
+            { stt: 129, phamvi: "UBND Phường Duy Tân", ten: "Nguyễn Thị Xuân", sdt: "0888000328" }
+        ];
 
-    function closeSupportModal() {
-        modal.style.display = "none";
-        document.body.style.overflow = "auto";
-    }
+        const config = [
+            { name: "Bộ Nông nghiệp và Môi trường", zalo: "https://zalo.me/g/zwqtnk714", request: "https://forms.gle/FKAbim7xTrBDiHuU9", doc: "https://drive.google.com/drive/mobile/folders/1Y6EM__Zi_j1ypErH2wHn8df2txSPSLJB" },
+            { name: "Bộ Giáo dục và Đào tạo", zalo: "https://zalo.me/g/lequfi377", request: "https://forms.gle/gTXS4hQHmFvquAxF8", doc: "https://drive.google.com/drive/mobile/folders/1IUsYnmNbYNixJzwoMmkkhZc_DQAkfI9f" },
+            { name: "Bộ Công Thương", zalo: "https://zalo.me/g/jjsdtc222", request: "https://forms.gle/w3C2LnRoLFbBowbi6", doc: "https://drive.google.com/drive/folders/1wu4tSrAmbxt0ITQSF-0HApnZxjjFzgeB" },
+            { name: "Bộ Xây dựng", zalo: "https://zalo.me/g/tnfjxs703", request: "https://forms.gle/HcUJcZTBNqs6wJnw7", doc: "https://drive.google.com/drive/folders/16oWLLemMDbB8NRpxCQ6GpkMg-EpnNbJd" },
+            { name: "Bộ Nội vụ", zalo: "https://zalo.me/g/izahnx601", request: "https://forms.gle/hsUi5c3v2U5jMgT8A", doc: "https://drive.google.com/drive/mobile/folders/1cm3H_7O6QHeeztj1FZm8tKQqBgEvqbea" },
+            { name: "Bộ Y tế", zalo: "https://zalo.me/g/gelmej477", request: "https://forms.gle/GbLmjmhGCrGKfWmW7", doc: "https://drive.google.com/drive/mobile/folders/1LK-0VbaytXhOKOC9Z5DhYjVAywITZ7Xt" },
+            { name: "Bộ Khoa học và Công nghệ", zalo: "https://zalo.me/g/tsopxh923", request: "https://forms.gle/6es1UVB2puWZxVED7", doc: "https://drive.google.com/drive/folders/11l2k8RRawEgPaDPeSjVQ62qHMfI6QTW6" }
+        ];
 
-    function renderTable(province, commune) {
-        tableBody.innerHTML = "";
-        if (province.length > 0) {
-            const header1 = document.createElement("tr");
-            header1.className = "section-header";
-            header1.innerHTML = `<td colspan="4">I. KHỐI SỞ BAN NGÀNH (CẤP TỈNH)</td>`;
-            tableBody.appendChild(header1);
-            province.forEach(item => {
-                const row = document.createElement("tr");
-                row.innerHTML = `<td style="text-align: center; color: #64748b;">${item.stt}</td><td><span class="badge-scope">${item.phamvi}</span></td><td class="user-name">${item.ten}</td><td><a href="tel:${item.sdt}" class="phone-link">${item.sdt}</a></td>`;
-                tableBody.appendChild(row);
-            });
+        const grid = document.getElementById('linkGrid');
+        const searchInput = document.getElementById('searchInput');
+        const noResultMsg = document.getElementById('noResult');
+
+        function renderCards(data) {
+            grid.innerHTML = '';
+            if (data.length === 0) { noResultMsg.style.display = 'block'; } else {
+                noResultMsg.style.display = 'none';
+                data.forEach(dept => {
+                    const zaloBtn = dept.zalo ? `<a href="${dept.zalo}" class="action-btn btn-zalo-new" target="_blank" rel="noopener noreferrer"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"><span>Nhóm Zalo hỗ trợ</span></a>` : '';
+                    const row = document.createElement('div');
+                    row.className = 'department-card';
+                    row.innerHTML = `<div class="card-header"><div class="header-deco"></div><div class="dept-name">${dept.name}</div></div><div class="card-actions"><a href="${dept.doc}" class="action-btn btn-doc-new" target="_blank" rel="noopener noreferrer"><img src="https://img.icons8.com/fluency/48/reading-ebook.png"><span>Tài liệu HDSD</span></a>${zaloBtn}<a href="${dept.request}" class="action-btn btn-req-new" target="_blank" rel="noopener noreferrer"><img src="https://img.icons8.com/fluency/48/sent.png"><span>Gửi yêu cầu hỗ trợ</span></a></div>`;
+                    grid.appendChild(row);
+                });
+            }
         }
-        if (commune.length > 0) {
-            const header2 = document.createElement("tr");
-            header2.className = "section-header";
-            header2.innerHTML = `<td colspan="4">II. KHỐI XÃ/PHƯỜNG (129 ĐƠN VỊ)</td>`;
-            tableBody.appendChild(header2);
-            commune.forEach(item => {
-                const row = document.createElement("tr");
-                row.innerHTML = `<td style="text-align: center; color: #64748b;">${item.stt}</td><td><span class="badge-scope">${item.phamvi}</span></td><td class="user-name">${item.ten}</td><td><a href="tel:${item.sdt}" class="phone-link">${item.sdt}</a></td>`;
-                tableBody.appendChild(row);
-            });
+        renderCards(config);
+        searchInput.addEventListener('input', (e) => {
+            const keyword = e.target.value.toLowerCase().trim();
+            const filtered = config.filter(item => item.name.toLowerCase().includes(keyword));
+            renderCards(filtered);
+        });
+
+        // --- LOGIC MODAL & TÌM KIẾM DANH BẠ ---
+        const modal = document.getElementById("supportModal");
+        const tableBody = document.getElementById("supportTableBody");
+        const modalSearchInput = document.getElementById("modalSearchInput");
+
+        function openSupportModal() {
+            renderTable(provincialData, communeData);
+            modalSearchInput.value = "";
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden";
+            setTimeout(() => modalSearchInput.focus(), 100);
         }
-    }
 
-    function filterSupportTable() {
-        const keyword = modalSearchInput.value.toLowerCase().trim();
-        const filteredProvince = provincialData.filter(item => item.phamvi.toLowerCase().includes(keyword) || item.ten.toLowerCase().includes(keyword) || item.sdt.includes(keyword));
-        const filteredCommune = communeData.filter(item => item.phamvi.toLowerCase().includes(keyword) || item.ten.toLowerCase().includes(keyword) || item.sdt.includes(keyword));
-        renderTable(filteredProvince, filteredCommune);
-    }
-
-    window.onclick = function(event) { if (event.target == modal) closeSupportModal(); }
-
-    const grid = document.getElementById('linkGrid');
-    const searchInput = document.getElementById('searchInput');
-    const noResultMsg = document.getElementById('noResult');
-
-    function renderCards(data) {
-        grid.innerHTML = '';
-        if (data.length === 0) { noResultMsg.style.display = 'block'; } else {
-            noResultMsg.style.display = 'none';
-            data.forEach(dept => {
-                const zaloBtn = dept.zalo ? `<a href="${dept.zalo}" class="action-btn btn-zalo-new" target="_blank" rel="noopener noreferrer"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"><span>Nhóm Zalo hỗ trợ</span></a>` : '';
-                const row = document.createElement('div');
-                row.className = 'department-card';
-                row.innerHTML = `<div class="card-header"><div class="header-deco"></div><div class="dept-name">${dept.name}</div></div><div class="card-actions"><a href="${dept.doc}" class="action-btn btn-doc-new" target="_blank" rel="noopener noreferrer"><img src="https://img.icons8.com/fluency/48/reading-ebook.png"><span>Tài liệu HDSD</span></a>${zaloBtn}<a href="${dept.request}" class="action-btn btn-req-new" target="_blank" rel="noopener noreferrer"><img src="https://img.icons8.com/fluency/48/sent.png"><span>Gửi yêu cầu hỗ trợ</span></a></div>`;
-                grid.appendChild(row);
-            });
+        function closeSupportModal() {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
         }
-    }
-    renderCards(config);
-    searchInput.addEventListener('input', (e) => {
-        const keyword = e.target.value.toLowerCase().trim();
-        const filtered = config.filter(item => item.name.toLowerCase().includes(keyword));
-        renderCards(filtered);
-    });
-</script>
+
+        function renderTable(province, commune) {
+            tableBody.innerHTML = "";
+            if (province.length > 0) {
+                const header1 = document.createElement("tr");
+                header1.className = "section-header";
+                header1.innerHTML = `<td colspan="4">I. KHỐI SỞ BAN NGÀNH (CẤP TỈNH)</td>`;
+                tableBody.appendChild(header1);
+                province.forEach(item => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `<td style="text-align: center; color: #64748b;">${item.stt}</td><td><span class="badge-scope">${item.phamvi}</span></td><td class="user-name">${item.ten}</td><td><a href="tel:${item.sdt}" class="phone-link">${item.sdt}</a></td>`;
+                    tableBody.appendChild(row);
+                });
+            }
+            if (commune.length > 0) {
+                const header2 = document.createElement("tr");
+                header2.className = "section-header";
+                header2.innerHTML = `<td colspan="4">II. KHỐI XÃ/PHƯỜNG (129 ĐƠN VỊ)</td>`;
+                tableBody.appendChild(header2);
+                commune.forEach(item => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `<td style="text-align: center; color: #64748b;">${item.stt}</td><td><span class="badge-scope">${item.phamvi}</span></td><td class="user-name">${item.ten}</td><td><a href="tel:${item.sdt}" class="phone-link">${item.sdt}</a></td>`;
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+
+        function filterSupportTable() {
+            const keyword = modalSearchInput.value.toLowerCase().trim();
+            const filteredProvince = provincialData.filter(item => item.phamvi.toLowerCase().includes(keyword) || item.ten.toLowerCase().includes(keyword) || item.sdt.includes(keyword));
+            const filteredCommune = communeData.filter(item => item.phamvi.toLowerCase().includes(keyword) || item.ten.toLowerCase().includes(keyword) || item.sdt.includes(keyword));
+            renderTable(filteredProvince, filteredCommune);
+        }
+
+        // --- LOGIC MODAL DONATE (MỚI) ---
+        const donateModal = document.getElementById("donateModal");
+
+        function openDonateModal() {
+            donateModal.style.display = "block";
+            document.body.style.overflow = "hidden"; // Chặn cuộn trang chính
+        }
+
+        function closeDonateModal() {
+            donateModal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        // Đóng khi click ra ngoài
+        window.onclick = function (event) {
+            if (event.target == document.getElementById("supportModal")) {
+                closeSupportModal();
+            }
+            if (event.target == donateModal) {
+                closeDonateModal();
+            }
+        }
+    </script>
 
 </body>
+
 </html>
