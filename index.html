@@ -8,7 +8,6 @@
         content="Cổng thông tin hỗ trợ Hệ thống thông tin Giải quyết thủ tục hành chính cấp Bộ/Ngành">
     <meta name="author" content="Đỗ Việt Hoàng - VNPT Ninh Bình">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://hoangitc500.github.io/hotrodvc/">
     <meta property="og:title" content="Cổng thông tin Hỗ trợ HTTT GQ TTHC Bộ ngành">
     <meta property="og:description"
         content="Tra cứu nhanh tài liệu HDSD, tham gia nhóm Zalo hỗ trợ và gửi yêu cầu kỹ thuật cho các Bộ/Ngành.">
@@ -22,7 +21,7 @@
         rel="stylesheet">
 
     <style>
-        /* --- 1. CẤU HÌNH GIAO DIỆN CHUNG --- */
+        /* --- 1. CẤU HÌNH GIAO DIỆN CHUNG (GIỮ NGUYÊN GỐC) --- */
         :root {
             --primary: #0068ff;
             --danger: #ef4444;
@@ -65,10 +64,169 @@
             border: 1px solid rgba(255, 255, 255, 0.6);
             border-radius: 24px;
             box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
+
+            /* --- QUAN TRỌNG: SỬA ĐOẠN NÀY --- */
+            overflow: visible;
+            /* Đổi từ hidden -> visible để kích hoạt Sticky */
+            position: relative;
         }
 
-        /* --- HEADER --- */
+        /* --- 1. SỬA LẠI MENU MÀU XANH VNPT & FIX LỖI BO GÓC --- */
+        .portal-nav {
+            background: linear-gradient(90deg, #0068ff 0%, #1e293b 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+
+            /* Cấu hình Sticky */
+            position: sticky;
+            top: 0;
+            /* Dính sát mép trên */
+            z-index: 1000;
+
+            /* Mặc định: Bo tròn để khớp với Container */
+            border-radius: 23px 23px 0 0;
+            overflow: hidden;
+
+            /* Hiệu ứng chuyển đổi mượt khi biến hình */
+            transition: border-radius 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* --- TRẠNG THÁI KHI DÍNH (SẼ ĐƯỢC JS KÍCH HOẠT) --- */
+        .portal-nav.stuck {
+            border-radius: 0 !important;
+            /* Biến thành vuông góc ngay lập tức */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            /* Tăng bóng đổ cho nổi */
+        }
+
+        /* Chỉnh lại Logo màu trắng cho nổi trên nền xanh */
+        .nav-brand {
+            font-weight: 800;
+            color: #ffffff !important;
+            /* Bắt buộc màu trắng */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Icon trong logo cũng phải sáng lên (Dùng filter đảo màu) */
+        .nav-brand img {
+            filter: brightness(0) invert(1);
+            /* Biến icon thành màu trắng */
+        }
+
+        .nav-items {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Chỉnh lại Link Menu màu trắng mờ */
+        .nav-item {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.85);
+            /* Trắng hơi mờ */
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 30px;
+            /* Bo tròn kiểu viên thuốc */
+            transition: all 0.2s;
+        }
+
+        /* Hiệu ứng Hover: Nền trắng mờ */
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+
+        /* Trạng thái Active: Nền trắng, chữ xanh (Đảo ngược lại cho nổi) */
+        .nav-item.active {
+            background: #ffffff;
+            color: var(--primary);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 2. Dòng thông báo chạy */
+        .ticker-wrap {
+            background: #fffbeb;
+            color: #b45309;
+            font-size: 0.9rem;
+            overflow: hidden;
+            white-space: nowrap;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .ticker-content {
+            display: inline-block;
+            animation: ticker 30s linear infinite;
+            padding-left: 100%;
+            font-weight: 500;
+        }
+
+        @keyframes ticker {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+
+            100% {
+                transform: translate3d(-100%, 0, 0);
+            }
+        }
+
+        /* 3. Tabs lọc nhanh (Style dạng viên thuốc) */
+        .filter-tabs {
+            padding: 0 40px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #f8fafc;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 10px rgba(0, 104, 255, 0.3);
+        }
+
+        /* --- KẾT THÚC PHẦN BỔ SUNG --- */
+
+        /* --- HEADER (GIỮ NGUYÊN) --- */
         .header {
             padding: 40px 20px;
             text-align: center;
@@ -126,17 +284,22 @@
             text-shadow: 0 2px 10px rgba(239, 68, 68, 0.1);
         }
 
-        /* --- SEARCH BOX --- */
+        /* --- SỬA LẠI THANH TÌM KIẾM KHÔNG BỊ DÍNH --- */
         .search-wrapper {
-            position: sticky;
-            top: 15px;
+            position: relative;
+            /* QUAN TRỌNG: Để nó trôi đi khi cuộn, không dính lại */
             z-index: 90;
             padding: 0 30px;
             margin-top: -28px;
+            /* Giữ nguyên margin âm để đè lên header ảnh */
             pointer-events: none;
+            /* Để chuột xuyên qua vùng trống click được bên dưới */
         }
 
+        /* Đảm bảo ô input vẫn click được */
         .search-input {
+            pointer-events: auto;
+            /* ... Giữ nguyên các thuộc tính cũ ... */
             width: 100%;
             max-width: 650px;
             display: block;
@@ -149,7 +312,6 @@
             box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15);
             font-size: 1rem;
             transition: all 0.3s;
-            pointer-events: auto;
             color: #0f172a;
             font-weight: 600;
             line-height: 1.6;
@@ -161,7 +323,7 @@
             transform: translateY(-2px);
         }
 
-        /* --- MAIN BUTTONS --- */
+        /* --- MAIN BUTTONS (GIỮ NGUYÊN) --- */
         .main-action-box {
             padding: 50px 40px 30px;
             display: grid;
@@ -198,7 +360,7 @@
             box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.3);
         }
 
-        /* --- CONTENT AREA --- */
+        /* --- CONTENT AREA (GIỮ NGUYÊN) --- */
         .content-area {
             padding: 10px 40px;
             min-height: 200px;
@@ -327,7 +489,7 @@
             display: none;
         }
 
-        /* --- FOOTER --- */
+        /* --- FOOTER (GIỮ NGUYÊN) --- */
         .footer-actions {
             padding: 20px 40px 40px;
             display: flex;
@@ -426,7 +588,7 @@
             font-size: 1.2rem;
         }
 
-        /* --- MODAL STYLE --- */
+        /* --- MODAL STYLE (GIỮ NGUYÊN) --- */
         .modal {
             display: none;
             position: fixed;
@@ -657,7 +819,7 @@
             }
         }
 
-        /* --- FLOATING GROUP (CONTAINER - MỚI) --- */
+        /* --- FLOATING GROUP (GIỮ NGUYÊN) --- */
         .floating-group {
             position: fixed;
             bottom: 30px;
@@ -690,19 +852,58 @@
             width: fit-content;
         }
 
-        /* Style riêng nút Chat (Xanh tím gradient - Logo NotebookLM) */
+        /* Style riêng nút Chat */
         .btn-chat {
             background: linear-gradient(135deg, #0068ff 0%, #a142f4 100%);
             padding: 12px 25px;
             font-size: 1rem;
         }
 
-        /* Style riêng nút Donate (Cam vàng) */
+        /* Style riêng nút Donate */
         .btn-donate {
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             font-size: 0.85rem;
             padding: 8px 16px;
             opacity: 0.95;
+        }
+
+        /* --- STYLE NÚT BACK TO TOP --- */
+        .btn-top {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            display: none;
+            padding: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 104, 255, 0.3);
+        }
+
+        .btn-top:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 104, 255, 0.4);
+            padding-right: 0;
+        }
+
+        .show-btn {
+            display: flex !important;
+            animation: slideUpFade 0.4s ease forwards;
+        }
+
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .floating-btn:hover {
@@ -712,7 +913,7 @@
             opacity: 1;
         }
 
-        /* --- STYLE RIÊNG CHO MODAL DONATE (MỚI) --- */
+        /* --- STYLE RIÊNG CHO MODAL DONATE --- */
         .donate-content {
             max-width: 450px;
             height: auto;
@@ -740,22 +941,50 @@
             overflow-y: auto;
         }
 
-        /* ========================================= */
-        /* --- MOBILE RESPONSIVE (DƯỚI 768PX) --- */
-        /* ========================================= */
-        @media screen and (max-width: 768px) {
+        .group-top-right {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+            align-items: flex-end;
+        }
 
-            /* 1. Căn chỉnh lại lề Body cho thoáng hơn */
+        .floating-group {
+            bottom: 30px;
+            right: 30px;
+        }
+
+        /* --- NHÓM NÚT GÓC DƯỚI TRÁI --- */
+        .group-bottom-left {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 9999;
+            align-items: flex-start;
+        }
+
+        .group-bottom-left .floating-btn:hover {
+            transform: translateX(5px);
+            padding-right: 20px;
+            padding-left: 25px;
+        }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media screen and (max-width: 768px) {
             body {
                 padding: 10px;
             }
 
             .container {
                 border-radius: 16px;
-                /* Bo góc nhỏ hơn xíu */
             }
 
-            /* 2. Header: Logo và Tiêu đề */
             .header {
                 padding: 25px 15px;
             }
@@ -763,27 +992,22 @@
             .brand-logos {
                 gap: 15px;
                 flex-wrap: nowrap;
-                /* Giữ logo cùng hàng */
             }
 
             .coat-of-arms {
                 height: 55px;
-                /* Thu nhỏ logo Quốc huy */
             }
 
             .divider {
                 height: 35px;
-                /* Thu ngắn vạch kẻ */
             }
 
             .vnpt-logo {
                 height: 30px;
-                /* Thu nhỏ logo VNPT */
             }
 
             .header h1 {
                 font-size: 1.1rem;
-                /* Giảm cỡ chữ tiêu đề */
                 line-height: 1.4 !important;
             }
 
@@ -792,11 +1016,9 @@
                 margin-top: 5px;
             }
 
-            /* 3. Thanh tìm kiếm */
             .search-wrapper {
                 padding: 0 15px;
                 margin-top: -22px;
-                /* Căn lại vị trí đè lên header */
             }
 
             .search-input {
@@ -804,38 +1026,29 @@
                 padding: 12px 20px;
             }
 
-            /* 4. Chuyển Grid 2 cột thành 1 cột (QUAN TRỌNG NHẤT) */
             .main-action-box {
                 grid-template-columns: 1fr;
-                /* Xếp dọc các nút to */
                 padding: 40px 15px 20px;
-                /* Giảm padding */
                 gap: 15px;
             }
 
             #linkGrid {
                 grid-template-columns: 1fr;
-                /* Xếp dọc các thẻ Bộ ngành */
                 gap: 15px;
             }
 
             .content-area {
                 padding: 10px 15px;
-                /* Giảm lề 2 bên */
             }
 
-            /* 5. Tối ưu thẻ Card Bộ ngành */
             .card-actions {
                 padding: 15px;
-                /* Giữ nguyên grid nhỏ bên trong để các nút con vẫn đẹp */
             }
 
             .action-btn {
                 padding: 10px 5px;
-                /* Nút gọn hơn */
             }
 
-            /* 6. Footer */
             .footer-actions {
                 padding: 10px 15px 30px;
             }
@@ -843,16 +1056,13 @@
             .card-btn-secondary,
             .card-btn-support {
                 font-size: 0.85rem;
-                /* Giảm cỡ chữ nút footer */
                 padding: 15px;
             }
 
-            /* 7. Modal & Bảng danh bạ (Fix lỗi tràn) */
             .modal-content {
                 width: 95%;
                 margin: 5% auto;
                 height: 85vh;
-                /* Cao hơn chút trên mobile */
             }
 
             .modal-header {
@@ -861,27 +1071,21 @@
 
             .modal-title-row h2 {
                 font-size: 1.1rem;
-                /* Tiêu đề modal nhỏ lại */
             }
 
-            /* Tạo thanh cuộn ngang cho bảng để không vỡ layout */
             .table-wrapper {
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
-                /* Mượt hơn trên iPhone */
                 width: 100%;
                 display: block;
             }
 
             .support-table {
                 min-width: 700px;
-                /* Giữ độ rộng tối thiểu để bảng không bị bóp méo */
             }
 
-            /* 8. Nút nổi (Floating Btn) */
             .floating-group {
                 right: 15px;
-                /* Sát lề hơn */
                 bottom: 20px;
             }
 
@@ -892,7 +1096,71 @@
 
             .btn-chat {
                 font-size: 0.9rem;
-                /* Chat to hơn chút */
+            }
+
+            .group-bottom-left {
+                left: 15px;
+                bottom: 20px;
+            }
+
+            /* Responsive bổ sung cho menu */
+            .portal-nav {
+                padding: 0 15px;
+                /* Giảm khoảng cách 2 bên */
+                height: 54px;
+                /* Thu nhỏ chiều cao một chút */
+                /* Bo góc khớp với container mobile (Container đang bo 16px) */
+                border-radius: 15px 15px 0 0;
+            }
+
+            /* 2. Ẩn dòng chữ dài dòng, chỉ giữ lại Icon đám mây */
+            .nav-brand {
+                font-size: 0;
+                /* Mẹo CSS: Size 0 để ẩn text đi */
+                gap: 0;
+                /* Bỏ khoảng cách thừa */
+            }
+
+            /* Phóng to Icon đám mây lên chút cho cân đối */
+            .nav-brand img {
+                width: 32px;
+                height: 32px;
+            }
+
+            /* 3. Tinh chỉnh lại các nút bấm (Trang chủ, Danh bạ...) */
+            .nav-items {
+                gap: 6px;
+                /* Kéo các nút sát lại nhau */
+            }
+
+            .nav-item {
+                font-size: 0.8rem;
+                /* Chữ nhỏ lại (khoảng 13px) */
+                padding: 6px 12px;
+                /* Nút gọn gàng hơn */
+                white-space: nowrap;
+                /* Cấm xuống dòng */
+            }
+
+            /* Nút Active trên mobile không cần bóng bẩy quá */
+            .nav-item.active {
+                box-shadow: none;
+                background: rgba(255, 255, 255, 0.9);
+                color: #0068ff;
+            }
+
+            .ticker-wrap {
+                height: 30px;
+                font-size: 0.8rem;
+            }
+
+            .search-wrapper {
+                margin-top: -15px;
+                padding: 0 15px;
+            }
+
+            .nav-item:last-child {
+                margin-right: -5px;
             }
         }
     </style>
@@ -901,6 +1169,30 @@
 <body>
 
     <div class="container">
+        <div class="portal-nav">
+            <a href="#" class="nav-brand">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                    </path>
+                </svg>
+                SUPPORT PORTAL
+            </a>
+            <div class="nav-items">
+                <a href="#" class="nav-item active" onclick="location.reload()">Trang chủ</a>
+                <a href="#" class="nav-item" onclick="openSupportModal(); return false;">Đầu mối hỗ trợ</a>
+                <a href="#" class="nav-item" onclick="openDonateModal(); return false;">Donate</a>
+            </div>
+        </div>
+
+        <div class="ticker-wrap">
+            <div class="ticker-content">
+                💡 MẸO: Người dùng có thể tìm kiếm thông tin Bộ/Ngành tại ô Tìm kiếm nhanh, hoặc có thể chọn lọc thông
+                tin bên dưới.
+            </div>
+        </div>
+
         <header class="header">
             <div class="brand-logos">
                 <img src="cchc.png" class="coat-of-arms" alt="Quốc huy" onerror="this.style.display='none'">
@@ -925,6 +1217,21 @@
                 <img src="https://img.icons8.com/fluency/48/book.png" width="32">
                 Tài liệu HDSD hệ thống điều phối
             </a>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="tab-btn active" onclick="filterByTab('all', this)">
+                <img src="https://img.icons8.com/fluency/24/list.png" width="18"> Tất cả
+            </button>
+            <button class="tab-btn" onclick="filterByTab('system', this)">
+                <img src="https://img.icons8.com/fluency/24/internet.png" width="18"> Có link Hệ thống MCĐT
+            </button>
+            <button class="tab-btn" onclick="filterByTab('zalo', this)">
+                <img src="https://img.icons8.com/color/24/zalo.png" width="18"> Có nhóm Zalo hỗ trợ
+            </button>
+            <button class="tab-btn" onclick="filterByTab('doc', this)">
+                <img src="https://img.icons8.com/fluency/24/reading-ebook.png" width="18"> Có Tài liệu HDSD
+            </button>
         </div>
 
         <div class="content-area">
@@ -994,7 +1301,7 @@
         </div>
     </div>
 
-    <div class="floating-group">
+    <div class="group-bottom-left">
         <a href="https://notebooklm.google.com/notebook/5438e17c-83b3-4d69-babc-464c85c188ef" target="_blank"
             rel="noopener noreferrer" class="floating-btn btn-chat">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1019,6 +1326,15 @@
                 </path>
             </svg>
             <span class="btn-text">Động viên Admin</span>
+        </button>
+    </div>
+
+    <div class="floating-group">
+        <button onclick="scrollToTop()" id="backToTopBtn" class="floating-btn btn-top" title="Lên đầu trang">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 15l-6-6-6 6" />
+            </svg>
         </button>
     </div>
 
@@ -1201,78 +1517,64 @@
             { stt: 129, phamvi: "UBND Phường Duy Tân", ten: "Nguyễn Thị Xuân", sdt: "0888000328" }
         ];
 
+        // Dữ liệu Link Bộ ngành
         const config = [
-            {
-                name: "Bộ Nông nghiệp và Môi trường",
-                system: "https://motcuannmt.mae.gov.vn/",
-                zalo: "https://zalo.me/g/zwqtnk714",
-                request: "https://forms.gle/FKAbim7xTrBDiHuU9",
-                doc: "https://drive.google.com/drive/mobile/folders/1Y6EM__Zi_j1ypErH2wHn8df2txSPSLJB"
-            },
-            {
-                name: "Bộ Giáo dục và Đào tạo",
-                system: "https://motcua.moet.gov.vn/",
-                zalo: "https://zalo.me/g/lequfi377",
-                request: "https://forms.gle/gTXS4hQHmFvquAxF8",
-                doc: "https://drive.google.com/drive/mobile/folders/1IUsYnmNbYNixJzwoMmkkhZc_DQAkfI9f"
-            },
-            {
-                name: "Bộ Công Thương",
-                system: "https://motcua-tthc.moit.gov.vn/",
-                zalo: "https://zalo.me/g/jjsdtc222",
-                request: "https://forms.gle/w3C2LnRoLFbBowbi6",
-                doc: "https://drive.google.com/drive/folders/1wu4tSrAmbxt0ITQSF-0HApnZxjjFzgeB"
-            },
-            {
-                name: "Bộ Xây dựng",
-                system: "https://motcuabxd.moc.gov.vn/",
-                zalo: "https://zalo.me/g/tnfjxs703",
-                request: "https://forms.gle/HcUJcZTBNqs6wJnw7",
-                doc: "https://drive.google.com/drive/folders/16oWLLemMDbB8NRpxCQ6GpkMg-EpnNbJd"
-            },
-            {
-                name: "Bộ Nội vụ",
-                system: "https://motcua.moha.gov.vn/",
-                zalo: "https://zalo.me/g/izahnx601",
-                request: "https://forms.gle/hsUi5c3v2U5jMgT8A",
-                doc: "https://drive.google.com/drive/mobile/folders/1cm3H_7O6QHeeztj1FZm8tKQqBgEvqbea"
-            },
-            {
-                name: "Bộ Y tế",
-                system: "https://motcua.moh.gov.vn/",
-                zalo: "https://zalo.me/g/gelmej477",
-                request: "https://forms.gle/GbLmjmhGCrGKfWmW7",
-                doc: "https://drive.google.com/drive/mobile/folders/1LK-0VbaytXhOKOC9Z5DhYjVAywITZ7Xt"
-            },
-            {
-                name: "Bộ Khoa học và Công nghệ",
-                system: "https://motcua.mst.gov.vn/",
-                zalo: "https://zalo.me/g/tsopxh923",
-                request: "https://forms.gle/6es1UVB2puWZxVED7",
-                doc: "https://drive.google.com/drive/folders/11l2k8RRawEgPaDPeSjVQ62qHMfI6QTW6"
-            },
-            {
-                name: "Bộ Dân tộc và Tôn giáo",
-                system: "https://gqtthc.bdttg.gov.vn/"
-            },
-            {
-                name: "Bộ Tư pháp",
-                system: "https://motcua.moj.gov.vn/"
-            },
-            {
-                name: "Bộ Tài chính",
-                system: "https://dichvucong.mof.gov.vn/"
-            },
-            {
-                name: "Bộ Ngoại giao",
-                system: "https://bpmc.mofa.gov.vn/"
-            }
+            { name: "Bộ Nông nghiệp và Môi trường", system: "https://motcuannmt.mae.gov.vn/", zalo: "https://zalo.me/g/zwqtnk714", request: "https://forms.gle/FKAbim7xTrBDiHuU9", doc: "https://drive.google.com/drive/mobile/folders/1Y6EM__Zi_j1ypErH2wHn8df2txSPSLJB" },
+            { name: "Bộ Giáo dục và Đào tạo", system: "https://motcua.moet.gov.vn/", zalo: "https://zalo.me/g/lequfi377", request: "https://forms.gle/gTXS4hQHmFvquAxF8", doc: "https://drive.google.com/drive/mobile/folders/1IUsYnmNbYNixJzwoMmkkhZc_DQAkfI9f" },
+            { name: "Bộ Công Thương", system: "https://motcua-tthc.moit.gov.vn/", zalo: "https://zalo.me/g/jjsdtc222", request: "https://forms.gle/w3C2LnRoLFbBowbi6", doc: "https://drive.google.com/drive/folders/1wu4tSrAmbxt0ITQSF-0HApnZxjjFzgeB" },
+            { name: "Bộ Xây dựng", system: "https://motcuabxd.moc.gov.vn/", zalo: "https://zalo.me/g/tnfjxs703", request: "https://forms.gle/HcUJcZTBNqs6wJnw7", doc: "https://drive.google.com/drive/folders/16oWLLemMDbB8NRpxCQ6GpkMg-EpnNbJd" },
+            { name: "Bộ Nội vụ", system: "https://motcua.moha.gov.vn/", zalo: "https://zalo.me/g/izahnx601", request: "https://forms.gle/hsUi5c3v2U5jMgT8A", doc: "https://drive.google.com/drive/mobile/folders/1cm3H_7O6QHeeztj1FZm8tKQqBgEvqbea" },
+            { name: "Bộ Y tế", system: "https://motcua.moh.gov.vn/", zalo: "https://zalo.me/g/gelmej477", request: "https://forms.gle/GbLmjmhGCrGKfWmW7", doc: "https://drive.google.com/drive/mobile/folders/1LK-0VbaytXhOKOC9Z5DhYjVAywITZ7Xt" },
+            { name: "Bộ Khoa học và Công nghệ", system: "https://motcua.mst.gov.vn/", zalo: "https://zalo.me/g/tsopxh923", request: "https://forms.gle/6es1UVB2puWZxVED7", doc: "https://drive.google.com/drive/folders/11l2k8RRawEgPaDPeSjVQ62qHMfI6QTW6" },
+            { name: "Bộ Dân tộc và Tôn giáo", system: "https://gqtthc.bdttg.gov.vn/" },
+            { name: "Bộ Tư pháp", system: "https://motcua.moj.gov.vn/" },
+            { name: "Bộ Tài chính", system: "https://dichvucong.mof.gov.vn/" },
+            { name: "Bộ Ngoại giao", system: "https://bpmc.mofa.gov.vn/" }
         ];
+
+        // Biến toàn cục quản lý trạng thái
+        let activeTab = 'all';
+        let currentSearchTerm = '';
 
         const grid = document.getElementById('linkGrid');
         const searchInput = document.getElementById('searchInput');
         const noResultMsg = document.getElementById('noResult');
 
+        // Hàm lọc và hiển thị chính
+        function applyFilterAndRender() {
+            let filtered = config;
+
+            // 1. Lọc theo Tabs
+            if (activeTab === 'system') filtered = filtered.filter(item => item.system);
+            if (activeTab === 'zalo') filtered = filtered.filter(item => item.zalo);
+            if (activeTab === 'doc') filtered = filtered.filter(item => item.doc);
+
+            // 2. Lọc theo Search Input
+            if (currentSearchTerm) {
+                filtered = filtered.filter(item => item.name.toLowerCase().includes(currentSearchTerm));
+            }
+
+            renderCards(filtered);
+        }
+
+        // Sự kiện click Tab
+        function filterByTab(type, btnElement) {
+            activeTab = type;
+
+            // Update UI active class
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            applyFilterAndRender();
+        }
+
+        // Sự kiện gõ tìm kiếm
+        searchInput.addEventListener('input', (e) => {
+            currentSearchTerm = e.target.value.toLowerCase().trim();
+            applyFilterAndRender();
+        });
+
+        // Hàm Render Cards
         function renderCards(data) {
             grid.innerHTML = '';
             if (data.length === 0) {
@@ -1280,61 +1582,35 @@
             } else {
                 noResultMsg.style.display = 'none';
                 data.forEach(dept => {
-                    // 1. TẠO CÁC BIẾN HTML NÚT BẤM (CÓ KIỂM TRA ĐIỀU KIỆN)
-                    
-                    // Nút Hệ thống (Màu Tím) - Kiểm tra dept.system
-                    const sysBtn = dept.system 
-                        ? `<a href="${dept.system}" class="action-btn btn-sys-new" target="_blank" rel="noopener noreferrer"><img src="https://img.icons8.com/fluency/48/internet.png"><span>Truy cập Hệ thống MCĐT</span></a>` 
-                        : '';
+                    const sysBtn = dept.system ? `<a href="${dept.system}" class="action-btn btn-sys-new" target="_blank" rel="noopener noreferrer"><img src="https://img.icons8.com/fluency/48/internet.png"><span>Truy cập Hệ thống MCĐT</span></a>` : '';
+                    const docBtn = dept.doc ? `<a href="${dept.doc}" class="action-btn btn-doc-new" target="_blank" rel="noopener noreferrer"><img src="https://img.icons8.com/fluency/48/reading-ebook.png"><span>Tài liệu HDSD</span></a>` : '';
+                    const zaloBtn = dept.zalo ? `<a href="${dept.zalo}" class="action-btn btn-zalo-new" target="_blank" rel="noopener noreferrer"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"><span>Nhóm Zalo hỗ trợ</span></a>` : '';
+                    const reqBtn = dept.request ? `<a href="${dept.request}" class="action-btn btn-req-new" target="_blank" rel="noopener noreferrer"><img src="https://img.icons8.com/fluency/48/sent.png"><span>Gửi yêu cầu hỗ trợ</span></a>` : '';
 
-                    // Nút Tài liệu (Màu Xanh lá) - Kiểm tra dept.doc
-                    const docBtn = dept.doc 
-                        ? `<a href="${dept.doc}" class="action-btn btn-doc-new" target="_blank" rel="noopener noreferrer"><img src="https://img.icons8.com/fluency/48/reading-ebook.png"><span>Tài liệu HDSD</span></a>` 
-                        : '';
-
-                    // Nút Zalo (Màu Xanh dương) - Kiểm tra dept.zalo
-                    const zaloBtn = dept.zalo 
-                        ? `<a href="${dept.zalo}" class="action-btn btn-zalo-new" target="_blank" rel="noopener noreferrer"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"><span>Nhóm Zalo hỗ trợ</span></a>` 
-                        : '';
-
-                    // Nút Gửi yêu cầu (Màu Vàng) - Kiểm tra dept.request
-                    const reqBtn = dept.request 
-                        ? `<a href="${dept.request}" class="action-btn btn-req-new" target="_blank" rel="noopener noreferrer"><img src="https://img.icons8.com/fluency/48/sent.png"><span>Gửi yêu cầu hỗ trợ</span></a>` 
-                        : '';
-
-                    // 2. GHÉP VÀO HTML CHÍNH
                     const row = document.createElement('div');
                     row.className = 'department-card';
-                    
-                    // Chỉ chèn các biến đã tạo ở trên
                     row.innerHTML = `
                         <div class="card-header">
                             <div class="header-deco"></div>
                             <div class="dept-name">${dept.name}</div>
                         </div>
                         <div class="card-actions">
-                            ${sysBtn}
-                            ${docBtn}
-                            ${zaloBtn}
-                            ${reqBtn}
+                            ${sysBtn} ${docBtn} ${zaloBtn} ${reqBtn}
                         </div>`;
-                    
                     grid.appendChild(row);
                 });
             }
         }
 
+        // Render lần đầu
         renderCards(config);
-        searchInput.addEventListener('input', (e) => {
-            const keyword = e.target.value.toLowerCase().trim();
-            const filtered = config.filter(item => item.name.toLowerCase().includes(keyword));
-            renderCards(filtered);
-        });
 
-        // --- LOGIC MODAL & TÌM KIẾM DANH BẠ ---
+        // --- CÁC HÀM MODAL & BACK TO TOP (GIỮ NGUYÊN) ---
         const modal = document.getElementById("supportModal");
         const tableBody = document.getElementById("supportTableBody");
         const modalSearchInput = document.getElementById("modalSearchInput");
+        const donateModal = document.getElementById("donateModal");
+        const backToTopBtn = document.getElementById("backToTopBtn");
 
         function openSupportModal() {
             renderTable(provincialData, communeData);
@@ -1347,6 +1623,21 @@
         function closeSupportModal() {
             modal.style.display = "none";
             document.body.style.overflow = "auto";
+        }
+
+        function openDonateModal() {
+            donateModal.style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeDonateModal() {
+            donateModal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) closeSupportModal();
+            if (event.target == donateModal) closeDonateModal();
         }
 
         function renderTable(province, commune) {
@@ -1382,28 +1673,29 @@
             renderTable(filteredProvince, filteredCommune);
         }
 
-        // --- LOGIC MODAL DONATE (MỚI) ---
-        const donateModal = document.getElementById("donateModal");
-
-        function openDonateModal() {
-            donateModal.style.display = "block";
-            document.body.style.overflow = "hidden"; // Chặn cuộn trang chính
-        }
-
-        function closeDonateModal() {
-            donateModal.style.display = "none";
-            document.body.style.overflow = "auto";
-        }
-
-        // Đóng khi click ra ngoài
-        window.onclick = function (event) {
-            if (event.target == document.getElementById("supportModal")) {
-                closeSupportModal();
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                if (!backToTopBtn.classList.contains("show-btn")) backToTopBtn.classList.add("show-btn");
+            } else {
+                backToTopBtn.classList.remove("show-btn");
             }
-            if (event.target == donateModal) {
-                closeDonateModal();
-            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        const navBar = document.querySelector('.portal-nav');
+
+        window.addEventListener('scroll', () => {
+            // Kiểm tra vị trí của Menu so với mép trên màn hình
+            // Nếu top <= 0 nghĩa là nó đang dính sát mép trên
+            if (navBar.getBoundingClientRect().top <= 0) {
+                navBar.classList.add('stuck'); // Thêm class để biến thành vuông
+            } else {
+                navBar.classList.remove('stuck'); // Bỏ class để trở lại bo tròn
+            }
+        });
     </script>
 
 </body>
