@@ -291,72 +291,6 @@
 
         @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
         @keyframes slideIn { from {transform: translateY(30px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
-
-        /* --- MEDIA QUERY --- */
-        @media (max-width: 850px) {
-            body { padding: 15px 10px; }
-            .container { border-radius: 0; border: none; box-shadow: none; background: rgba(255,255,255,0.95); }
-            .header h1 { font-size: 1.4rem; }
-            .header h2 { font-size: 1.2rem; }
-            .main-action-box { grid-template-columns: 1fr; padding: 30px 20px; }
-            #linkGrid { grid-template-columns: 1fr; }
-            .card-actions { grid-template-columns: 1fr !important; gap: 10px; padding: 15px; }
-            .action-btn { flex-direction: row; justify-content: flex-start; padding: 12px 20px; text-align: left; width: 100%; }
-            .action-btn img { width: 32px; height: 32px; margin-right: 15px; }
-            .modal-content { width: 100%; height: 100%; margin: 0; border-radius: 0; max-height: 100vh; }
-        }
-
-        /* --- CHATBOT STYLE --- */
-        .chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 9999; }
-        
-        /* CSS NÚT CHAT VIÊN THUỐC */
-        .chat-toggle-btn {
-            min-width: 60px; height: 50px; border-radius: 30px;
-            background: linear-gradient(135deg, #0068ff 0%, #1e293b 100%);
-            border: none; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 104, 255, 0.4);
-            transition: all 0.3s;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            padding: 0 20px;
-        }
-        .chat-toggle-btn:hover { 
-            transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 104, 255, 0.5); padding-right: 25px; 
-        }
-        .chat-toggle-btn img { 
-            width: 24px; height: 24px; filter: invert(1); animation: pulse 2s infinite; 
-        }
-        .chat-btn-text {
-            color: white; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;
-        }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
-
-        .chat-window {
-            position: absolute; bottom: 80px; right: 0;
-            width: 350px; height: 500px;
-            background: #fff; border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            display: none; flex-direction: column; overflow: hidden;
-            border: 1px solid #e2e8f0;
-            animation: slideInUp 0.3s ease;
-            font-family: 'Inter', sans-serif;
-        }
-        .chat-header {
-            background: #0068ff; color: white; padding: 15px;
-            font-weight: 700; display: flex; justify-content: space-between; align-items: center;
-        }
-        .close-chat { cursor: pointer; font-size: 20px; }
-        .chat-messages {
-            flex: 1; padding: 15px; overflow-y: auto; background: #f8fafc;
-            display: flex; flex-direction: column; gap: 10px;
-        }
-        .message { max-width: 80%; padding: 10px 15px; border-radius: 15px; font-size: 0.9rem; line-height: 1.4; word-wrap: break-word; }
-        .bot-message { background: #e2e8f0; color: #334155; align-self: flex-start; border-bottom-left-radius: 2px; }
-        .user-message { background: #0068ff; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .chat-input-area { padding: 10px; border-top: 1px solid #eee; display: flex; gap: 10px; background: #fff; }
-        .chat-input-area input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 20px; outline: none; font-family: 'Inter', sans-serif; }
-        .chat-input-area button { background: #0068ff; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
-        @keyframes slideInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 480px) { .chat-window { width: 90vw; right: -10px; bottom: 70px; height: 60vh; } }
     </style>
 </head>
 <body>
@@ -454,83 +388,8 @@
     </div>
 </div>
 
-<div class="chat-widget">
-    <button id="chatToggle" class="chat-toggle-btn" onclick="toggleChat()">
-        <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" alt="AI">
-        <span class="chat-btn-text">Trợ lý AI</span>
-    </button>
-    
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" width="24">
-                <span>Trợ lý ảo VNPT</span>
-            </div>
-            <span class="close-chat" onclick="toggleChat()">&times;</span>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="message bot-message">
-                Xin chào! Tôi là AI hỗ trợ tra cứu thông tin đầu mối và tài liệu. Bạn cần tìm gì ạ?
-            </div>
-        </div>
-        <div class="chat-input-area">
-            <input type="text" id="userMsg" placeholder="Hỏi gì đó..." onkeypress="handleEnter(event)">
-            <button onclick="sendMessage()">&#10148;</button>
-        </div>
-    </div>
-</div>
-
 <script>
-    // --- 1. CẤU HÌNH "KHO KIẾN THỨC" (NOTEBOOK) ---
-    // Danh sách nguồn dữ liệu bên ngoài
-    const KNOWLEDGE_SOURCES = [
-        {
-            type: "sheet",
-            name: "DANH SÁCH TTHC CẤP TỈNH/XÃ TRIỂN KHAI TẠI CỔNG BỘ NGÀNH từ 01/01/2026",
-            // Link CSV bạn vừa cung cấp
-            url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSkciv2ef5m8K63jH2MG56o9WqFGoE3eGtrAw43FN_wpwxssR-txHyXNK86zR1wd5DgwqzpegNwbyFu/pub?output=csv"
-        }
-    ];
-
-    // Biến lưu trữ kiến thức đã tải
-    let fullNotebookData = "";
-
-    // Hàm tải dữ liệu tự động
-    async function loadNotebook() {
-        console.log("Đang nạp dữ liệu từ " + KNOWLEDGE_SOURCES.length + " nguồn...");
-        
-        const promises = KNOWLEDGE_SOURCES.map(async (source) => {
-            try {
-                const response = await fetch(source.url);
-                const textData = await response.text();
-                let cleanContent = "";
-
-                if (source.type === 'sheet') {
-                    // Xử lý CSV: bỏ dòng trống, nối lại
-                    cleanContent = textData.split('\n')
-                        .map(row => row.trim())
-                        .filter(row => row.length > 0)
-                        .join('\n');
-                } 
-                // Có thể mở rộng thêm type: 'doc' ở đây nếu cần
-
-                return `=== NGUỒN DỮ LIỆU: ${source.name} ===\n${cleanContent}\n==================\n`;
-            } catch (error) {
-                console.error(`Lỗi tải nguồn ${source.name}:`, error);
-                return ""; 
-            }
-        });
-
-        // Đợi tất cả tải xong và gộp lại
-        const results = await Promise.all(promises);
-        fullNotebookData = results.join("\n");
-        console.log("Đã học xong toàn bộ kiến thức!", fullNotebookData.length + " ký tự.");
-    }
-
-    // Chạy ngay khi mở web
-    loadNotebook();
-
-    // --- 2. DỮ LIỆU CỨNG (ĐẦU MỐI HỖ TRỢ) ---
+    // --- 1. DỮ LIỆU CỨNG (ĐẦU MỐI HỖ TRỢ) ---
     const provincialData = [
         { stt: 1, phamvi: "Trung tâm Phục vụ hành chính công", ten: "Vũ Văn Đam", sdt: "0911741555" },
         { stt: "", phamvi: "Trung tâm Phục vụ hành chính công", ten: "Đỗ Việt Hoàng", sdt: "0916554796" },
@@ -579,7 +438,7 @@
         { stt: 26, phamvi: "Xã Khánh Hội", ten: "Phạm Đăng Khoa", sdt: "0918576363" },
         { stt: 27, phamvi: "Xã Khánh Trung", ten: "Phạm Đăng Khoa", sdt: "0918576363" },
         { stt: 28, phamvi: "Xã Yên Mô", ten: "Tống Văn Tiến", sdt: "0911107726" },
-        { stt: 29, phamvi: "Xã Yên Từ", ten: "Tống Văn Tiến", sdt: "0911107726" },
+        { stt: 29,phamvi: "Xã Yên Từ", ten: "Tống Văn Tiến", sdt: "0911107726" },
         { stt: 30, phamvi: "Xã Yên Mạc", ten: "Tống Văn Tiến", sdt: "0911107726" },
         { stt: 31, phamvi: "Xã Đồng Thái", ten: "Tống Văn Tiến", sdt: "0911107726" },
         { stt: 32, phamvi: "Xã Chất Bình", ten: "Phạm Văn Thao", sdt: "0911107726" },
@@ -611,7 +470,7 @@
         { stt: 58, phamvi: "Xã Giao Thủy", ten: "Vũ Văn Đam", sdt: "0911741555" },
         { stt: 59, phamvi: "Xã Hải An", ten: "Vũ Văn Đam", sdt: "0911741555" },
         { stt: 60, phamvi: "Xã Hải Anh", ten: "Vũ Văn Đam", sdt: "0911741555" },
-        { stt: 61, phamvi: "Xã Hải Hậu", ten: "Vũ Văn Đam", sdt: "0911741555" },
+        { stt: 61, phamvi: "Xã Hải Hậu",ten: "Vũ Văn Đam", sdt: "0911741555" },
         { stt: 62, phamvi: "Xã Hải Hưng", ten: "Vũ Văn Đam", sdt: "0911741555" },
         { stt: 63, phamvi: "Xã Hải Quang", ten: "Đỗ Trung Tín", sdt: "0948522828" },
         { stt: 64, phamvi: "Xã Hải Thịnh", ten: "Đỗ Trung Tín", sdt: "0948522828" },
@@ -672,7 +531,7 @@
         { stt: 119, phamvi: "UBND Phường Đồng Văn", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
         { stt: 120, phamvi: "UBND Phường Kim Bảng", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
         { stt: 121, phamvi: "UBND Phường Lê Hồ", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
-        { stt: 122, phamvi: "UBND Xã Bình An", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
+        { stt: 122,phamvi: "UBND Xã Bình An", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
         { stt: 123, phamvi: "UBND Phường Nguyễn Uý", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
         { stt: 124, phamvi: "UBND Xã Bình Mỹ", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
         { stt: 125, phamvi: "UBND Xã Liêm Hà", ten: "Nguyễn Thị Xuân", sdt: "0888000328" },
@@ -682,16 +541,25 @@
         { stt: 129, phamvi: "UBND Phường Duy Tân", ten: "Nguyễn Thị Xuân", sdt: "0888000328" }
     ];
 
-    // --- 2. LOGIC MODAL & TÌM KIẾM ---
+    const config = [
+        { name: "Bộ Nông nghiệp và Môi trường", zalo: "https://zalo.me/g/zwqtnk714", request: "https://forms.gle/FKAbim7xTrBDiHuU9", doc: "https://drive.google.com/drive/mobile/folders/1Y6EM__Zi_j1ypErH2wHn8df2txSPSLJB" },
+        { name: "Bộ Giáo dục và Đào tạo", zalo: "https://zalo.me/g/lequfi377", request: "https://forms.gle/gTXS4hQHmFvquAxF8", doc: "https://drive.google.com/drive/mobile/folders/1IUsYnmNbYNixJzwoMmkkhZc_DQAkfI9f" },
+        { name: "Bộ Công Thương", zalo: "https://zalo.me/g/jjsdtc222", request: "https://forms.gle/w3C2LnRoLFbBowbi6", doc: "https://drive.google.com/drive/folders/1wu4tSrAmbxt0ITQSF-0HApnZxjjFzgeB" },
+        { name: "Bộ Xây dựng", zalo: "https://zalo.me/g/tnfjxs703", request: "https://forms.gle/HcUJcZTBNqs6wJnw7", doc: "https://drive.google.com/drive/folders/16oWLLemMDbB8NRpxCQ6GpkMg-EpnNbJd" },
+        { name: "Bộ Nội vụ", zalo: "https://zalo.me/g/izahnx601", request: "https://forms.gle/hsUi5c3v2U5jMgT8A", doc: "https://drive.google.com/drive/mobile/folders/1cm3H_7O6QHeeztj1FZm8tKQqBgEvqbea" },
+        { name: "Bộ Y tế", zalo: "https://zalo.me/g/gelmej477", request: "https://forms.gle/GbLmjmhGCrGKfWmW7", doc: "https://drive.google.com/drive/mobile/folders/1LK-0VbaytXhOKOC9Z5DhYjVAywITZ7Xt" },
+        { name: "Bộ Khoa học và Công nghệ", zalo: "https://zalo.me/g/tsopxh923", request: "https://forms.gle/6es1UVB2puWZxVED7", doc: "https://drive.google.com/drive/folders/11l2k8RRawEgPaDPeSjVQ62qHMfI6QTW6" }
+    ];
+
     const modal = document.getElementById("supportModal");
     const tableBody = document.getElementById("supportTableBody");
     const modalSearchInput = document.getElementById("modalSearchInput");
 
     function openSupportModal() {
-        renderTable(provincialData, communeData); // Mặc định render hết
+        renderTable(provincialData, communeData); 
         modalSearchInput.value = "";
         modal.style.display = "block";
-        document.body.style.overflow = "hidden"; // Khóa cuộn trang chính
+        document.body.style.overflow = "hidden"; 
         setTimeout(() => modalSearchInput.focus(), 100);
     }
 
@@ -700,121 +568,40 @@
         document.body.style.overflow = "auto";
     }
 
-    // Render bảng có phân tách 2 khối
     function renderTable(province, commune) {
         tableBody.innerHTML = "";
-        
-        // Render Khối Sở Ngành
         if (province.length > 0) {
             const header1 = document.createElement("tr");
             header1.className = "section-header";
             header1.innerHTML = `<td colspan="4">I. KHỐI SỞ BAN NGÀNH (CẤP TỈNH)</td>`;
             tableBody.appendChild(header1);
-
             province.forEach(item => {
                 const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td style="text-align: center; color: #64748b;">${item.stt}</td>
-                    <td><span class="badge-scope">${item.phamvi}</span></td>
-                    <td class="user-name">${item.ten}</td>
-                    <td><a href="tel:${item.sdt}" class="phone-link">${item.sdt}</a></td>
-                `;
+                row.innerHTML = `<td style="text-align: center; color: #64748b;">${item.stt}</td><td><span class="badge-scope">${item.phamvi}</span></td><td class="user-name">${item.ten}</td><td><a href="tel:${item.sdt}" class="phone-link">${item.sdt}</a></td>`;
                 tableBody.appendChild(row);
             });
         }
-
-        // Render Khối Xã Phường
         if (commune.length > 0) {
             const header2 = document.createElement("tr");
             header2.className = "section-header";
             header2.innerHTML = `<td colspan="4">II. KHỐI XÃ/PHƯỜNG (129 ĐƠN VỊ)</td>`;
             tableBody.appendChild(header2);
-
             commune.forEach(item => {
                 const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td style="text-align: center; color: #64748b;">${item.stt}</td>
-                    <td><span class="badge-scope">${item.phamvi}</span></td>
-                    <td class="user-name">${item.ten}</td>
-                    <td><a href="tel:${item.sdt}" class="phone-link">${item.sdt}</a></td>
-                `;
+                row.innerHTML = `<td style="text-align: center; color: #64748b;">${item.stt}</td><td><span class="badge-scope">${item.phamvi}</span></td><td class="user-name">${item.ten}</td><td><a href="tel:${item.sdt}" class="phone-link">${item.sdt}</a></td>`;
                 tableBody.appendChild(row);
             });
         }
-
-        if (province.length === 0 && commune.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 30px; color:#94a3b8;">Không tìm thấy kết quả</td></tr>`;
-        }
     }
 
-    // Tìm kiếm (Lọc cả 2 danh sách)
     function filterSupportTable() {
         const keyword = modalSearchInput.value.toLowerCase().trim();
-        
-        const filteredProvince = provincialData.filter(item => 
-            item.phamvi.toLowerCase().includes(keyword) || 
-            item.ten.toLowerCase().includes(keyword) || 
-            item.sdt.includes(keyword)
-        );
-
-        const filteredCommune = communeData.filter(item => 
-            item.phamvi.toLowerCase().includes(keyword) || 
-            item.ten.toLowerCase().includes(keyword) || 
-            item.sdt.includes(keyword)
-        );
-
+        const filteredProvince = provincialData.filter(item => item.phamvi.toLowerCase().includes(keyword) || item.ten.toLowerCase().includes(keyword) || item.sdt.includes(keyword));
+        const filteredCommune = communeData.filter(item => item.phamvi.toLowerCase().includes(keyword) || item.ten.toLowerCase().includes(keyword) || item.sdt.includes(keyword));
         renderTable(filteredProvince, filteredCommune);
     }
 
-    window.onclick = function(event) {
-        if (event.target == modal) closeSupportModal();
-    }
-
-    // --- 3. DANH SÁCH BỘ NGÀNH CHÍNH ---
-    const config = [
-        {
-            name: "Bộ Nông nghiệp và Môi trường", 
-            zalo: "https://zalo.me/g/zwqtnk714",
-            request: "https://forms.gle/FKAbim7xTrBDiHuU9",
-            doc: "https://drive.google.com/drive/mobile/folders/1Y6EM__Zi_j1ypErH2wHn8df2txSPSLJB"
-        },
-        {
-            name: "Bộ Giáo dục và Đào tạo",
-            zalo: "https://zalo.me/g/lequfi377",
-            request: "https://forms.gle/gTXS4hQHmFvquAxF8",
-            doc: "https://drive.google.com/drive/mobile/folders/1IUsYnmNbYNixJzwoMmkkhZc_DQAkfI9f"
-        },
-        {
-            name: "Bộ Công Thương",
-            zalo: "https://zalo.me/g/jjsdtc222",
-            request: "https://forms.gle/w3C2LnRoLFbBowbi6",
-            doc: "https://drive.google.com/drive/folders/1wu4tSrAmbxt0ITQSF-0HApnZxjjFzgeB"
-        },
-        {
-            name: "Bộ Xây dựng",
-            zalo: "https://zalo.me/g/tnfjxs703",
-            request: "https://forms.gle/HcUJcZTBNqs6wJnw7",
-            doc: "https://drive.google.com/drive/folders/16oWLLemMDbB8NRpxCQ6GpkMg-EpnNbJd"
-        },
-        {
-            name: "Bộ Nội vụ",
-            zalo: "https://zalo.me/g/izahnx601",
-            request: "https://forms.gle/hsUi5c3v2U5jMgT8A",
-            doc: "https://drive.google.com/drive/mobile/folders/1cm3H_7O6QHeeztj1FZm8tKQqBgEvqbea"
-        },
-        {
-            name: "Bộ Y tế",
-            zalo: "https://zalo.me/g/gelmej477",
-            request: "https://forms.gle/GbLmjmhGCrGKfWmW7",
-            doc: "https://drive.google.com/drive/mobile/folders/1LK-0VbaytXhOKOC9Z5DhYjVAywITZ7Xt"
-        },
-        {
-            name: "Bộ Khoa học và Công nghệ",
-            zalo: "https://zalo.me/g/tsopxh923",
-            request: "https://forms.gle/6es1UVB2puWZxVED7",
-            doc: "https://drive.google.com/drive/folders/11l2k8RRawEgPaDPeSjVQ62qHMfI6QTW6"
-        }
-    ];
+    window.onclick = function(event) { if (event.target == modal) closeSupportModal(); }
 
     const grid = document.getElementById('linkGrid');
     const searchInput = document.getElementById('searchInput');
@@ -822,172 +609,23 @@
 
     function renderCards(data) {
         grid.innerHTML = '';
-        if (data.length === 0) {
-            noResultMsg.style.display = 'block';
-        } else {
+        if (data.length === 0) { noResultMsg.style.display = 'block'; } else {
             noResultMsg.style.display = 'none';
             data.forEach(dept => {
-                const zaloBtn = dept.zalo ? 
-                    `<a href="${dept.zalo}" class="action-btn btn-zalo-new" target="_blank" rel="noopener noreferrer">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg">
-                        <span>Nhóm Zalo hỗ trợ</span>
-                    </a>` : '';
+                const zaloBtn = dept.zalo ? `<a href="${dept.zalo}" class="action-btn btn-zalo-new" target="_blank" rel="noopener noreferrer"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"><span>Nhóm Zalo hỗ trợ</span></a>` : '';
                 const row = document.createElement('div');
                 row.className = 'department-card';
-                row.innerHTML = `
-                    <div class="card-header">
-                        <div class="header-deco"></div>
-                        <div class="dept-name">${dept.name}</div>
-                    </div>
-                    <div class="card-actions">
-                        <a href="${dept.doc}" class="action-btn btn-doc-new" target="_blank" rel="noopener noreferrer">
-                            <img src="https://img.icons8.com/fluency/48/reading-ebook.png">
-                            <span>Tài liệu HDSD</span>
-                        </a>
-                        ${zaloBtn}
-                        <a href="${dept.request}" class="action-btn btn-req-new" target="_blank" rel="noopener noreferrer">
-                            <img src="https://img.icons8.com/fluency/48/sent.png">
-                            <span>Gửi yêu cầu hỗ trợ</span>
-                        </a>
-                    </div>
-                `;
+                row.innerHTML = `<div class="card-header"><div class="header-deco"></div><div class="dept-name">${dept.name}</div></div><div class="card-actions"><a href="${dept.doc}" class="action-btn btn-doc-new" target="_blank" rel="noopener noreferrer"><img src="https://img.icons8.com/fluency/48/reading-ebook.png"><span>Tài liệu HDSD</span></a>${zaloBtn}<a href="${dept.request}" class="action-btn btn-req-new" target="_blank" rel="noopener noreferrer"><img src="https://img.icons8.com/fluency/48/sent.png"><span>Gửi yêu cầu hỗ trợ</span></a></div>`;
                 grid.appendChild(row);
             });
         }
     }
-
     renderCards(config);
-
     searchInput.addEventListener('input', (e) => {
         const keyword = e.target.value.toLowerCase().trim();
         const filtered = config.filter(item => item.name.toLowerCase().includes(keyword));
         renderCards(filtered);
     });
-
-    // --- 4. CHATBOT GEMINI INTEGRATION ---
-    const API_KEY = "AIzaSyApzGowCHYGxvzv08odhgruCgb079sjkbI"; 
-    
-    const MODEL_NAME = "gemini-2.0-flash-lite-preview-02-05"; 
-    const API_VERSION = "v1beta";
-    const API_URL = `https://generativelanguage.googleapis.com/${API_VERSION}/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
-
-    function getSystemContext() {
-        let context = "Bạn là trợ lý ảo hỗ trợ của VNPT Ninh Bình. Hãy trả lời ngắn gọn, chính xác, lịch sự bằng tiếng Việt.\n\n";
-        
-        // --- THÔNG TIN HỆ THỐNG CHUNG ---
-        context += "THÔNG TIN QUAN TRỌNG:\n";
-        context += "- Link Hệ thống điều phối: https://dieuphoi.dichvucong.gov.vn\n";
-        context += "- Tài liệu HDSD Hệ thống điều phối: https://drive.google.com/drive/folders/1AmPIs4bBpmnxkXBeQDzFFc6PX6szIV-J\n\n";
-
-        // --- NẠP DỮ LIỆU TỪ SHEET (TTHC) ---
-        if (fullNotebookData) {
-            context += "\n=============================\n";
-            context += "DỮ LIỆU CHI TIẾT TỪ GOOGLE SHEET (TTHC):\n";
-            context += fullNotebookData;
-            context += "\n=============================\n";
-        } else {
-            context += "\n(Đang tải dữ liệu từ Google Sheet...)\n";
-        }
-
-        // --- NẠP DANH BẠ ĐIỆN THOẠI (HARDCODED) ---
-        context += "\nDANH BẠ LIÊN HỆ:\n";
-        provincialData.forEach(p => {
-            if(p.ten) context += `- Đơn vị: ${p.phamvi}, Người phụ trách: ${p.ten}, SĐT: ${p.sdt}\n`;
-        });
-        communeData.forEach(c => {
-            if(c.ten) context += `- Đơn vị: ${c.phamvi}, Người phụ trách: ${c.ten}, SĐT: ${c.sdt}\n`;
-        });
-        
-        // --- NẠP LINK TÀI LIỆU BỘ NGÀNH ---
-        context += "\nTÀI LIỆU VÀ NHÓM ZALO BỘ NGÀNH:\n";
-        config.forEach(c => {
-            context += `- ${c.name}: Tài liệu (${c.doc}), Nhóm Zalo (${c.zalo || 'Không có'}), Form hỗ trợ (${c.request})\n`;
-        });
-
-        context += "\nQUY TẮC TRẢ LỜI:\n";
-        context += "- Nếu hỏi số điện thoại, tìm trong phần DANH BẠ LIÊN HỆ.\n";
-        context += "- Nếu hỏi về thủ tục hành chính (TTHC), tìm trong phần DỮ LIỆU TỪ GOOGLE SHEET.\n";
-        context += "- Nếu không tìm thấy thông tin, hãy xin lỗi và gợi ý liên hệ tổng đài.";
-        
-        return context;
-    }
-
-    const chatWindow = document.getElementById('chatWindow');
-    const chatMessages = document.getElementById('chatMessages');
-    const userMsgInput = document.getElementById('userMsg');
-
-    function toggleChat() {
-        chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
-        if(chatWindow.style.display === 'flex') userMsgInput.focus();
-    }
-
-    function handleEnter(e) {
-        if (e.key === 'Enter') sendMessage();
-    }
-
-    function appendMessage(text, sender) {
-        const div = document.createElement('div');
-        div.className = `message ${sender}-message`;
-        div.innerHTML = text.replace(/\n/g, '<br>').replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color:white;text-decoration:underline;">$1</a>');
-        chatMessages.appendChild(div);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    async function sendMessage() {
-        const text = userMsgInput.value.trim();
-        if (!text) return;
-
-        appendMessage(text, 'user');
-        userMsgInput.value = '';
-        
-        const loadingId = 'loading-' + Date.now();
-        const loadingDiv = document.createElement('div');
-        loadingDiv.className = 'message bot-message';
-        loadingDiv.id = loadingId;
-        loadingDiv.innerText = 'Đang tra cứu...';
-        chatMessages.appendChild(loadingDiv);
-
-        try {
-            const response = await fetch(API_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [
-                        {
-                            role: "user",
-                            parts: [
-                                { text: getSystemContext() },
-                                { text: "Câu hỏi của người dùng: " + text }
-                            ]
-                        }
-                    ]
-                })
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                let errorMessage = errorData.error?.message || `Lỗi HTTP ${response.status}`;
-                throw new Error(errorMessage);
-            }
-
-            const data = await response.json();
-            const botReply = data.candidates[0].content.parts[0].text;
-            
-            document.getElementById(loadingId).remove();
-            
-            const formattedReply = botReply.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color:#0068ff;">$1</a>');
-            const div = document.createElement('div');
-            div.className = `message bot-message`;
-            div.innerHTML = formattedReply.replace(/\n/g, '<br>');
-            chatMessages.appendChild(div);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-        } catch (error) {
-            document.getElementById(loadingId).remove();
-            appendMessage(`⚠️ Lỗi: ${error.message}<br><br>👉 Gợi ý: Hãy thử tắt giới hạn tên miền (Restrictions) của API Key nếu bạn đang chạy trên localhost.`, 'bot');
-            console.error("Gemini Critical Error:", error);
-        }
-    }
 </script>
 
 </body>
