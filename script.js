@@ -42,8 +42,8 @@ function copyPhoneNumber(phone) {
         if (toast) {
             toast.className = "show";
             // 3. Ẩn sau 3 giây
-            setTimeout(function() { 
-                toast.className = toast.className.replace("show", ""); 
+            setTimeout(function () {
+                toast.className = toast.className.replace("show", "");
             }, 3000);
         }
     }).catch(err => {
@@ -67,8 +67,15 @@ const donateModal = document.getElementById("donateModal");
 const backToTopBtn = document.getElementById("backToTopBtn");
 const navBar = document.querySelector('.portal-nav');
 
+function showLoadingSkeleton() {
+    if (!grid) return;
+    // Tạo 6 ô skeleton giả
+    grid.innerHTML = Array(6).fill('<div class="skeleton"></div>').join('');
+}
+
 // --- 4. CORE LOGIC ---
 async function initData() {
+    showLoadingSkeleton();
     try {
         const cachedRecord = localStorage.getItem(CONFIG.CACHE_KEY);
         if (cachedRecord) {
@@ -102,6 +109,12 @@ async function initData() {
 }
 
 // --- 5. RENDER & FILTER ---
+function getAcronym(str) {
+    // Ví dụ: "Bộ Y Tế" -> "BYT"
+    const noTone = removeVietnameseTones(str);
+    return noTone.split(/\s+/).map(word => word[0]).join('').toUpperCase();
+}
+
 function applyFilterAndRender() {
     let filtered = globalData.ministries;
     if (activeTab === 'system') filtered = filtered.filter(item => item.system);
@@ -109,7 +122,15 @@ function applyFilterAndRender() {
     if (activeTab === 'doc') filtered = filtered.filter(item => item.doc);
     if (currentSearchTerm) {
         const termNormalized = removeVietnameseTones(currentSearchTerm);
-        filtered = filtered.filter(item => removeVietnameseTones(item.name).includes(termNormalized));
+        const termAcronym = termNormalized.toUpperCase().replace(/\s/g, ''); // Xóa khoảng trắng để so sánh acronym
+
+        filtered = filtered.filter(item => {
+            const nameNormalized = removeVietnameseTones(item.name);
+            const nameAcronym = getAcronym(item.name); // Tạo acronym từ dữ liệu gốc
+
+            return nameNormalized.includes(termNormalized) || // Tìm theo tên thường
+                nameAcronym.includes(termAcronym);         // Tìm theo viết tắt (VD: BGD)
+        });
     }
     renderCards(filtered);
 }
@@ -117,11 +138,11 @@ function applyFilterAndRender() {
 function filterByTab(type, btnElement) {
     activeTab = type;
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    if(btnElement) btnElement.classList.add('active');
+    if (btnElement) btnElement.classList.add('active');
     applyFilterAndRender();
 }
 
-if(searchInput) {
+if (searchInput) {
     searchInput.addEventListener('input', (e) => {
         currentSearchTerm = e.target.value;
         applyFilterAndRender();
@@ -132,9 +153,9 @@ function renderCards(data) {
     if (!grid) return;
     grid.innerHTML = '';
     if (!data || data.length === 0) {
-        if(noResultMsg) noResultMsg.style.display = 'block';
+        if (noResultMsg) noResultMsg.style.display = 'block';
     } else {
-        if(noResultMsg) noResultMsg.style.display = 'none';
+        if (noResultMsg) noResultMsg.style.display = 'none';
         data.forEach(dept => {
             const sysBtn = dept.system ? `<a href="${dept.system}" class="action-btn btn-sys-new" target="_blank"><img src="https://img.icons8.com/fluency/48/internet.png"><span>Truy cập Hệ thống</span></a>` : '';
             const docBtn = dept.doc ? `<a href="${dept.doc}" class="action-btn btn-doc-new" target="_blank"><img src="https://img.icons8.com/fluency/48/reading-ebook.png"><span>Tài liệu HDSD</span></a>` : '';
@@ -154,24 +175,24 @@ function renderCards(data) {
 // --- 6. LOGIC MODAL & TABLE (CẬP NHẬT RENDER TABLE) ---
 function openSupportModal() {
     renderTable(globalData.province, globalData.commune);
-    if(modalSearchInput) modalSearchInput.value = "";
-    if(modal) modal.style.display = "block";
+    if (modalSearchInput) modalSearchInput.value = "";
+    if (modal) modal.style.display = "block";
     document.body.style.overflow = "hidden";
-    if(modalSearchInput) setTimeout(() => modalSearchInput.focus(), 100);
+    if (modalSearchInput) setTimeout(() => modalSearchInput.focus(), 100);
 }
 
 function closeSupportModal() {
-    if(modal) modal.style.display = "none";
+    if (modal) modal.style.display = "none";
     document.body.style.overflow = "auto";
 }
 
 function openDonateModal() {
-    if(donateModal) donateModal.style.display = "block";
+    if (donateModal) donateModal.style.display = "block";
     document.body.style.overflow = "hidden";
 }
 
 function closeDonateModal() {
-    if(donateModal) donateModal.style.display = "none";
+    if (donateModal) donateModal.style.display = "none";
     document.body.style.overflow = "auto";
 }
 
@@ -184,9 +205,9 @@ window.onclick = function (event) {
  * CẬP NHẬT: Thay đổi thẻ <a> href="tel:" thành <span> onclick="copyPhoneNumber"
  */
 function renderTable(province, commune) {
-    if(!tableBody) return;
+    if (!tableBody) return;
     tableBody.innerHTML = "";
-    
+
     // Helper function để tạo dòng (giúp code gọn hơn)
     const createRow = (item, index) => {
         const row = document.createElement("tr");
@@ -210,7 +231,7 @@ function renderTable(province, commune) {
         tableBody.appendChild(header1);
         province.forEach((item, index) => tableBody.appendChild(createRow(item, index)));
     }
-    
+
     if (commune && commune.length > 0) {
         const header2 = document.createElement("tr");
         header2.className = "section-header";
@@ -221,7 +242,7 @@ function renderTable(province, commune) {
 }
 
 function filterSupportTable() {
-    if(!modalSearchInput) return;
+    if (!modalSearchInput) return;
     const keyword = removeVietnameseTones(modalSearchInput.value);
     const checkMatch = (item) => removeVietnameseTones(item.phamvi).includes(keyword) || removeVietnameseTones(item.ten).includes(keyword) || (item.sdt && item.sdt.includes(keyword));
     renderTable(globalData.province ? globalData.province.filter(checkMatch) : [], globalData.commune ? globalData.commune.filter(checkMatch) : []);
@@ -244,3 +265,18 @@ function scrollToTop() {
 document.addEventListener('DOMContentLoaded', () => {
     initData();
 });
+
+async function forceReloadData() {
+    const btn = document.querySelector('.refresh-btn');
+    if (btn) btn.innerHTML = '⏳ Đang tải...';
+
+    // 1. Xóa cache cũ
+    localStorage.removeItem(CONFIG.CACHE_KEY);
+
+    // 2. Gọi lại hàm initData
+    await initData();
+
+    // 3. Thông báo xong
+    if (btn) btn.innerHTML = '✅ Đã cập nhật';
+    setTimeout(() => { if (btn) btn.innerHTML = '🔄 Làm mới dữ liệu'; }, 2000);
+}
