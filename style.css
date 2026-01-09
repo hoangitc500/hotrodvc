@@ -1457,27 +1457,43 @@ input:focus::placeholder {
 
     /* Ẩn nút "Hướng dẫn trải nghiệm" trôi nổi vì đã có trên Menu */
     .btn-guide-pulse {
-        display: none !important;
+        display: flex !important;
+        /* Bắt buộc hiện */
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        /* Tròn xoe */
+        padding: 0 !important;
+        /* Xóa padding thừa */
+        align-items: center;
+        justify-content: center;
+        /* Không cần font-size: 0 nữa vì thẻ .btn-text đã tự bị ẩn bởi rule chung bên dưới rồi */
+    }
+
+    .btn-guide-pulse svg {
+        margin: 0 !important;
+        flex-shrink: 0;
     }
 
     /* Gom nhóm Bottom-Left (Chat + Donate) nằm ngang */
     .group-bottom-left {
-        left: 15px;
+        /* Chuyển thành xếp dọc */
+        flex-direction: column !important;
+
+        /* Căn thẳng lề trái */
+        align-items: flex-start !important;
+
+        /* Căn chỉnh vị trí đáy cho bằng với cụm bên phải */
         bottom: 20px;
-        flex-direction: row;
-        /* Xếp ngang */
-        align-items: flex-end;
+        left: 15px;
+
+        /* Khoảng cách giữa 2 nút */
+        gap: 15px;
     }
 
     /* Biến nút Donate & Chat thành hình tròn icon-only */
     .group-bottom-left .floating-btn {
-        width: 48px;
-        height: 48px;
-        padding: 0;
-        border-radius: 50%;
-        font-size: 0;
-        /* Ẩn chữ */
-        justify-content: center;
+        margin: 0 !important;
     }
 
     .group-bottom-left .floating-btn svg {
@@ -1489,9 +1505,16 @@ input:focus::placeholder {
     /* Nút Back To Top */
     .floating-group {
         right: 15px;
+
+        /* SỬA DÒNG NÀY: Chỉnh từ 85px về 20px để bằng với bên trái */
         bottom: 20px;
+
+        gap: 15px;
+        /* Đảm bảo căn lề phải để đối xứng với bên trái */
+        align-items: flex-end;
     }
 
+    /* Đảm bảo nút "Lên đầu trang" (khi hiện) sẽ nằm dưới nút Hướng dẫn */
     .btn-top {
         width: 48px;
         height: 48px;
