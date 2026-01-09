@@ -1,4 +1,3 @@
-/* - Giữ nguyên toàn bộ CSS cũ của bạn */
 /* --- 1. CẤU HÌNH GIAO DIỆN CHUNG --- */
 :root {
     --primary: #0068ff;
@@ -31,6 +30,21 @@ body {
         radial-gradient(at 0% 100%, hsla(340, 100%, 76%, 0.1) 0px, transparent 50%);
     background-attachment: fixed;
     background-size: cover;
+}
+
+/* --- PLACEHOLDER STYLING (Làm đẹp theo yêu cầu) --- */
+::placeholder {
+    color: #94a3b8;
+    font-style: italic;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+/* Hiệu ứng khi focus: Placeholder trượt sang phải và mờ đi */
+input:focus::placeholder {
+    opacity: 0;
+    transform: translateX(20px);
 }
 
 .container {
@@ -140,6 +154,27 @@ body {
     }
 }
 
+/* --- WEATHER WIDGET --- */
+.weather-widget {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    color: #475569;
+    background: rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    font-weight: 500;
+}
+
+.weather-widget .divider {
+    margin: 0 8px;
+    color: #cbd5e1;
+}
+
+#greetingMsg {
+    font-weight: 700;
+    color: var(--primary);
+}
+
 /* --- TABS --- */
 .filter-tabs {
     padding: 0 40px;
@@ -226,7 +261,7 @@ body {
     text-shadow: 0 2px 10px rgba(239, 68, 68, 0.1);
 }
 
-/* --- SEARCH --- */
+/* --- SEARCH & VOICE INPUT (MAIN) --- */
 .search-wrapper {
     position: relative;
     z-index: 90;
@@ -235,29 +270,109 @@ body {
     pointer-events: none;
 }
 
-.search-input {
-    pointer-events: auto;
-    width: 100%;
+.search-group {
+    position: relative;
     max-width: 650px;
-    display: block;
     margin: 0 auto;
-    padding: 16px 30px;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 100%;
+    padding: 16px 50px 16px 30px;
     border-radius: 50px;
     border: 1px solid rgba(255, 255, 255, 0.8);
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(15px);
     box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15);
     font-size: 1rem;
-    transition: all 0.3s;
     color: #0f172a;
     font-weight: 600;
     line-height: 1.6;
+    transition: all 0.3s;
+    outline: none;
 }
 
 .search-input:focus {
     border-color: var(--primary);
     box-shadow: 0 0 0 5px rgba(0, 104, 255, 0.15), 0 20px 40px -10px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px);
+}
+
+/* Main Voice Button */
+.voice-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    width: 40px;
+    height: 40px;
+}
+
+.voice-btn:hover {
+    background: rgba(0, 104, 255, 0.1);
+    color: var(--primary);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Modal Voice Button (Style riêng cho Modal) */
+.voice-btn-modal {
+    position: absolute;
+    right: 15px;
+    /* Điều chỉnh cho vừa khung modal */
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    /* Cao hơn icon search */
+}
+
+.voice-btn-modal:hover {
+    color: var(--primary);
+    background: #e2e8f0;
+}
+
+/* Hiệu ứng sóng âm khi đang nghe (Dùng chung) */
+.listening {
+    color: #ef4444 !important;
+    background: #fee2e2 !important;
+    animation: pulse-red 1.5s infinite;
+}
+
+@keyframes pulse-red {
+    0% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
 }
 
 /* --- MAIN BUTTONS --- */
@@ -520,6 +635,56 @@ body {
     font-size: 1.2rem;
 }
 
+/* --- REFRESH BUTTON --- */
+.refresh-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+    border: 1px solid #bae6fd;
+    padding: 10px 24px;
+    border-radius: 50px;
+    color: #0284c7;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(2, 132, 199, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.refresh-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(2, 132, 199, 0.2);
+    border-color: #0ea5e9;
+    background: #fff;
+}
+
+.refresh-btn:active {
+    transform: scale(0.95);
+}
+
+.spin-anim {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.refresh-icon {
+    font-size: 1.1rem;
+    transition: transform 0.5s;
+}
+
+.refresh-btn:hover .refresh-icon {
+    transform: rotate(180deg);
+}
+
 /* --- MODAL STYLE --- */
 .modal {
     display: none;
@@ -594,9 +759,17 @@ body {
     transform: rotate(90deg);
 }
 
+.search-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
 .modal-search {
     width: 100%;
-    padding: 14px 20px 14px 50px;
+    padding: 14px 50px 14px 50px;
+    /* Padding cả 2 bên cho icon search và mic */
     border-radius: 12px;
     border: 1px solid #cbd5e1;
     font-size: 1rem;
@@ -612,11 +785,6 @@ body {
     box-shadow: 0 0 0 4px rgba(0, 104, 255, 0.1);
 }
 
-.search-container {
-    position: relative;
-    width: 100%;
-}
-
 .search-icon {
     position: absolute;
     left: 18px;
@@ -625,6 +793,7 @@ body {
     color: #94a3b8;
     font-size: 1.3rem;
     pointer-events: none;
+    z-index: 15;
 }
 
 .modal-body {
@@ -869,6 +1038,45 @@ body {
     overflow-y: auto;
 }
 
+/* Bank Info Box */
+.bank-info-box {
+    text-align: center;
+    margin-top: 15px;
+    padding: 15px;
+    background: #f0f9ff;
+    border: 1px dashed #0068ff;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.bank-info-box:hover {
+    background: #e0f2fe;
+    transform: scale(1.02);
+}
+
+.bank-name {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.bank-number {
+    margin: 5px 0 0;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #0068ff;
+    letter-spacing: 1px;
+    font-family: monospace;
+}
+
+.click-hint {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-style: italic;
+}
+
 .group-bottom-left {
     position: fixed;
     bottom: 30px;
@@ -933,12 +1141,11 @@ body {
     }
 }
 
-/* --- NÚT GỌI ĐIỆN TRÊN MOBILE --- */
+/* --- MOBILE RESPONSIVE --- */
 .is-mobile-link {
     text-decoration: none;
     color: #fff !important;
     background: #10b981 !important;
-    /* Màu xanh lá gọi điện */
     border: none !important;
 }
 
@@ -946,7 +1153,6 @@ body {
     transform: scale(0.95);
 }
 
-/* --- MOBILE RESPONSIVE (CẬP NHẬT GIAO DIỆN CARD CHO BẢNG) --- */
 @media screen and (max-width: 768px) {
     body {
         padding: 10px;
@@ -979,14 +1185,21 @@ body {
         margin-top: 5px;
     }
 
+    /* Fix Search Mobile */
     .search-wrapper {
         padding: 0 15px;
         margin-top: -22px;
     }
 
     .search-input {
-        font-size: 0.9rem;
-        padding: 12px 20px;
+        padding: 12px 45px 12px 20px;
+        font-size: 16px;
+    }
+
+    .voice-btn {
+        right: 8px;
+        width: 36px;
+        height: 36px;
     }
 
     .main-action-box {
@@ -1036,14 +1249,20 @@ body {
         font-size: 1.1rem;
     }
 
-    .table-wrapper {
+    /* Filter Tabs Scroll */
+    .filter-tabs {
+        flex-wrap: nowrap;
         overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        width: 100%;
-        display: block;
+        justify-content: flex-start;
+        padding-bottom: 10px;
     }
 
-    /* Ẩn bảng cũ, thay bằng giao diện Card */
+    .tab-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    /* Table Mobile Card View */
     .support-table {
         min-width: 100% !important;
     }
@@ -1084,7 +1303,6 @@ body {
 
     /* Ẩn STT */
 
-    /* Đơn vị */
     .support-table td:nth-child(2) {
         order: 1;
         padding-bottom: 8px;
@@ -1099,7 +1317,6 @@ body {
         padding: 5px 10px;
     }
 
-    /* Tên cán bộ */
     .support-table td.user-name {
         order: 2;
         font-size: 1.15rem;
@@ -1108,7 +1325,6 @@ body {
         padding-bottom: 4px;
     }
 
-    /* Số điện thoại */
     .support-table td:last-child {
         order: 3;
         margin-top: 10px;
@@ -1125,12 +1341,7 @@ body {
         box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
     }
 
-    /* Header Section (Khối Sở/Xã) */
     .section-header {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        padding: 0 !important;
         margin-top: 25px;
         margin-bottom: 10px;
     }
@@ -1138,11 +1349,7 @@ body {
     .section-header td {
         font-size: 0.95rem;
         color: #64748b !important;
-        font-weight: 700;
-        text-transform: uppercase;
         padding-left: 5px;
-        background: transparent !important;
-        border-bottom: none !important;
     }
 
     .floating-group {
@@ -1153,10 +1360,6 @@ body {
     .floating-btn {
         padding: 8px 15px;
         font-size: 0.8rem;
-    }
-
-    .btn-chat {
-        font-size: 0.9rem;
     }
 
     .group-bottom-left {
@@ -1190,18 +1393,12 @@ body {
         white-space: nowrap;
     }
 
-    .nav-item.active {
-        box-shadow: none;
-        background: rgba(255, 255, 255, 0.9);
-        color: #0068ff;
+    .nav-item:last-child {
+        margin-right: -5px;
     }
 
     .ticker-wrap {
         height: 30px;
         font-size: 0.8rem;
-    }
-
-    .nav-item:last-child {
-        margin-right: -5px;
     }
 }

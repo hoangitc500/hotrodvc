@@ -1,16 +1,15 @@
 /**
  * script.js - Phiên bản cá nhân hóa cho Đỗ Việt Hoàng
- * Updated: 2026-01-09
+ * Tích hợp: Voice Search (Reusable), Weather, PWA, Mobile Optimization
  */
 
-// --- 1. CẤU HÌNH HỆ THỐNG ---
 const CONFIG = {
     DATA_URL: 'data.json',
-    CACHE_KEY: 'ninhbinh_support_portal_v2', // Đổi key để xóa cache cũ
+    CACHE_KEY: 'ninhbinh_support_portal_v3',
     CACHE_DURATION: 15 * 60 * 1000
 };
 
-// --- 2. CÁC HÀM TIỆN ÍCH ---
+// --- UTILS ---
 function removeVietnameseTones(str) {
     if (!str) return '';
     str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
@@ -27,25 +26,27 @@ function removeVietnameseTones(str) {
     str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
     str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
     str = str.replace(/Đ/g, "D");
-    str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g, " ");
     return str.toLowerCase().trim();
 }
 
-function copyPhoneNumber(phone) {
-    navigator.clipboard.writeText(phone).then(() => {
-        const toast = document.getElementById("toast");
-        if (toast) {
-            toast.className = "show";
-            setTimeout(() => toast.className = toast.className.replace("show", ""), 3000);
-        }
-    }).catch(err => console.error('Lỗi copy:', err));
+function showToast(msg) {
+    const toast = document.getElementById("toast");
+    if (toast) {
+        toast.innerText = msg;
+        toast.className = "show";
+        setTimeout(() => toast.className = toast.className.replace("show", ""), 3000);
+    }
 }
 
-// --- 3. STATE MANAGEMENT ---
+function copyToClipboard(text, msg) {
+    navigator.clipboard.writeText(text).then(() => showToast(msg)).catch(err => console.error(err));
+}
+
+// --- STATE ---
 let globalData = { ministries: [], province: [], commune: [] };
 let activeTab = 'all';
-let currentSearchTerm = '';
 
+// --- ELEMENTS ---
 const grid = document.getElementById('linkGrid');
 const searchInput = document.getElementById('searchInput');
 const noResultMsg = document.getElementById('noResult');
@@ -54,79 +55,31 @@ const tableBody = document.getElementById("supportTableBody");
 const modalSearchInput = document.getElementById("modalSearchInput");
 const donateModal = document.getElementById("donateModal");
 const backToTopBtn = document.getElementById("backToTopBtn");
-const navBar = document.querySelector('.portal-nav');
 
-function showLoadingSkeleton() {
-    if (!grid) return;
-    grid.innerHTML = Array(6).fill('<div class="skeleton"></div>').join('');
-}
-
-// --- 4. CORE LOGIC ---
+// --- MAIN LOGIC ---
 async function initData() {
-    showLoadingSkeleton();
+    if (!grid) return;
+    grid.innerHTML = '<div style="text-align:center; padding:20px;">⏳ Đang tải dữ liệu...</div>';
+
     try {
-        const cachedRecord = localStorage.getItem(CONFIG.CACHE_KEY);
-        if (cachedRecord) {
-            const { timestamp, data } = JSON.parse(cachedRecord);
-            const now = new Date().getTime();
-            if (now - timestamp < CONFIG.CACHE_DURATION) {
-                console.log('⚡ Loaded data from Cache');
+        const cached = localStorage.getItem(CONFIG.CACHE_KEY);
+        if (cached) {
+            const { timestamp, data } = JSON.parse(cached);
+            if (new Date().getTime() - timestamp < CONFIG.CACHE_DURATION) {
                 globalData = data;
                 renderCards(globalData.ministries);
                 return;
             }
         }
-        console.log('🌐 Fetching data from Server...');
+
         const response = await fetch(CONFIG.DATA_URL);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const freshData = await response.json();
-        localStorage.setItem(CONFIG.CACHE_KEY, JSON.stringify({
-            timestamp: new Date().getTime(),
-            data: freshData
-        }));
+        localStorage.setItem(CONFIG.CACHE_KEY, JSON.stringify({ timestamp: new Date().getTime(), data: freshData }));
         globalData = freshData;
         renderCards(globalData.ministries);
     } catch (error) {
-        console.error('CRITICAL ERROR:', error);
-        grid.innerHTML = `<p style="text-align:center;color:red">⚠️ Lỗi tải dữ liệu.</p>`;
+        grid.innerHTML = `<p style="text-align:center;color:red">⚠️ Lỗi tải dữ liệu. Vui lòng thử lại.</p>`;
     }
-}
-
-// --- 5. RENDER & FILTER ---
-function getAcronym(str) {
-    const noTone = removeVietnameseTones(str);
-    return noTone.split(/\s+/).map(word => word[0]).join('').toUpperCase();
-}
-
-function applyFilterAndRender() {
-    let filtered = globalData.ministries;
-    if (activeTab === 'system') filtered = filtered.filter(item => item.system);
-    if (activeTab === 'zalo') filtered = filtered.filter(item => item.zalo);
-    if (activeTab === 'doc') filtered = filtered.filter(item => item.doc);
-    if (currentSearchTerm) {
-        const termNormalized = removeVietnameseTones(currentSearchTerm);
-        const termAcronym = termNormalized.toUpperCase().replace(/\s/g, '');
-        filtered = filtered.filter(item => {
-            const nameNormalized = removeVietnameseTones(item.name);
-            const nameAcronym = getAcronym(item.name);
-            return nameNormalized.includes(termNormalized) || nameAcronym.includes(termAcronym);
-        });
-    }
-    renderCards(filtered);
-}
-
-function filterByTab(type, btnElement) {
-    activeTab = type;
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    if (btnElement) btnElement.classList.add('active');
-    applyFilterAndRender();
-}
-
-if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-        currentSearchTerm = e.target.value;
-        applyFilterAndRender();
-    });
 }
 
 function renderCards(data) {
@@ -137,25 +90,61 @@ function renderCards(data) {
     } else {
         if (noResultMsg) noResultMsg.style.display = 'none';
         data.forEach(dept => {
-            const sysBtn = dept.system ? `<a href="${dept.system}" class="action-btn btn-sys-new" target="_blank"><img src="https://img.icons8.com/fluency/48/internet.png"><span>Truy cập Hệ thống</span></a>` : '';
-            const docBtn = dept.doc ? `<a href="${dept.doc}" class="action-btn btn-doc-new" target="_blank"><img src="https://img.icons8.com/fluency/48/reading-ebook.png"><span>Tài liệu HDSD</span></a>` : '';
-            const zaloBtn = dept.zalo ? `<a href="${dept.zalo}" class="action-btn btn-zalo-new" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"><span>Nhóm Zalo</span></a>` : '';
-            const reqBtn = dept.request ? `<a href="${dept.request}" class="action-btn btn-req-new" target="_blank"><img src="https://img.icons8.com/fluency/48/sent.png"><span>Gửi yêu cầu</span></a>` : '';
+            const sysBtn = dept.system ? `<a href="${dept.system}" class="action-btn btn-sys-new" target="_blank"><img src="https://img.icons8.com/fluency/48/internet.png"><span>Hệ thống</span></a>` : '';
+            const docBtn = dept.doc ? `<a href="${dept.doc}" class="action-btn btn-doc-new" target="_blank"><img src="https://img.icons8.com/fluency/48/reading-ebook.png"><span>Tài liệu</span></a>` : '';
+            const zaloBtn = dept.zalo ? `<a href="${dept.zalo}" class="action-btn btn-zalo-new" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"><span>Zalo</span></a>` : '';
+            const reqBtn = dept.request ? `<a href="${dept.request}" class="action-btn btn-req-new" target="_blank"><img src="https://img.icons8.com/fluency/48/sent.png"><span>Yêu cầu</span></a>` : '';
 
             const row = document.createElement('div');
             row.className = 'department-card';
-            row.innerHTML = `
-                <div class="card-header"><div class="header-deco"></div><div class="dept-name">${dept.name}</div></div>
-                <div class="card-actions">${sysBtn} ${docBtn} ${zaloBtn} ${reqBtn}</div>`;
+            row.innerHTML = `<div class="card-header"><div class="header-deco"></div><div class="dept-name">${dept.name}</div></div><div class="card-actions">${sysBtn} ${docBtn} ${zaloBtn} ${reqBtn}</div>`;
             grid.appendChild(row);
         });
     }
 }
 
-// --- 6. LOGIC MODAL & TABLE (CẬP NHẬT) ---
+// --- SEARCH & FILTER ---
+function getAcronym(str) {
+    if (!str) return '';
+    const noTone = removeVietnameseTones(str);
+    return noTone.split(/\s+/).map(word => word[0]).join('').toUpperCase();
+}
+
+function filterByTab(type, btn) {
+    activeTab = type;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    applyFilter();
+}
+
+if (searchInput) {
+    searchInput.addEventListener('input', applyFilter);
+}
+
+function applyFilter() {
+    let filtered = globalData.ministries;
+
+    if (activeTab === 'system') filtered = filtered.filter(i => i.system);
+    if (activeTab === 'zalo') filtered = filtered.filter(i => i.zalo);
+    if (activeTab === 'doc') filtered = filtered.filter(i => i.doc);
+
+    const term = searchInput.value.trim();
+    if (term) {
+        const termNorm = removeVietnameseTones(term);
+        const termAcronym = termNorm.toUpperCase().replace(/\s/g, '');
+
+        filtered = filtered.filter(item => {
+            const nameNorm = removeVietnameseTones(item.name);
+            const nameAcronym = getAcronym(item.name);
+            return nameNorm.includes(termNorm) || nameAcronym.includes(termAcronym);
+        });
+    }
+    renderCards(filtered);
+}
+
+// --- SUPPORT MODAL & TABLE ---
 function openSupportModal() {
     renderTable(globalData.province, globalData.commune);
-    if (modalSearchInput) modalSearchInput.value = "";
     if (modal) modal.style.display = "block";
     document.body.style.overflow = "hidden";
     if (modalSearchInput) setTimeout(() => modalSearchInput.focus(), 100);
@@ -166,102 +155,193 @@ function closeSupportModal() {
     document.body.style.overflow = "auto";
 }
 
-function openDonateModal() {
-    if (donateModal) donateModal.style.display = "block";
-    document.body.style.overflow = "hidden";
-}
-
-function closeDonateModal() {
-    if (donateModal) donateModal.style.display = "none";
-    document.body.style.overflow = "auto";
-}
-
-window.onclick = function (event) {
-    if (event.target == modal) closeSupportModal();
-    if (event.target == donateModal) closeDonateModal();
-}
-
-// CẬP NHẬT HÀM RENDER ĐỂ XỬ LÝ MOBILE/DESKTOP
 function renderTable(province, commune) {
     if (!tableBody) return;
     tableBody.innerHTML = "";
 
-    // Check Mobile
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isMobile = window.innerWidth <= 768;
+    const iconCall = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>`;
+    const iconCopy = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
 
-    const createRow = (item, index) => {
+    const createRow = (item, idx) => {
         const row = document.createElement("tr");
-
-        let phoneHtml = '';
-        if (isMobile) {
-            // Mobile: Gọi điện luôn
-            phoneHtml = `<a href="tel:${item.sdt}" class="phone-link is-mobile-link" title="Bấm để gọi ngay">📞 ${item.sdt}</a>`;
-        } else {
-            // Desktop: Copy
-            phoneHtml = `<span class="phone-link" onclick="copyPhoneNumber('${item.sdt}')" title="Bấm để sao chép số" style="cursor:pointer">📋 ${item.sdt}</span>`;
-        }
+        let phoneHtml = isMobile
+            ? `<a href="tel:${item.sdt}" class="phone-link is-mobile-link">${iconCall} Gọi ${item.sdt}</a>`
+            : `<span class="phone-link" onclick="copyToClipboard('${item.sdt}', 'Đã sao chép SĐT!')" style="cursor:pointer">${iconCopy} ${item.sdt}</span>`;
 
         row.innerHTML = `
-            <td style="text-align: center; color: #64748b;">${index + 1}</td>
+            <td style="text-align: center; color: #64748b;">${idx + 1}</td>
             <td><span class="badge-scope">${item.phamvi}</span></td>
             <td class="user-name">${item.ten}</td>
             <td>${phoneHtml}</td>`;
         return row;
     };
 
-    if (province && province.length > 0) {
-        const header1 = document.createElement("tr");
-        header1.className = "section-header";
-        header1.innerHTML = `<td colspan="4">I. KHỐI SỞ BAN NGÀNH (CẤP TỈNH)</td>`;
-        tableBody.appendChild(header1);
-        province.forEach((item, index) => tableBody.appendChild(createRow(item, index)));
+    if (province) {
+        const h1 = document.createElement("tr"); h1.innerHTML = `<td colspan="4" style="background:#eff6ff;font-weight:bold;color:#1e40af;padding:10px;">I. KHỐI SỞ BAN NGÀNH</td>`;
+        tableBody.appendChild(h1);
+        province.forEach((i, idx) => tableBody.appendChild(createRow(i, idx)));
     }
-
-    if (commune && commune.length > 0) {
-        const header2 = document.createElement("tr");
-        header2.className = "section-header";
-        header2.innerHTML = `<td colspan="4">II. KHỐI XÃ/PHƯỜNG (129 ĐƠN VỊ)</td>`;
-        tableBody.appendChild(header2);
-        commune.forEach((item, index) => tableBody.appendChild(createRow(item, index)));
+    if (commune) {
+        const h2 = document.createElement("tr"); h2.innerHTML = `<td colspan="4" style="background:#eff6ff;font-weight:bold;color:#1e40af;padding:10px;margin-top:10px;">II. KHỐI XÃ/PHƯỜNG</td>`;
+        tableBody.appendChild(h2);
+        commune.forEach((i, idx) => tableBody.appendChild(createRow(i, idx)));
     }
 }
 
 function filterSupportTable() {
     if (!modalSearchInput) return;
-    const keyword = removeVietnameseTones(modalSearchInput.value);
-    const checkMatch = (item) => removeVietnameseTones(item.phamvi).includes(keyword) || removeVietnameseTones(item.ten).includes(keyword) || (item.sdt && item.sdt.includes(keyword));
-    renderTable(globalData.province ? globalData.province.filter(checkMatch) : [], globalData.commune ? globalData.commune.filter(checkMatch) : []);
+    const term = modalSearchInput.value.trim();
+    const termNorm = removeVietnameseTones(term);
+    const termAcronym = termNorm.toUpperCase().replace(/\s/g, '');
+
+    const checkMatch = (item) => {
+        const phamviNorm = removeVietnameseTones(item.phamvi);
+        const phamviAcronym = getAcronym(item.phamvi);
+        const tenNorm = removeVietnameseTones(item.ten);
+        const tenAcronym = getAcronym(item.ten);
+
+        return phamviNorm.includes(termNorm) || phamviAcronym.includes(termAcronym) ||
+            tenNorm.includes(termNorm) || tenAcronym.includes(termAcronym) ||
+            (item.sdt && item.sdt.includes(term));
+    };
+
+    renderTable(
+        globalData.province ? globalData.province.filter(checkMatch) : [],
+        globalData.commune ? globalData.commune.filter(checkMatch) : []
+    );
 }
 
-// --- 7. SCROLL & INIT ---
-window.onscroll = function () {
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        if (backToTopBtn && !backToTopBtn.classList.contains("show-btn")) backToTopBtn.classList.add("show-btn");
-    } else {
-        if (backToTopBtn) backToTopBtn.classList.remove("show-btn");
+// --- VOICE SEARCH MODULE (REUSABLE) ---
+function setupVoiceSearch(btnId, inputId, callback) {
+    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) return;
+
+    const btn = document.getElementById(btnId);
+    const input = document.getElementById(inputId);
+    if (!btn || !input) return;
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'vi-VN';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    const stopUI = () => {
+        btn.classList.remove('listening');
+        input.placeholder = input.getAttribute('data-original-placeholder') || "Tìm kiếm...";
+    };
+
+    // Lưu placeholder gốc để reset sau khi nói xong
+    if (!input.getAttribute('data-original-placeholder')) {
+        input.setAttribute('data-original-placeholder', input.placeholder);
     }
-    if (navBar) window.scrollY > 0 ? navBar.classList.add('stuck') : navBar.classList.remove('stuck');
-};
 
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (btn.classList.contains('listening')) {
+            recognition.stop();
+        } else {
+            try {
+                recognition.start();
+                btn.classList.add('listening');
+                input.placeholder = "Đang nghe...";
+                input.focus();
+            } catch (err) { stopUI(); }
+        }
+    });
+
+    recognition.onresult = (e) => {
+        const text = e.results[0][0].transcript;
+        input.value = text.replace(/\.$/, '');
+        if (callback) callback(); // Gọi hàm lọc dữ liệu tương ứng
+        stopUI();
+    };
+
+    recognition.onend = stopUI;
+    recognition.onerror = stopUI;
+
+    // Click out logic riêng biệt cho từng cặp nút/input
+    document.addEventListener('click', (e) => {
+        if (btn.classList.contains('listening') && !btn.contains(e.target) && !input.contains(e.target)) {
+            recognition.stop();
+            stopUI();
+        }
+    });
 }
 
+// --- WEATHER & GREETING ---
+function initWeather() {
+    const h = new Date().getHours();
+    const msg = h < 11 ? "Chào buổi sáng ☀️" : h < 14 ? "Chào buổi trưa 🍚" : h < 18 ? "Chào buổi chiều 🌤️" : "Buổi tối vui vẻ 🌙";
+    const el = document.getElementById('greetingMsg');
+    if (el) el.innerText = msg;
+
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=20.25&longitude=105.97&current_weather=true')
+        .then(res => res.json())
+        .then(d => {
+            const t = d.current_weather.temperature;
+            const w = document.getElementById('weatherInfo');
+            if (w) w.innerHTML = `🌡️ Ninh Bình: <b>${t}°C</b>`;
+        }).catch(e => console.log(e));
+}
+
+// --- REFRESH DATA ---
 async function forceReloadData() {
-    const btn = document.querySelector('.refresh-btn');
-    if (btn) btn.innerHTML = '⏳ Đang tải...';
+    const txt = document.getElementById('refreshText');
+    const icon = document.querySelector('.refresh-icon');
+    if (txt) txt.innerText = "Đang đồng bộ...";
+    if (icon) icon.classList.add('spin-anim');
+
     localStorage.removeItem(CONFIG.CACHE_KEY);
     await initData();
-    if (btn) btn.innerHTML = '✅ Đã cập nhật';
-    setTimeout(() => { if (btn) btn.innerHTML = '🔄 Làm mới dữ liệu'; }, 2000);
+
+    setTimeout(() => {
+        if (txt) txt.innerText = "Đã cập nhật!";
+        if (icon) { icon.classList.remove('spin-anim'); icon.innerText = "✅"; }
+        setTimeout(() => {
+            if (txt) txt.innerText = "Làm mới dữ liệu";
+            if (icon) icon.innerText = "🔄";
+        }, 2000);
+    }, 800);
 }
 
-// REGISTER SERVICE WORKER (PWA)
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-        .then(() => console.log('Service Worker Registered for PWA'));
-}
+// --- DONATE & SCROLL ---
+function openDonateModal() { if (donateModal) donateModal.style.display = "block"; }
+function closeDonateModal() { if (donateModal) donateModal.style.display = "none"; }
+function copyBankNumber(num) { copyToClipboard(num, "Đã sao chép STK! ❤️"); }
 
+window.onclick = (e) => {
+    if (e.target == modal) closeSupportModal();
+    if (e.target == donateModal) closeDonateModal();
+};
+
+window.onscroll = () => {
+    const nav = document.querySelector('.portal-nav');
+    if (window.scrollY > 0) nav.classList.add('stuck'); else nav.classList.remove('stuck');
+
+    if (document.documentElement.scrollTop > 300) {
+        backToTopBtn.classList.add("show-btn");
+    } else {
+        backToTopBtn.classList.remove("show-btn");
+    }
+};
+
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+// --- INIT ---
 document.addEventListener('DOMContentLoaded', () => {
     initData();
+    initWeather();
+
+    // Kích hoạt Voice Search cho Main Search
+    setupVoiceSearch('voiceBtn', 'searchInput', () => {
+        searchInput.dispatchEvent(new Event('input')); // Trigger sự kiện input của Main
+    });
+
+    // Kích hoạt Voice Search cho Modal Search (Sẽ tự động bind nếu HTML tồn tại)
+    setupVoiceSearch('modalVoiceBtn', 'modalSearchInput', () => {
+        filterSupportTable(); // Gọi hàm lọc bảng
+    });
+
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 });
