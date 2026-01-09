@@ -1,3 +1,4 @@
+/* - Giữ nguyên toàn bộ CSS cũ của bạn */
 /* --- 1. CẤU HÌNH GIAO DIỆN CHUNG --- */
 :root {
     --primary: #0068ff;
@@ -896,7 +897,6 @@ body {
     padding: 16px;
     position: fixed;
     z-index: 99999;
-    /* Luôn nổi trên cùng */
     left: 50%;
     bottom: 30px;
     transform: translateX(-50%);
@@ -910,13 +910,11 @@ body {
     visibility: visible;
     opacity: 1;
     bottom: 50px;
-    /* Hiệu ứng trồi lên */
 }
 
 .skeleton {
     background: #e2e8f0;
     height: 120px;
-    /* Chiều cao xấp xỉ card thật */
     border-radius: 16px;
     animation: pulse 1.5s infinite;
 }
@@ -935,7 +933,20 @@ body {
     }
 }
 
-/* --- MOBILE RESPONSIVE --- */
+/* --- NÚT GỌI ĐIỆN TRÊN MOBILE --- */
+.is-mobile-link {
+    text-decoration: none;
+    color: #fff !important;
+    background: #10b981 !important;
+    /* Màu xanh lá gọi điện */
+    border: none !important;
+}
+
+.is-mobile-link:active {
+    transform: scale(0.95);
+}
+
+/* --- MOBILE RESPONSIVE (CẬP NHẬT GIAO DIỆN CARD CHO BẢNG) --- */
 @media screen and (max-width: 768px) {
     body {
         padding: 10px;
@@ -1032,8 +1043,106 @@ body {
         display: block;
     }
 
+    /* Ẩn bảng cũ, thay bằng giao diện Card */
     .support-table {
-        min-width: 700px;
+        min-width: 100% !important;
+    }
+
+    .support-table thead {
+        display: none;
+    }
+
+    .support-table,
+    .support-table tbody,
+    .support-table tr,
+    .support-table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .support-table tr {
+        background: #ffffff;
+        margin-bottom: 16px;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        padding: 16px;
+        position: relative;
+    }
+
+    .support-table td {
+        padding: 6px 0;
+        border: none !important;
+        text-align: left;
+        background: transparent !important;
+    }
+
+    .support-table td:first-child {
+        display: none;
+    }
+
+    /* Ẩn STT */
+
+    /* Đơn vị */
+    .support-table td:nth-child(2) {
+        order: 1;
+        padding-bottom: 8px;
+        border-bottom: 1px dashed #f1f5f9 !important;
+        margin-bottom: 8px;
+    }
+
+    .badge-scope {
+        font-size: 0.85rem;
+        background: #f0f9ff;
+        color: #0068ff;
+        padding: 5px 10px;
+    }
+
+    /* Tên cán bộ */
+    .support-table td.user-name {
+        order: 2;
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: #1e293b;
+        padding-bottom: 4px;
+    }
+
+    /* Số điện thoại */
+    .support-table td:last-child {
+        order: 3;
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .phone-link.is-mobile-link {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        font-size: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+    }
+
+    /* Header Section (Khối Sở/Xã) */
+    .section-header {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin-top: 25px;
+        margin-bottom: 10px;
+    }
+
+    .section-header td {
+        font-size: 0.95rem;
+        color: #64748b !important;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding-left: 5px;
+        background: transparent !important;
+        border-bottom: none !important;
     }
 
     .floating-group {
@@ -1090,11 +1199,6 @@ body {
     .ticker-wrap {
         height: 30px;
         font-size: 0.8rem;
-    }
-
-    .search-wrapper {
-        margin-top: -15px;
-        padding: 0 15px;
     }
 
     .nav-item:last-child {

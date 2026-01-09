@@ -1,12 +1,12 @@
 /**
- * script.js - Đã cập nhật tính năng Click-to-Copy
- * Updated: 2026-01-08
+ * script.js - Phiên bản cá nhân hóa cho Đỗ Việt Hoàng
+ * Updated: 2026-01-09
  */
 
 // --- 1. CẤU HÌNH HỆ THỐNG ---
 const CONFIG = {
     DATA_URL: 'data.json',
-    CACHE_KEY: 'vnpt_portal_data_v1',
+    CACHE_KEY: 'ninhbinh_support_portal_v2', // Đổi key để xóa cache cũ
     CACHE_DURATION: 15 * 60 * 1000
 };
 
@@ -31,24 +31,14 @@ function removeVietnameseTones(str) {
     return str.toLowerCase().trim();
 }
 
-/**
- * MỚI: Hàm xử lý Copy và hiện Toast
- */
 function copyPhoneNumber(phone) {
-    // 1. Copy vào Clipboard
     navigator.clipboard.writeText(phone).then(() => {
-        // 2. Hiện thông báo Toast
         const toast = document.getElementById("toast");
         if (toast) {
             toast.className = "show";
-            // 3. Ẩn sau 3 giây
-            setTimeout(function () {
-                toast.className = toast.className.replace("show", "");
-            }, 3000);
+            setTimeout(() => toast.className = toast.className.replace("show", ""), 3000);
         }
-    }).catch(err => {
-        console.error('Không thể copy: ', err);
-    });
+    }).catch(err => console.error('Lỗi copy:', err));
 }
 
 // --- 3. STATE MANAGEMENT ---
@@ -56,7 +46,6 @@ let globalData = { ministries: [], province: [], commune: [] };
 let activeTab = 'all';
 let currentSearchTerm = '';
 
-// DOM Elements
 const grid = document.getElementById('linkGrid');
 const searchInput = document.getElementById('searchInput');
 const noResultMsg = document.getElementById('noResult');
@@ -69,7 +58,6 @@ const navBar = document.querySelector('.portal-nav');
 
 function showLoadingSkeleton() {
     if (!grid) return;
-    // Tạo 6 ô skeleton giả
     grid.innerHTML = Array(6).fill('<div class="skeleton"></div>').join('');
 }
 
@@ -88,20 +76,16 @@ async function initData() {
                 return;
             }
         }
-
         console.log('🌐 Fetching data from Server...');
         const response = await fetch(CONFIG.DATA_URL);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const freshData = await response.json();
-
         localStorage.setItem(CONFIG.CACHE_KEY, JSON.stringify({
             timestamp: new Date().getTime(),
             data: freshData
         }));
-
         globalData = freshData;
         renderCards(globalData.ministries);
-
     } catch (error) {
         console.error('CRITICAL ERROR:', error);
         grid.innerHTML = `<p style="text-align:center;color:red">⚠️ Lỗi tải dữ liệu.</p>`;
@@ -110,7 +94,6 @@ async function initData() {
 
 // --- 5. RENDER & FILTER ---
 function getAcronym(str) {
-    // Ví dụ: "Bộ Y Tế" -> "BYT"
     const noTone = removeVietnameseTones(str);
     return noTone.split(/\s+/).map(word => word[0]).join('').toUpperCase();
 }
@@ -122,14 +105,11 @@ function applyFilterAndRender() {
     if (activeTab === 'doc') filtered = filtered.filter(item => item.doc);
     if (currentSearchTerm) {
         const termNormalized = removeVietnameseTones(currentSearchTerm);
-        const termAcronym = termNormalized.toUpperCase().replace(/\s/g, ''); // Xóa khoảng trắng để so sánh acronym
-
+        const termAcronym = termNormalized.toUpperCase().replace(/\s/g, '');
         filtered = filtered.filter(item => {
             const nameNormalized = removeVietnameseTones(item.name);
-            const nameAcronym = getAcronym(item.name); // Tạo acronym từ dữ liệu gốc
-
-            return nameNormalized.includes(termNormalized) || // Tìm theo tên thường
-                nameAcronym.includes(termAcronym);         // Tìm theo viết tắt (VD: BGD)
+            const nameAcronym = getAcronym(item.name);
+            return nameNormalized.includes(termNormalized) || nameAcronym.includes(termAcronym);
         });
     }
     renderCards(filtered);
@@ -172,7 +152,7 @@ function renderCards(data) {
     }
 }
 
-// --- 6. LOGIC MODAL & TABLE (CẬP NHẬT RENDER TABLE) ---
+// --- 6. LOGIC MODAL & TABLE (CẬP NHẬT) ---
 function openSupportModal() {
     renderTable(globalData.province, globalData.commune);
     if (modalSearchInput) modalSearchInput.value = "";
@@ -201,26 +181,31 @@ window.onclick = function (event) {
     if (event.target == donateModal) closeDonateModal();
 }
 
-/**
- * CẬP NHẬT: Thay đổi thẻ <a> href="tel:" thành <span> onclick="copyPhoneNumber"
- */
+// CẬP NHẬT HÀM RENDER ĐỂ XỬ LÝ MOBILE/DESKTOP
 function renderTable(province, commune) {
     if (!tableBody) return;
     tableBody.innerHTML = "";
 
-    // Helper function để tạo dòng (giúp code gọn hơn)
+    // Check Mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
     const createRow = (item, index) => {
         const row = document.createElement("tr");
-        // Thay đổi ở đây: onclick="copyPhoneNumber..."
+
+        let phoneHtml = '';
+        if (isMobile) {
+            // Mobile: Gọi điện luôn
+            phoneHtml = `<a href="tel:${item.sdt}" class="phone-link is-mobile-link" title="Bấm để gọi ngay">📞 ${item.sdt}</a>`;
+        } else {
+            // Desktop: Copy
+            phoneHtml = `<span class="phone-link" onclick="copyPhoneNumber('${item.sdt}')" title="Bấm để sao chép số" style="cursor:pointer">📋 ${item.sdt}</span>`;
+        }
+
         row.innerHTML = `
             <td style="text-align: center; color: #64748b;">${index + 1}</td>
             <td><span class="badge-scope">${item.phamvi}</span></td>
             <td class="user-name">${item.ten}</td>
-            <td>
-                <span class="phone-link" onclick="copyPhoneNumber('${item.sdt}')" title="Bấm để sao chép" style="cursor:pointer">
-                    ${item.sdt}
-                </span>
-            </td>`;
+            <td>${phoneHtml}</td>`;
         return row;
     };
 
@@ -262,21 +247,21 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    initData();
-});
-
 async function forceReloadData() {
     const btn = document.querySelector('.refresh-btn');
     if (btn) btn.innerHTML = '⏳ Đang tải...';
-
-    // 1. Xóa cache cũ
     localStorage.removeItem(CONFIG.CACHE_KEY);
-
-    // 2. Gọi lại hàm initData
     await initData();
-
-    // 3. Thông báo xong
     if (btn) btn.innerHTML = '✅ Đã cập nhật';
     setTimeout(() => { if (btn) btn.innerHTML = '🔄 Làm mới dữ liệu'; }, 2000);
 }
+
+// REGISTER SERVICE WORKER (PWA)
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('Service Worker Registered for PWA'));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initData();
+});

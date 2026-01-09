@@ -4,23 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Cổng thông tin hỗ trợ Hệ thống thông tin Giải quyết thủ tục hành chính cấp Bộ/Ngành">
-    <meta name="author" content="Đỗ Việt Hoàng - Admin HotroDVC">
+    <meta name="description" content="Cổng thông tin hỗ trợ Hệ thống thông tin Giải quyết thủ tục hành chính cấp Bộ/Ngành - Tỉnh Ninh Bình">
+    <meta name="author" content="Đỗ Việt Hoàng">
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0068ff">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/fluency/192/service.png">
+    
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Cổng thông tin Hỗ trợ HTTT GQ TTHC Bộ ngành">
-    <meta property="og:description"
-        content="Tra cứu nhanh tài liệu HDSD, tham gia nhóm Zalo hỗ trợ và gửi yêu cầu kỹ thuật cho các Bộ/Ngành.">
-    <meta property="og:image" content="https://hoangitc500.github.io/hotrodvc/thumbnail.png">
+    <meta property="og:title" content="Cổng thông tin Hỗ trợ TTHC - Đỗ Việt Hoàng">
+    <meta property="og:description" content="Tra cứu nhanh tài liệu, đầu mối hỗ trợ kỹ thuật và nhóm Zalo cho các Bộ/Ngành.">
+    <meta property="og:image" content="thumbnail.png">
 
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-
-    <title>Cổng thông tin Hỗ trợ HTTT GQ TTHC Bộ ngành</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-
+    <title>Cổng hỗ trợ TTHC - Ninh Bình</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Cổng hỗ trợ Hệ thống thông tin Giải quyết thủ tục hành chính cấp Bộ/Ngành",
+      "url": "https://hoangitc500.github.io/hotrodvc/",
+      "author": {
+        "@type": "Person",
+        "name": "Đỗ Việt Hoàng",
+        "jobTitle": "Chuyên viên Lập trình",
+        "url": "https://www.facebook.com/viethoang1996" 
+      },
+      "description": "Cổng tra cứu tài liệu và hỗ trợ kỹ thuật cho cán bộ công chức tỉnh Ninh Bình.",
+      "keywords": "Hỗ trợ Dịch vụ công, Ninh Bình, Một cửa điện tử, Đỗ Việt Hoàng"
+    }
+    </script>
 </head>
 
 <body>
@@ -28,11 +44,8 @@
     <div class="container">
         <div class="portal-nav">
             <a href="#" class="nav-brand">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path
-                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                    </path>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                 </svg>
                 SUPPORT PORTAL
             </a>
@@ -45,8 +58,7 @@
 
         <div class="ticker-wrap">
             <div class="ticker-content">
-                💡 MẸO: Người dùng có thể tìm kiếm thông tin Bộ/Ngành tại ô Tìm kiếm nhanh, hoặc có thể chọn lọc thông
-                tin bên dưới.
+                💡 MẸO: Người dùng có thể tìm kiếm thông tin Bộ/Ngành tại ô Tìm kiếm nhanh, hoặc có thể chọn lọc thông tin bên dưới.
             </div>
         </div>
 
@@ -59,18 +71,15 @@
         </header>
 
         <div class="search-wrapper">
-            <input type="text" id="searchInput" class="search-input"
-                placeholder="🔍 Tìm kiếm nhanh Bộ ngành (Ví dụ: Bộ Y tế, Bộ Công Thương...)...">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Tìm kiếm nhanh Bộ ngành (Ví dụ: Bộ Y tế, Bộ Công Thương...)...">
         </div>
 
         <div class="main-action-box">
-            <a href="https://dieuphoi.dichvucong.gov.vn" target="_blank" rel="noopener noreferrer"
-                class="card-btn-main">
+            <a href="https://dieuphoi.dichvucong.gov.vn" target="_blank" rel="noopener noreferrer" class="card-btn-main">
                 <img src="quochuy.png" width="32" onerror="this.src='https://img.icons8.com/color/48/vietnam.png'">
                 Hệ thống điều phối giải quyết TTHC
             </a>
-            <a href="https://drive.google.com/drive/folders/1AmPIs4bBpmnxkXBeQDzFFc6PX6szIV-J" target="_blank"
-                rel="noopener noreferrer" class="card-btn-main card-btn-doc">
+            <a href="https://drive.google.com/drive/folders/1AmPIs4bBpmnxkXBeQDzFFc6PX6szIV-J" target="_blank" rel="noopener noreferrer" class="card-btn-main card-btn-doc">
                 <img src="https://img.icons8.com/fluency/48/book.png" width="32">
                 Tài liệu HDSD hệ thống điều phối
             </a>
@@ -97,8 +106,7 @@
         </div>
 
         <div class="footer-actions">
-            <a href="https://docs.google.com/spreadsheets/d/1_aixBzdOYSboOhHGMFkx6aHcDpo9YWvN_TCg9bl8-KA/edit?gid=194106651#gid=194106651"
-                target="_blank" rel="noopener noreferrer" class="card-btn-secondary">
+            <a href="https://docs.google.com/spreadsheets/d/1_aixBzdOYSboOhHGMFkx6aHcDpo9YWvN_TCg9bl8-KA/edit?gid=194106651#gid=194106651" target="_blank" rel="noopener noreferrer" class="card-btn-secondary">
                 <img src="https://img.icons8.com/fluency/48/list.png" width="28">
                 DANH SÁCH TTHC CẤP TỈNH/XÃ TRIỂN KHAI TẠI CỔNG BỘ NGÀNH
             </a>
@@ -111,17 +119,14 @@
 
         <footer class="copyright-footer">
             <p>© 2026 <strong>Đỗ Việt Hoàng - Admin Cẩm nang Hỗ trợ</strong>.</p>
-
             <div style="text-align: center;">
                 <div class="visitor-pill">
                     <span class="visitor-label">
                         <span class="visitor-icon">&#128065;</span> Lượt truy cập:
                     </span>
-                    <img src="https://visitor-badge.laobi.icu/badge?page_id=hoangitc500.hotrodvc&right_color=0068ff&left_text=&left_color=ffffff&format=true"
-                        alt="Visitor Count" style="height: 20px; display: block;">
+                    <img src="https://visitor-badge.laobi.icu/badge?page_id=hoangitc500.hotrodvc&right_color=0068ff&left_text=&left_color=ffffff&format=true" alt="Visitor Count" style="height: 20px; display: block;">
                 </div>
             </div>
-
             <div class="refresh-btn" onclick="forceReloadData()" title="Cập nhật dữ liệu mới nhất">
                 🔄 Làm mới dữ liệu
             </div>
@@ -135,11 +140,9 @@
                     <h2>Đầu mối hỗ trợ kỹ thuật</h2>
                     <div class="close-btn" onclick="closeSupportModal()">&times;</div>
                 </div>
-
                 <div class="search-container">
                     <span class="search-icon">&#128269;</span>
-                    <input type="text" id="modalSearchInput" class="modal-search"
-                        placeholder="Nhập Tên, Đơn vị hoặc SĐT để tìm kiếm..." onkeyup="filterSupportTable()">
+                    <input type="text" id="modalSearchInput" class="modal-search" placeholder="Nhập Tên, Đơn vị hoặc SĐT để tìm kiếm..." onkeyup="filterSupportTable()">
                 </div>
             </div>
             <div class="modal-body">
@@ -162,11 +165,9 @@
     </div>
 
     <div class="group-bottom-left">
-        <a href="https://notebooklm.google.com/notebook/5438e17c-83b3-4d69-babc-464c85c188ef" target="_blank"
-            rel="noopener noreferrer" class="floating-btn btn-chat">
+        <a href="https://notebooklm.google.com/notebook/5438e17c-83b3-4d69-babc-464c85c188ef" target="_blank" rel="noopener noreferrer" class="floating-btn btn-chat">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 4C4 2.9 4.9 2 6 2H18C19.1 2 20 2.9 20 4V20C20 21.1 19.1 22 18 22H6C4.9 22 4 21.1 4 20V4Z"
-                    fill="#E8F0FE" />
+                <path d="M4 4C4 2.9 4.9 2 6 2H18C19.1 2 20 2.9 20 4V20C20 21.1 19.1 22 18 22H6C4.9 22 4 21.1 4 20V4Z" fill="#E8F0FE" />
                 <path d="M12 6L13.5 9.5L17 11L13.5 12.5L12 16L10.5 12.5L7 11L10.5 9.5L12 6Z" fill="url(#grad1)" />
                 <defs>
                     <linearGradient id="grad1" x1="7" y1="6" x2="17" y2="16" gradientUnits="userSpaceOnUse">
@@ -179,11 +180,8 @@
         </a>
 
         <button onclick="openDonateModal()" class="floating-btn btn-donate">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path
-                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                </path>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
             </svg>
             <span class="btn-text">Động viên Admin</span>
         </button>
@@ -191,8 +189,7 @@
 
     <div class="floating-group">
         <button onclick="scrollToTop()" id="backToTopBtn" class="floating-btn btn-top" title="Lên đầu trang">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 15l-6-6-6 6" />
             </svg>
         </button>
@@ -208,8 +205,7 @@
             </div>
             <div class="modal-body donate-body">
                 <p style="text-align: center; color: #475569; margin-bottom: 25px; line-height: 1.6; padding: 0 10px;">
-                    Nếu bạn thấy Cổng thông tin này hữu ích cho công việc, sự ủng hộ của bạn sẽ là động lực lớn để mình
-                    tiếp tục duy trì và phát triển các tính năng mới phục vụ cộng đồng.
+                    Nếu bạn thấy Cổng thông tin này hữu ích, sự ủng hộ của bạn sẽ là động lực lớn để mình tiếp tục duy trì và phát triển.
                 </p>
                 <div class="qr-container">
                     <img src="bank.jpg" alt="QR Donate" class="qr-image">
@@ -227,7 +223,5 @@
     <div id="toast">Đã sao chép số điện thoại!</div>
 
     <script src="script.js"></script>
-
 </body>
-
 </html>
