@@ -124,6 +124,18 @@ input:focus::placeholder {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+.nav-icon {
+    display: none;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.nav-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* --- TICKER --- */
 .ticker-wrap {
     background: #fffbeb;
@@ -1154,16 +1166,98 @@ input:focus::placeholder {
 }
 
 @media screen and (max-width: 768px) {
+
+    /* 1. CẤU HÌNH CHUNG */
     body {
-        padding: 10px;
+        padding: 70px 10px 10px 10px;
+        /* Tăng padding-top lên 70px để ko bị Menu che mất */
     }
 
     .container {
         border-radius: 16px;
     }
 
+    /* 2. XỬ LÝ MENU MOBILE (TAB BAR STYLE) */
+    .portal-nav {
+        padding: 0 15px;
+        height: 60px;
+        /* Cố định chiều cao */
+        gap: 0;
+    }
+
+    /* Ẩn Logo text, chỉ hiện icon nhỏ hoặc ẩn luôn nếu cần không gian */
+    .nav-brand {
+        display: none;
+        /* Ẩn luôn logo Support Portal để nhường chỗ cho 4 nút */
+    }
+
+    .nav-items {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        /* Dàn đều 4 nút ra toàn màn hình */
+        gap: 0;
+        margin: 0;
+        overflow: visible;
+        /* Tắt cuộn ngang */
+    }
+
+    .nav-item {
+        flex: 1;
+        /* Mỗi nút chiếm 1 phần bằng nhau */
+        padding: 10px 0;
+        margin: 0;
+        border-radius: 0;
+        background: transparent !important;
+        /* Bỏ nền xám khi hover */
+        color: rgba(255, 255, 255, 0.5);
+        /* Màu icon chưa active */
+        position: relative;
+        font-size: 0;
+        /* Mẹo ẩn text thừa */
+    }
+
+    .nav-item:hover {
+        background: transparent;
+    }
+
+    .nav-item.active {
+        color: #ffffff;
+        /* Màu sáng khi đang chọn */
+        box-shadow: none;
+        background: transparent;
+    }
+
+    /* Dấu chấm tròn hoặc gạch dưới để báo hiệu đang chọn */
+    .nav-item.active::after {
+        content: '';
+        position: absolute;
+        bottom: 8px;
+        width: 4px;
+        height: 4px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 5px #fff;
+    }
+
+    /* Hiện Icon, Ẩn Chữ */
+    .nav-icon {
+        display: block;
+        /* Hiện SVG */
+        width: 24px;
+        height: 24px;
+        margin: 0;
+    }
+
+    .nav-item span {
+        display: none;
+        /* Ẩn thẻ span chứa chữ */
+    }
+
+    /* 3. HEADER & SEARCH (FIX LỖI ĐÈ CHỮ) */
     .header {
-        padding: 25px 15px;
+        padding: 15px;
+        padding-bottom: 0;
     }
 
     .brand-logos {
@@ -1185,10 +1279,19 @@ input:focus::placeholder {
         margin-top: 5px;
     }
 
-    /* Fix Search Mobile */
+    .ticker-wrap {
+        margin-top: -10px;
+        margin-bottom: 10px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+
+    /* Reset Search để ko đè lên header */
     .search-wrapper {
         padding: 0 15px;
-        margin-top: -22px;
+        margin-top: 10px;
+        /* Chuyển từ âm sang dương */
+        margin-bottom: 20px;
     }
 
     .search-input {
@@ -1202,9 +1305,10 @@ input:focus::placeholder {
         height: 36px;
     }
 
+    /* 4. CONTENT & CARDS */
     .main-action-box {
         grid-template-columns: 1fr;
-        padding: 40px 15px 20px;
+        padding: 20px 15px;
         gap: 15px;
     }
 
@@ -1225,36 +1329,14 @@ input:focus::placeholder {
         padding: 10px 5px;
     }
 
-    .footer-actions {
-        padding: 10px 15px 30px;
-    }
-
-    .card-btn-secondary,
-    .card-btn-support {
-        font-size: 0.85rem;
-        padding: 15px;
-    }
-
-    .modal-content {
-        width: 95%;
-        margin: 5% auto;
-        height: 85vh;
-    }
-
-    .modal-header {
-        padding: 15px;
-    }
-
-    .modal-title-row h2 {
-        font-size: 1.1rem;
-    }
-
-    /* Filter Tabs Scroll */
+    /* Filter Tabs Scroll ngang */
     .filter-tabs {
         flex-wrap: nowrap;
         overflow-x: auto;
         justify-content: flex-start;
         padding-bottom: 10px;
+        padding-left: 15px;
+        /* Thêm padding trái */
     }
 
     .tab-btn {
@@ -1262,7 +1344,7 @@ input:focus::placeholder {
         flex-shrink: 0;
     }
 
-    /* Table Mobile Card View */
+    /* 5. TABLE MOBILE (Card View - Giữ nguyên của bạn) */
     .support-table {
         min-width: 100% !important;
     }
@@ -1300,8 +1382,6 @@ input:focus::placeholder {
     .support-table td:first-child {
         display: none;
     }
-
-    /* Ẩn STT */
 
     .support-table td:nth-child(2) {
         order: 1;
@@ -1352,53 +1432,214 @@ input:focus::placeholder {
         padding-left: 5px;
     }
 
+    /* 6. MODAL & FOOTER */
+    .footer-actions {
+        padding: 10px 15px 30px;
+    }
+
+    .card-btn-secondary,
+    .card-btn-support {
+        font-size: 0.85rem;
+        padding: 15px;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 5% auto;
+        height: 85vh;
+    }
+
+    .modal-header {
+        padding: 15px;
+    }
+
+    /* 7. XỬ LÝ NÚT NỔI (FLOATING BUTTONS) - Gọn gàng hơn */
+
+    /* Ẩn nút "Hướng dẫn trải nghiệm" trôi nổi vì đã có trên Menu */
+    .btn-guide-pulse {
+        display: none !important;
+    }
+
+    /* Gom nhóm Bottom-Left (Chat + Donate) nằm ngang */
+    .group-bottom-left {
+        left: 15px;
+        bottom: 20px;
+        flex-direction: row;
+        /* Xếp ngang */
+        align-items: flex-end;
+    }
+
+    /* Biến nút Donate & Chat thành hình tròn icon-only */
+    .group-bottom-left .floating-btn {
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        border-radius: 50%;
+        font-size: 0;
+        /* Ẩn chữ */
+        justify-content: center;
+    }
+
+    .group-bottom-left .floating-btn svg {
+        margin: 0;
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Nút Back To Top */
     .floating-group {
         right: 15px;
         bottom: 20px;
     }
 
-    .floating-btn {
-        padding: 8px 15px;
-        font-size: 0.8rem;
+    .btn-top {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* --- CUSTOM DRIVER.JS TOUR (Làm đẹp Popover) --- */
+.driver-popover {
+    background-color: #ffffff;
+    color: #1e293b;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 20px 50px -10px rgba(0, 104, 255, 0.3);
+    border: 1px solid rgba(0, 104, 255, 0.1);
+    font-family: 'Inter', sans-serif;
+    max-width: 350px !important;
+}
+
+.driver-popover-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #0068ff;
+    /* Màu xanh chủ đạo */
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.driver-popover-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #475569;
+    margin-bottom: 15px;
+}
+
+/* Custom các nút điều hướng trong Tour */
+.driver-popover-footer button {
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    padding: 8px 16px !important;
+    font-size: 0.85rem !important;
+    transition: all 0.2s;
+}
+
+.driver-popover-next-btn {
+    background-color: #0068ff !important;
+    /* Xanh Brand */
+    color: #ffffff !important;
+    border: none !important;
+    text-shadow: none !important;
+}
+
+.driver-popover-next-btn:hover {
+    background-color: #0054cc !important;
+    box-shadow: 0 4px 10px rgba(0, 104, 255, 0.3);
+}
+
+.driver-popover-prev-btn {
+    background-color: #f1f5f9 !important;
+    color: #64748b !important;
+    border: 1px solid #cbd5e1 !important;
+}
+
+/* --- LÀM ĐẸP NÚT HƯỚNG DẪN FLOATING --- */
+/* Tìm class .floating-btn trong file cũ, nếu chưa có hiệu ứng này thì update */
+.btn-guide-pulse {
+    background: linear-gradient(135deg, #64748b 0%, #475569 100%) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-guide-pulse::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+    opacity: 0;
+    transform: scale(0.5);
+    animation: pulse-guide 2s infinite;
+}
+
+@keyframes pulse-guide {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
     }
 
-    .group-bottom-left {
-        left: 15px;
-        bottom: 20px;
+    50% {
+        opacity: 1;
     }
 
-    .portal-nav {
-        padding: 0 15px;
-        height: 54px;
-        border-radius: 15px 15px 0 0;
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
     }
+}
 
-    .nav-brand {
-        font-size: 0;
-        gap: 0;
-    }
+/* --- SỬA LẠI PHẦN MOBILE RESPONSIVE --- */
+@media screen and (max-width: 768px) {
 
-    .nav-brand img {
-        width: 32px;
-        height: 32px;
-    }
-
-    .nav-items {
-        gap: 6px;
-    }
-
-    .nav-item {
-        font-size: 0.8rem;
-        padding: 6px 12px;
-        white-space: nowrap;
-    }
-
-    .nav-item:last-child {
-        margin-right: -5px;
+    /* 1. SỬA LỖI MENU ĐÈ DÒNG CHỮ CHẠY */
+    body {
+        /* Tăng khoảng cách đệm trên cùng để nội dung không bị Header che */
+        padding-top: 75px;
     }
 
     .ticker-wrap {
+        /* Xóa margin âm cũ (-10px), chuyển về 0 hoặc dương để tạo khoảng thoáng */
+        margin-top: 0;
+        margin-bottom: 10px;
         height: 30px;
         font-size: 0.8rem;
+        /* Đảm bảo nó nằm dưới Header nếu có va chạm layer */
+        position: relative;
+        z-index: 1;
     }
+
+    /* 2. SỬA LỖI ICON BỊ LỆCH (QUAN TRỌNG) */
+
+    /* Ẩn hoàn toàn thẻ chứa chữ đi để Flexbox không tính toán khoảng trống thừa */
+    .group-bottom-left .floating-btn .btn-text,
+    .floating-btn .btn-text {
+        display: none !important;
+    }
+
+    /* Căn giữa tuyệt đối cho Icon */
+    .group-bottom-left .floating-btn {
+        width: 48px;
+        height: 48px;
+        padding: 0 !important;
+        /* Bắt buộc xóa padding để căn chuẩn */
+        border-radius: 50%;
+        display: flex !important;
+        /* Dùng Flexbox để căn giữa */
+        align-items: center;
+        justify-content: center;
+    }
+
+    .group-bottom-left .floating-btn svg {
+        margin: 0 !important;
+        /* Xóa mọi margin thừa của SVG nếu có */
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        /* Không cho icon bị méo */
+    }
+
+    /* ...Các phần khác giữ nguyên... */
 }

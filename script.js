@@ -1,6 +1,6 @@
 /**
  * script.js - Phiên bản cá nhân hóa cho Đỗ Việt Hoàng
- * Tích hợp: Voice Search (Reusable), Weather, PWA, Mobile Optimization
+ * Tích hợp: Voice Search (Reusable), Weather, PWA, Mobile Optimization, Driver.js Tour
  */
 
 const CONFIG = {
@@ -90,10 +90,10 @@ function renderCards(data) {
     } else {
         if (noResultMsg) noResultMsg.style.display = 'none';
         data.forEach(dept => {
-            const sysBtn = dept.system ? `<a href="${dept.system}" class="action-btn btn-sys-new" target="_blank"><img src="https://img.icons8.com/fluency/48/internet.png"><span>Hệ thống</span></a>` : '';
-            const docBtn = dept.doc ? `<a href="${dept.doc}" class="action-btn btn-doc-new" target="_blank"><img src="https://img.icons8.com/fluency/48/reading-ebook.png"><span>Tài liệu</span></a>` : '';
-            const zaloBtn = dept.zalo ? `<a href="${dept.zalo}" class="action-btn btn-zalo-new" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"><span>Zalo</span></a>` : '';
-            const reqBtn = dept.request ? `<a href="${dept.request}" class="action-btn btn-req-new" target="_blank"><img src="https://img.icons8.com/fluency/48/sent.png"><span>Yêu cầu</span></a>` : '';
+            const sysBtn = dept.system ? `<a href="${dept.system}" class="action-btn btn-sys-new" target="_blank"><img src="https://img.icons8.com/fluency/48/internet.png"><span>Hệ thống MCĐT</span></a>` : '';
+            const docBtn = dept.doc ? `<a href="${dept.doc}" class="action-btn btn-doc-new" target="_blank"><img src="https://img.icons8.com/fluency/48/reading-ebook.png"><span>Tài liệu HDSD</span></a>` : '';
+            const zaloBtn = dept.zalo ? `<a href="${dept.zalo}" class="action-btn btn-zalo-new" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"><span>Nhóm Zalo hỗ trợ</span></a>` : '';
+            const reqBtn = dept.request ? `<a href="${dept.request}" class="action-btn btn-req-new" target="_blank"><img src="https://img.icons8.com/fluency/48/sent.png"><span>Gửi yêu cầu</span></a>` : '';
 
             const row = document.createElement('div');
             row.className = 'department-card';
@@ -276,7 +276,7 @@ function initWeather() {
     const el = document.getElementById('greetingMsg');
     if (el) el.innerText = msg;
 
-    fetch('https://api.open-meteo.com/v1/forecast?latitude=20.25&longitude=105.97&current_weather=true')
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=20.25&longitude=105.97&current_weather=true&timezone=Asia%2FBangkok&windspeed_unit=kmh')
         .then(res => res.json())
         .then(d => {
             const t = d.current_weather.temperature;
@@ -315,32 +315,180 @@ window.onclick = (e) => {
     if (e.target == donateModal) closeDonateModal();
 };
 
+// ĐÃ SỬA LỖI SCROLL NULL TẠI ĐÂY
 window.onscroll = () => {
     const nav = document.querySelector('.portal-nav');
-    if (window.scrollY > 0) nav.classList.add('stuck'); else nav.classList.remove('stuck');
+    if (nav) { // Kiểm tra nếu nav tồn tại thì mới chạy tiếp
+        if (window.scrollY > 0) nav.classList.add('stuck'); else nav.classList.remove('stuck');
+    }
 
-    if (document.documentElement.scrollTop > 300) {
-        backToTopBtn.classList.add("show-btn");
-    } else {
-        backToTopBtn.classList.remove("show-btn");
+    if (backToTopBtn) { // Kiểm tra nút backToTop có tồn tại không
+        if (document.documentElement.scrollTop > 300) {
+            backToTopBtn.classList.add("show-btn");
+        } else {
+            backToTopBtn.classList.remove("show-btn");
+        }
     }
 };
 
 function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
+// --- WEBSITE TOUR (DRIVER.JS) ---
+// (Đã xóa bỏ hàm initTour bị lặp thừa ở đây)
+
+// --- WEBSITE TOUR (DRIVER.JS) ---
+function initTour() {
+    if (!window.driver) return;
+    const driver = window.driver.js.driver;
+
+    // Định nghĩa các bước (Steps)
+    const tourSteps = [
+        {
+            element: '.portal-nav',
+            popover: {
+                title: 'Thanh điều hướng',
+                description: 'Khu vực menu chính giúp bạn quay về trang chủ, tra cứu đầu mối hỗ trợ, xem hướng dẫn sử dụng web hoặc Donate.'
+            }
+        },
+        {
+            element: '.search-group',
+            popover: {
+                title: 'Tìm kiếm thông minh',
+                description: 'Nhập tên Bộ ngành (hoặc từ viết tắt như "BYT") hoặc bấm nút Micro 🎤 để tìm bằng giọng nói.'
+            }
+        },
+        {
+            element: '.filter-tabs',
+            popover: {
+                title: 'Bộ lọc nhanh',
+                description: 'Lọc nhanh danh sách các đơn vị có: Link hệ thống, Nhóm Zalo hỗ trợ hoặc Tài liệu HDSD.'
+            }
+        },
+        // --- CÁC BƯỚC MỚI CHO CARD (Sử dụng Card đầu tiên làm mẫu) ---
+        {
+            element: '.department-card:first-child',
+            popover: {
+                title: 'Thẻ thông tin Bộ ngành',
+                description: 'Mỗi thẻ đại diện cho một Bộ/Ngành, chứa đầy đủ các công cụ hỗ trợ cần thiết.'
+            }
+        },
+        {
+            element: '.department-card:first-child .btn-sys-new',
+            popover: {
+                title: 'Truy cập Hệ thống',
+                description: 'Bấm vào đây để mở ngay trang Một cửa điện tử của Bộ ngành đó.'
+            }
+        },
+        {
+            element: '.department-card:first-child .btn-doc-new',
+            popover: {
+                title: 'Tài liệu Hướng dẫn',
+                description: 'Tải về hoặc xem online các tài liệu hướng dẫn sử dụng, quy trình thực hiện.'
+            }
+        },
+        {
+            element: '.department-card:first-child .btn-zalo-new',
+            popover: {
+                title: 'Cộng đồng Zalo',
+                description: 'Tham gia nhóm Zalo hỗ trợ kỹ thuật trực tiếp từ đội ngũ chuyên quản.'
+            }
+        },
+        {
+            element: '.department-card:first-child .btn-req-new',
+            popover: {
+                title: 'Gửi yêu cầu hỗ trợ',
+                description: 'Gửi ticket hoặc form yêu cầu xử lý lỗi trực tiếp tới đơn vị.'
+            }
+        },
+        // -------------------------------------------------------------
+        {
+            element: '.card-btn-support',
+            popover: {
+                title: 'Đầu mối hỗ trợ tại Ninh Bình',
+                description: 'Tra cứu số điện thoại cán bộ phụ trách hỗ trợ của các Sở ban ngành và Xã/Phường trong tỉnh.'
+            }
+        }
+    ];
+
+    const driverObj = driver({
+        showProgress: true,
+        animate: true,
+        allowClose: true,
+        // Cấu hình nút bấm
+        nextBtnText: 'Tiếp theo ❯',
+        prevBtnText: '❮ Quay lại',
+        doneBtnText: 'Hoàn tất 🚀',
+        steps: tourSteps,
+
+        // --- ĐOẠN CODE QUAN TRỌNG CẦN SỬA ---
+        onHighlightStarted: (element, step, options) => {
+            if (!element) return;
+
+            // 1. Tự động cuộn tới phần tử khi bắt đầu step
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // 2. Logic: Bấm vào Popup để Re-center (Chống trôi)
+            // Cần setTimeout nhỏ để đảm bảo DOM của Popover đã được render
+            setTimeout(() => {
+                const popover = document.querySelector('.driver-popover');
+                if (popover) {
+                    // Thêm style con trỏ chuột để người dùng biết là bấm được
+                    popover.style.cursor = 'pointer';
+                    popover.title = "Bấm vào đây để quay về vị trí được hướng dẫn";
+
+                    // Gán sự kiện click
+                    popover.onclick = (e) => {
+                        // Tránh conflict nếu bấm vào các nút Next/Prev
+                        if (e.target.tagName === 'BUTTON') return;
+
+                        // Cuộn lại về phần tử đang highlight
+                        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                        // Hiệu ứng nháy nhẹ phần tử để gây chú ý (Optional)
+                        element.style.transition = "transform 0.2s";
+                        element.style.transform = "scale(1.05)";
+                        setTimeout(() => element.style.transform = "scale(1)", 200);
+                    };
+                }
+            }, 200);
+        }
+    });
+
+    // Hàm global để nút bấm gọi
+    window.startTour = () => {
+        // Kiểm tra xem dữ liệu đã load chưa, nếu chưa có card nào thì báo lỗi hoặc reload
+        if (document.querySelectorAll('.department-card').length === 0) {
+            showToast("⏳ Đang tải dữ liệu, vui lòng đợi...");
+            return;
+        }
+        driverObj.drive();
+    };
+
+    // Tự động chạy lần đầu (giữ nguyên logic cũ của bạn)
+    const hasSeenTour = localStorage.getItem('tour_seen_v2'); // Đổi key v2 để người dùng cũ cũng thấy lại giao diện mới
+    if (!hasSeenTour) {
+        // Đợi 2s để đảm bảo renderCards xong
+        setTimeout(() => {
+            if (document.querySelectorAll('.department-card').length > 0) {
+                driverObj.drive();
+                localStorage.setItem('tour_seen_v2', 'true');
+            }
+        }, 2000);
+    }
+}
+
 // --- INIT ---
 document.addEventListener('DOMContentLoaded', () => {
     initData();
     initWeather();
+    initTour();
 
-    // Kích hoạt Voice Search cho Main Search
     setupVoiceSearch('voiceBtn', 'searchInput', () => {
-        searchInput.dispatchEvent(new Event('input')); // Trigger sự kiện input của Main
+        searchInput.dispatchEvent(new Event('input'));
     });
 
-    // Kích hoạt Voice Search cho Modal Search (Sẽ tự động bind nếu HTML tồn tại)
     setupVoiceSearch('modalVoiceBtn', 'modalSearchInput', () => {
-        filterSupportTable(); // Gọi hàm lọc bảng
+        filterSupportTable();
     });
 
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');

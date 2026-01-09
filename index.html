@@ -19,10 +19,15 @@
     <meta property="og:image" content="thumbnail.png">
 
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <title>Cổng hỗ trợ TTHC - Ninh Bình</title>
+    <title>Cổng hỗ trợ MCĐT Bộ Ngành - Ninh Bình</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
 
     <script type="application/ld+json">
     {
@@ -55,18 +60,54 @@
                 </svg>
                 SUPPORT PORTAL
             </a>
+
             <div class="nav-items">
-                <a href="#" class="nav-item active" onclick="location.reload()">Trang chủ</a>
-                <a href="#" class="nav-item" onclick="openSupportModal(); return false;">Đầu mối hỗ trợ</a>
-                <a href="#" class="nav-item" onclick="openDonateModal(); return false;">Donate</a>
+                <a href="#" class="nav-item active" onclick="location.reload()">
+                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span>Trang chủ</span>
+                </a>
+
+                <a href="#" class="nav-item" onclick="openSupportModal(); return false;">
+                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <span>Đầu mối hỗ trợ</span>
+                </a>
+
+                <a href="#" class="nav-item" onclick="startTour(); return false;">
+                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    <span>Hướng dẫn</span>
+                </a>
+
+                <a href="#" class="nav-item" onclick="openDonateModal(); return false;">
+                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                        </path>
+                    </svg>
+                    <span>Donate</span>
+                </a>
             </div>
         </div>
 
         <div class="ticker-wrap">
             <div class="ticker-content">
                 💡 MẸO: Người dùng có thể tìm kiếm thông tin Bộ/Ngành tại ô Tìm kiếm nhanh bằng chữ và giọng nói, hoặc
-                có thể chọn lọc thông
-                tin bên dưới.
+                có thể chọn lọc thông tin bên dưới.
             </div>
         </div>
 
@@ -235,6 +276,9 @@
     </div>
 
     <div class="floating-group">
+        <button class="floating-btn btn-guide-pulse" onclick="startTour()">
+            ❓ Hướng dẫn
+        </button>
         <button onclick="scrollToTop()" id="backToTopBtn" class="floating-btn btn-top" title="Lên đầu trang">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                 stroke-linecap="round" stroke-linejoin="round">
