@@ -1,6 +1,6 @@
 /**
- * script.js - Phiên bản cá nhân hóa cho Đỗ Việt Hoàng
  * Tích hợp: Voice Search (Reusable), Weather, PWA, Mobile Optimization, Driver.js Tour
+ * Version: 2.0 (Skeleton + Offline)
  */
 
 const CONFIG = {
@@ -59,7 +59,8 @@ const backToTopBtn = document.getElementById("backToTopBtn");
 // --- MAIN LOGIC ---
 async function initData() {
     if (!grid) return;
-    grid.innerHTML = '<div style="text-align:center; padding:20px;">⏳ Đang tải dữ liệu...</div>';
+    if (!grid) return;
+    renderSkeleton(); // Show skeleton before fetching
 
     try {
         const cached = localStorage.getItem(CONFIG.CACHE_KEY);
@@ -89,17 +90,77 @@ function renderCards(data) {
         if (noResultMsg) noResultMsg.style.display = 'block';
     } else {
         if (noResultMsg) noResultMsg.style.display = 'none';
+
+        // SORT: Pinned items first
+        const pinned = JSON.parse(localStorage.getItem('pinnedItems') || '[]');
+        data.sort((a, b) => {
+            const isPinA = pinned.includes(a.name);
+            const isPinB = pinned.includes(b.name);
+            if (isPinA && !isPinB) return -1;
+            if (!isPinA && isPinB) return 1;
+            return 0; // Keep original order otherwise
+        });
+
         data.forEach(dept => {
-            const sysBtn = dept.system ? `<a href="${dept.system}" class="action-btn btn-sys-new" target="_blank"><img src="https://img.icons8.com/fluency/48/internet.png"><span>Hệ thống MCĐT</span></a>` : '';
-            const docBtn = dept.doc ? `<a href="${dept.doc}" class="action-btn btn-doc-new" target="_blank"><img src="https://img.icons8.com/fluency/48/reading-ebook.png"><span>Tài liệu HDSD</span></a>` : '';
-            const zaloBtn = dept.zalo ? `<a href="${dept.zalo}" class="action-btn btn-zalo-new" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"><span>Nhóm Zalo hỗ trợ</span></a>` : '';
-            const reqBtn = dept.request ? `<a href="${dept.request}" class="action-btn btn-req-new" target="_blank"><img src="https://img.icons8.com/fluency/48/sent.png"><span>Gửi yêu cầu</span></a>` : '';
+            const isPinned = pinned.includes(dept.name);
+            const pinClass = isPinned ? 'active' : '';
+            const pinIcon = isPinned ? '★' : '☆';
+            const pinBtn = `<button class="pin-btn ${pinClass}" onclick="togglePin('${dept.name}')" title="Ghim lên đầu">${pinIcon}</button>`;
+
+            const sysBtn = dept.system ? `<a href="${dept.system}" class="action-btn btn-sys-new" target="_blank"><img src="https://img.icons8.com/fluency/48/internet.png" loading="lazy"><span>Hệ thống MCĐT</span></a>` : '';
+            const docBtn = dept.doc ? `<a href="${dept.doc}" class="action-btn btn-doc-new" target="_blank"><img src="https://img.icons8.com/fluency/48/reading-ebook.png" loading="lazy"><span>Tài liệu HDSD</span></a>` : '';
+            const zaloBtn = dept.zalo ? `<a href="${dept.zalo}" class="action-btn btn-zalo-new" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" loading="lazy"><span>Nhóm Zalo hỗ trợ</span></a>` : '';
+            const reqBtn = dept.request ? `<a href="${dept.request}" class="action-btn btn-req-new" target="_blank"><img src="https://img.icons8.com/fluency/48/sent.png" loading="lazy"><span>Gửi yêu cầu</span></a>` : '';
 
             const row = document.createElement('div');
             row.className = 'department-card';
-            row.innerHTML = `<div class="card-header"><div class="header-deco"></div><div class="dept-name">${dept.name}</div></div><div class="card-actions">${sysBtn} ${docBtn} ${zaloBtn} ${reqBtn}</div>`;
+            if (isPinned) row.classList.add('pinned-card');
+
+            row.innerHTML = `
+                <div class="card-header">
+                    <div class="header-deco"></div>
+                    <div class="dept-name">${dept.name}</div>
+                    ${pinBtn}
+                </div>
+                <div class="card-actions">${sysBtn} ${docBtn} ${zaloBtn} ${reqBtn}</div>`;
             grid.appendChild(row);
         });
+    }
+}
+
+// --- PINNING LOGIC ---
+function togglePin(name) {
+    let pinned = JSON.parse(localStorage.getItem('pinnedItems') || '[]');
+    if (pinned.includes(name)) {
+        pinned = pinned.filter(i => i !== name);
+    } else {
+        pinned.push(name);
+    }
+    localStorage.setItem('pinnedItems', JSON.stringify(pinned));
+
+    // Re-render with current filter
+    applyFilter();
+}
+
+function renderSkeleton() {
+    if (!grid) return;
+    grid.innerHTML = '';
+    // Render 6 skeleton cards
+    for (let i = 0; i < 6; i++) {
+        const div = document.createElement('div');
+        div.className = 'department-card skeleton-card';
+        div.innerHTML = `
+            <div class="skeleton-header">
+                <div class="skeleton-deco skeleton"></div>
+                <div class="skeleton-title skeleton"></div>
+            </div>
+            <div class="skeleton-actions">
+                <div class="skeleton-btn skeleton"></div>
+                <div class="skeleton-btn skeleton"></div>
+                <div class="skeleton-btn skeleton"></div>
+            </div>
+        `;
+        grid.appendChild(div);
     }
 }
 
@@ -315,26 +376,98 @@ window.onclick = (e) => {
     if (e.target == donateModal) closeDonateModal();
 };
 
-// ĐÃ SỬA LỖI SCROLL NULL TẠI ĐÂY
-window.onscroll = () => {
-    const nav = document.querySelector('.portal-nav');
-    if (nav) { // Kiểm tra nếu nav tồn tại thì mới chạy tiếp
-        if (window.scrollY > 0) nav.classList.add('stuck'); else nav.classList.remove('stuck');
-    }
+// --- SCROLL HANDLING ---
+let navElement = null;
+let backToTopButton = null;
 
-    if (backToTopBtn) { // Kiểm tra nút backToTop có tồn tại không
-        if (document.documentElement.scrollTop > 300) {
-            backToTopBtn.classList.add("show-btn");
-        } else {
-            backToTopBtn.classList.remove("show-btn");
+document.addEventListener('DOMContentLoaded', () => {
+    navElement = document.querySelector('.portal-nav');
+    backToTopButton = document.getElementById('backToTopBtn');
+});
+
+window.addEventListener('scroll', () => {
+    if (!navElement) navElement = document.querySelector('.portal-nav');
+    if (!backToTopButton) backToTopButton = document.getElementById('backToTopBtn');
+
+    requestAnimationFrame(() => {
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+
+        // Sticky Nav
+        if (navElement) {
+            if (scrollY > 0) navElement.classList.add('stuck');
+            else navElement.classList.remove('stuck');
+        }
+
+        // Back to Top Button
+        if (backToTopButton) {
+            if (scrollY > 300) backToTopButton.classList.add("show-btn");
+            else backToTopButton.classList.remove("show-btn");
+        }
+    });
+});
+
+
+
+// --- SCROLL TO TOP (CUSTOM SMOOTH & CANCELLABLE) ---
+function scrollToTop() {
+    const start = window.scrollY || document.documentElement.scrollTop;
+    if (start === 0) return;
+
+    const startTime = performance.now();
+    const duration = 600; // ms
+
+    // Easing: easeOutExpo (rất mượt khi về đích)
+    const easeOutExpo = (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+
+    // Cancel flag
+    let isCancelled = false;
+    const cancelScroll = () => { isCancelled = true; };
+
+    // Listen for user interaction to cancel
+    ['wheel', 'touchmove', 'keydown', 'mousedown'].forEach(evt =>
+        document.addEventListener(evt, cancelScroll, { once: true, passive: true })
+    );
+
+    function scrollStep(timestamp) {
+        if (isCancelled) return;
+
+        const currentTime = timestamp - startTime;
+        const progress = Math.min(currentTime / duration, 1);
+        const ease = easeOutExpo(progress);
+
+        window.scrollTo(0, start * (1 - ease));
+
+        if (currentTime < duration) {
+            requestAnimationFrame(scrollStep);
         }
     }
-};
 
-function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    requestAnimationFrame(scrollStep);
+}
 
 // --- WEBSITE TOUR (DRIVER.JS) ---
 // (Đã xóa bỏ hàm initTour bị lặp thừa ở đây)
+
+// --- DARK MODE ---
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDark);
+    updateDarkModeIcon(isDark);
+}
+
+function updateDarkModeIcon(isDark) {
+    const icon = document.getElementById('darkModeIconNav');
+    if (icon) icon.innerText = isDark ? '☀️' : '🌙';
+}
+
+function initDarkMode() {
+    const isDark = localStorage.getItem('darkMode') === 'true';
+    if (isDark) {
+        document.body.classList.add('dark-mode');
+        updateDarkModeIcon(true);
+    }
+}
 
 // --- WEBSITE TOUR (DRIVER.JS) ---
 function initTour() {
@@ -481,6 +614,7 @@ function initTour() {
 document.addEventListener('DOMContentLoaded', () => {
     initData();
     initWeather();
+    initDarkMode();
     initTour();
 
     setupVoiceSearch('voiceBtn', 'searchInput', () => {

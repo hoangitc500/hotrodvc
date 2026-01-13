@@ -11,6 +11,10 @@
     outline: none;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
@@ -30,6 +34,209 @@ body {
         radial-gradient(at 0% 100%, hsla(340, 100%, 76%, 0.1) 0px, transparent 50%);
     background-attachment: fixed;
     background-size: cover;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* --- DARK MODE CONFIG --- */
+body.dark-mode {
+    --text-dark: #f1f5f9;
+    --text-gray: #cbd5e1;
+    background-color: #0f172a;
+    background-image:
+        radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 0) 0, transparent 50%),
+        radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 0) 0, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 0) 0, transparent 50%);
+}
+
+body.dark-mode .container {
+    background: rgba(15, 23, 42, 0.85);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .nav-item.active {
+    background: #1e293b;
+    color: #fff;
+    border: 1px solid #334155;
+}
+
+body.dark-mode .tab-btn {
+    background: #1e293b;
+    border-color: #334155;
+    color: #cbd5e1;
+}
+
+body.dark-mode .tab-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+body.dark-mode .search-input {
+    background: rgba(30, 41, 59, 0.95);
+    border-color: #334155;
+    color: #fff;
+}
+
+body.dark-mode .search-input::placeholder {
+    color: #64748b;
+}
+
+body.dark-mode .department-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+body.dark-mode .card-header {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+body.dark-mode .dept-name {
+    color: #f1f5f9;
+}
+
+body.dark-mode .action-btn {
+    background: #0f172a;
+    border-color: #334155;
+    color: #cbd5e1;
+}
+
+body.dark-mode .action-btn span {
+    color: #cbd5e1;
+}
+
+body.dark-mode .visitor-pill {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+body.dark-mode .visitor-label {
+    color: #cbd5e1;
+}
+
+body.dark-mode .refresh-btn {
+    background: #1e293b;
+    border-color: #334155;
+    color: #38bdf8;
+}
+
+body.dark-mode .nav-brand img,
+body.dark-mode .coat-of-arms {
+    filter: none;
+    /* Keep original colors or adjust if needed */
+}
+
+/* --- DARK MODE ELEMENT OVERRIDES --- */
+/* Header Text Fix */
+body.dark-mode .header h1 {
+    background: none;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: initial;
+    color: #38bdf8;
+    /* Bright Sky Blue */
+    text-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+}
+
+body.dark-mode .header h2 {
+    color: #fca5a5;
+    text-shadow: 0 0 10px rgba(252, 165, 165, 0.3);
+}
+
+/* Weather Widget Fix */
+body.dark-mode .weather-widget {
+    background: rgba(30, 41, 59, 0.6);
+    color: #cbd5e1;
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Ticker Fix */
+body.dark-mode .ticker-wrap {
+    background: #422006;
+    /* Dark amber */
+    color: #fcd34d;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Support Modal Fix */
+body.dark-mode .modal-content {
+    background: #0f172a;
+    box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode .modal-header {
+    background: #0f172a;
+    border-bottom-color: #334155 !important;
+}
+
+body.dark-mode .modal-title-row h2 {
+    color: #f1f5f9;
+}
+
+body.dark-mode .close-btn {
+    background: #1e293b;
+    color: #cbd5e1;
+}
+
+body.dark-mode .close-btn:hover {
+    background: #7f1d1d;
+    color: #fca5a5;
+}
+
+body.dark-mode .modal-search {
+    background: #1e293b;
+    border-color: #334155;
+    color: #fff;
+}
+
+body.dark-mode .support-table th {
+    background-color: #1e293b;
+    color: #cbd5e1;
+}
+
+body.dark-mode .support-table td {
+    color: #e2e8f0;
+    border-bottom-color: #334155;
+}
+
+body.dark-mode .support-table tr:hover td {
+    background-color: #1e293b;
+}
+
+/* Table headers styling override for dark mode */
+body.dark-mode .support-table td[colspan="4"] {
+    background: #1e3a8a !important;
+    color: #bfdbfe !important;
+}
+
+/* --- DARK MODE TOGGLE BTN --- */
+.dark-mode-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background: #0f172a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    color: #fbbf24;
+    font-size: 1.5rem;
+    transition: all 0.3s;
+}
+
+body.dark-mode .dark-mode-toggle {
+    background: #fff;
+    color: #0f172a;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
 }
 
 /* --- PLACEHOLDER STYLING (Làm đẹp theo yêu cầu) --- */
@@ -479,6 +686,37 @@ input:focus::placeholder {
     line-height: 1.3;
 }
 
+.pin-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #e2e8f0;
+    cursor: pointer;
+    padding: 0 5px;
+    margin-left: auto;
+    transition: all 0.2s;
+}
+
+.pin-btn:hover {
+    transform: scale(1.2);
+}
+
+.pin-btn.active {
+    color: #fbbf24;
+    text-shadow: 0 2px 5px rgba(251, 191, 36, 0.4);
+}
+
+.pinned-card {
+    border: 2px solid #fbbf24;
+    position: relative;
+    background: #fffbeb;
+}
+
+body.dark-mode .pinned-card {
+    background: rgba(251, 191, 36, 0.05);
+    border-color: rgba(251, 191, 36, 0.4);
+}
+
 .card-actions {
     padding: 25px;
     display: grid;
@@ -797,6 +1035,73 @@ input:focus::placeholder {
     box-shadow: 0 0 0 4px rgba(0, 104, 255, 0.1);
 }
 
+
+
+/* --- SKELETON LOADING --- */
+.skeleton {
+    background: #f0f2f5;
+    background: linear-gradient(90deg, #f0f2f5 25%, #e6e8eb 50%, #f0f2f5 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 0;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    height: 180px;
+    /* Approximate height of a real card */
+    display: flex;
+    flex-direction: column;
+}
+
+.skeleton-header {
+    height: 60px;
+    background: #f8fafc;
+    padding: 18px 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.skeleton-deco {
+    width: 6px;
+    height: 24px;
+    border-radius: 4px;
+}
+
+.skeleton-title {
+    height: 20px;
+    width: 60%;
+    border-radius: 4px;
+}
+
+.skeleton-actions {
+    padding: 25px;
+    display: flex;
+    gap: 15px;
+}
+
+.skeleton-btn {
+    flex: 1;
+    height: 80px;
+    border-radius: 12px;
+}
+
 .search-icon {
     position: absolute;
     left: 18px;
@@ -1104,6 +1409,53 @@ input:focus::placeholder {
     transform: translateX(5px);
     padding-right: 20px;
     padding-left: 25px;
+}
+
+/* --- BACK TO TOP BUTTON FIX --- */
+.floating-group {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+}
+
+.btn-top {
+    width: 45px;
+    height: 45px;
+    background: #0068ff;
+    color: #fff;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 104, 255, 0.3);
+    cursor: pointer;
+    display: none;
+    /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(0);
+}
+
+.btn-top svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2.5;
+    /* Slightly thinner for smoothness */
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    shape-rendering: geometricPrecision;
+    /* Better anti-aliasing */
+}
+
+.btn-top:hover {
+    background: #0054cc;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 104, 255, 0.4);
+}
+
+.show-btn {
+    display: flex !important;
+    animation: slideUpFade 0.4s ease forwards;
 }
 
 /* Toast Notification */
