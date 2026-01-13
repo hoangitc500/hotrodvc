@@ -2,10 +2,10 @@ const CACHE_NAME = 'hotrodvc-cache-v2';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
-    './style.css',
-    './script.js',
+    './css/style.css',
+    './js/script.js',
     './manifest.json',
-    './favicon.ico',
+    './assets/favicon.ico',
     'https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css',
     'https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js',
     'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap'

@@ -16,15 +16,15 @@
     <meta property="og:title" content="Cổng thông tin Hỗ trợ TTHC - Đỗ Việt Hoàng">
     <meta property="og:description"
         content="Tra cứu nhanh tài liệu, đầu mối hỗ trợ kỹ thuật và nhóm Zalo cho các Bộ/Ngành.">
-    <meta property="og:image" content="thumbnail.png">
+    <meta property="og:image" content="assets/thumbnail.png">
 
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
     <title>Cổng hỗ trợ MCĐT Bộ Ngành - Ninh Bình</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
@@ -103,7 +103,14 @@
                 </a>
 
                 <a href="#" class="nav-item" onclick="toggleDarkMode(); return false;" title="Chuyển chế độ Sáng/Tối">
-                    <span id="darkModeIconNav" style="font-size: 1.2rem;">🌙</span>
+                    <!-- Icon for Mobile & Desktop -->
+                    <svg id="darkModeIconSvg" class="nav-icon" style="display: block;" width="20" height="20"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <!-- Text for Desktop -->
+                    <span>Giao diện</span>
                 </a>
             </div>
         </div>
@@ -123,7 +130,7 @@
 
         <header class="header">
             <div class="brand-logos">
-                <img src="cchc.png" class="coat-of-arms" alt="Quốc huy" onerror="this.style.display='none'">
+                <img src="assets/cchc.png" class="coat-of-arms" alt="Quốc huy" onerror="this.style.display='none'">
             </div>
             <h1>Cẩm nang hỗ trợ các Hệ thống thông tin giải quyết TTHC cấp Bộ ngành</h1>
             <h2>TỈNH NINH BÌNH</h2>
@@ -149,7 +156,8 @@
         <div class="main-action-box">
             <a href="https://dieuphoi.dichvucong.gov.vn" target="_blank" rel="noopener noreferrer"
                 class="card-btn-main">
-                <img src="quochuy.png" width="32" onerror="this.src='https://img.icons8.com/color/48/vietnam.png'">
+                <img src="assets/quochuy.png" width="32"
+                    onerror="this.src='https://img.icons8.com/color/48/vietnam.png'">
                 Hệ thống điều phối giải quyết TTHC
             </a>
             <a href="https://drive.google.com/drive/folders/1AmPIs4bBpmnxkXBeQDzFFc6PX6szIV-J" target="_blank"
@@ -253,7 +261,7 @@
 
     <div class="group-bottom-left">
         <a href="https://notebooklm.google.com/notebook/5438e17c-83b3-4d69-babc-464c85c188ef" target="_blank"
-            rel="noopener noreferrer" class="floating-btn btn-chat">
+            rel="noopener noreferrer" class="floating-btn hover-expand btn-chat">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4 4C4 2.9 4.9 2 6 2H18C19.1 2 20 2.9 20 4V20C20 21.1 19.1 22 18 22H6C4.9 22 4 21.1 4 20V4Z"
                     fill="#E8F0FE" />
@@ -265,10 +273,10 @@
                     </linearGradient>
                 </defs>
             </svg>
-            <span class="btn-text" style="color: white; margin-left: 5px;">Hỏi đáp trực tuyến</span>
+            <span class="btn-text" style="color: white;">Hỏi đáp trực tuyến</span>
         </a>
 
-        <button onclick="openDonateModal()" class="floating-btn btn-donate">
+        <button onclick="openDonateModal()" class="floating-btn hover-expand btn-donate">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <path
@@ -277,20 +285,22 @@
             </svg>
             <span class="btn-text">Động viên Admin</span>
         </button>
-    </div>
-
-    <div class="floating-group">
-        <button class="floating-btn btn-guide-pulse" onclick="startTour()">
+        <button onclick="openFeedbackModal()" class="floating-btn hover-expand btn-feedback"
+            style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                <path
+                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                </path>
             </svg>
-            <span class="btn-text" style="margin-left: 8px;">Hướng dẫn</span>
+            <span class="btn-text">Góp ý</span>
         </button>
+    </div>
+
+    <!-- Floating Guide Button Removed as requested -->
+    <div class="floating-group">
         <button onclick="scrollToTop()" id="backToTopBtn" class="floating-btn btn-top" title="Lên đầu trang">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 15l-6-6-6 6" />
             </svg>
@@ -313,7 +323,7 @@
                     trì và phát triển.
                 </p>
                 <div class="qr-container">
-                    <img src="bank.jpg" alt="QR Donate" class="qr-image">
+                    <img src="assets/bank.jpg" alt="QR Donate" class="qr-image">
                 </div>
                 <p style="text-align: center; font-weight: 700; color: #0068ff; margin-top: 20px; font-size: 1.1rem;">
                     Đỗ Việt Hoàng
@@ -326,9 +336,42 @@
         </div>
     </div>
 
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content donate-content">
+            <div class="modal-header">
+                <div class="modal-title-row">
+                    <h2>Góp ý / Báo lỗi 💬</h2>
+                    <div class="close-btn" onclick="closeFeedbackModal()">&times;</div>
+                </div>
+            </div>
+            <div class="modal-body donate-body">
+                <p style="text-align: center; color: #475569; margin-bottom: 20px;">
+                    Mọi ý kiến đóng góp của bạn sẽ giúp hệ thống ngày càng hoàn thiện hơn.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <a href="https://zalo.me/0916554796" target="_blank" class="card-btn-main"
+                        style="background: #0068ff; border: none;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" width="30">
+                        Chat qua Zalo (Admin)
+                    </a>
+                    <a href="mailto:hoangitc500@gmail.com" class="card-btn-main"
+                        style="background: #ea4335; border: none;">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                            </path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        Gửi Email góp ý
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="toast">Đã sao chép số điện thoại!</div>
 
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
