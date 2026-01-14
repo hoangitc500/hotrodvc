@@ -1,31 +1,21 @@
 /* --- 1. CẤU HÌNH GIAO DIỆN CHUNG --- */
 :root {
     --primary: #007aff;
-    /* Apple Blue */
     --primary-hover: #0062cc;
     --danger: #ff3b30;
-    /* Apple Red */
     --text-dark: #1d1d1f;
-    /* SF Text */
     --text-gray: #86868b;
 
-    /* --- ULTIMATE LIQUID GLASS (Apple Style) --- */
-    /* More transprency for background interaction */
-    --glass-bg: rgba(255, 255, 255, 0.4);
-    /* Milkier glass */
-    /* SIGNIFICANTLY REDUCED OPACITY FROM 0.25 */
-
-    /* Subtle white border + Inner Shine */
-    --glass-border: rgba(255, 255, 255, 0.2);
-
-    /* Deep soft shadow */
+    /* --- IMPROVED FROSTED GLASS (Apple Style) --- */
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    /* More opaque for better readability */
+    --glass-border: rgba(255, 255, 255, 0.4);
     --glass-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.05),
-        0 1px 3px rgba(255, 255, 255, 0.1) inset;
+        0 4px 24px -1px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+    /* Inner light ring */
 
-    /* Heavy Blur + High Saturation */
-    --liquid-filter: blur(20px) saturate(180%);
-    /* Reduced blur slightly for better performance with widespread use */
+    --liquid-filter: blur(16px) saturate(180%);
 }
 
 * {
@@ -2581,4 +2571,145 @@ to {
 /* Button Telegram in Group */
 .btn-telegram:hover {
     box-shadow: 0 10px 25px rgba(42, 171, 238, 0.4) !important;
+}
+
+/* --- FAB MENU (SPEED DIAL) --- */
+.fab-container {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    /* Moved to left as requested */
+    z-index: 1000;
+}
+
+.fab-main {
+    width: 60px;
+    height: 60px;
+    background: var(--primary);
+    border-radius: 50%;
+    border: none;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 122, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1002;
+    overflow: hidden;
+}
+
+.fab-main::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.fab-main:hover {
+    transform: scale(1.1) rotate(90deg);
+    background: var(--primary-hover);
+}
+
+.fab-menu {
+    position: absolute;
+    bottom: 70px;
+    left: 5px;
+    display: flex;
+    flex-direction: column-reverse;
+    /* Stack upwards */
+    gap: 15px;
+    pointer-events: none;
+}
+
+.fab-menu.active {
+    pointer-events: auto;
+}
+
+.fab-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #475569;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Tooltip Label */
+.fab-label {
+    position: absolute;
+    left: 60px;
+    /* Label to the right */
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+    transform: translateX(-10px);
+}
+
+.fab-item:hover .fab-label {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Staggered Animation */
+.fab-menu.active .fab-item {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.fab-menu.active .fab-item:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.fab-menu.active .fab-item:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.fab-menu.active .fab-item:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.fab-menu.active .fab-item:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.fab-item:hover {
+    transform: scale(1.15) !important;
+    z-index: 100;
+}
+
+/* Dark Mode Integration */
+body.dark-mode .fab-item {
+    background: #1e293b;
+    border-color: #334155;
+    color: #e2e8f0;
+}
+
+/* Hide Old Floating Group Styles to prevent conflicts if any remain */
+.group-bottom-left {
+    display: none !important;
+}
+
+/* Ensure Modals are always on top */
+.modal {
+    z-index: 9999 !important;
 }

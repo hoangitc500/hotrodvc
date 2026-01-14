@@ -371,13 +371,25 @@ async function forceReloadData() {
 }
 
 // --- DONATE & SCROLL ---
-function openDonateModal() { if (donateModal) donateModal.style.display = "block"; }
-function closeDonateModal() { if (donateModal) donateModal.style.display = "none"; }
+// --- DONATE & SCROLL ---
+function openDonateModal() {
+    const el = document.getElementById("donateModal");
+    if (el) el.style.display = "block";
+}
+function closeDonateModal() {
+    const el = document.getElementById("donateModal");
+    if (el) el.style.display = "none";
+}
 function copyBankNumber(num) { copyToClipboard(num, "Đã sao chép STK! ❤️"); }
 
-const feedbackModal = document.getElementById('feedbackModal');
-function openFeedbackModal() { if (feedbackModal) feedbackModal.style.display = "block"; }
-function closeFeedbackModal() { if (feedbackModal) feedbackModal.style.display = "none"; }
+function openFeedbackModal() {
+    const el = document.getElementById('feedbackModal');
+    if (el) el.style.display = "block";
+}
+function closeFeedbackModal() {
+    const el = document.getElementById('feedbackModal');
+    if (el) el.style.display = "none";
+}
 
 
 window.onclick = (e) => {
@@ -634,3 +646,53 @@ function toggleTelegramChat() {
         widget.classList.toggle('active');
     }
 }
+
+// --- FAB MENU LOGIC ---
+function toggleFabMenu() {
+    const menu = document.getElementById('fabMenu');
+    const btn = document.getElementById('fabMainBtn');
+    const iconOpen = document.getElementById('fabIconOpen');
+    const iconClose = document.getElementById('fabIconClose');
+
+    if (menu) menu.classList.toggle('active');
+
+    // Toggle Icons
+    if (iconOpen && iconClose) {
+        if (menu && menu.classList.contains('active')) {
+            iconOpen.style.display = 'none';
+            iconClose.style.display = 'block';
+            if (btn) btn.style.transform = 'rotate(90deg)';
+        } else {
+            iconOpen.style.display = 'block';
+            iconClose.style.display = 'none';
+            if (btn) btn.style.transform = 'rotate(0deg)';
+        }
+    }
+}
+
+// --- KEYBOARD SHORTCUTS ---
+document.addEventListener('keydown', (e) => {
+    // Esc to close modals
+    if (e.key === 'Escape') {
+        if (typeof closeSupportModal === 'function') closeSupportModal();
+        if (typeof closeDonateModal === 'function') closeDonateModal();
+        if (typeof closeFeedbackModal === 'function') closeFeedbackModal();
+
+        // Also close FAB if open
+        const fabMenu = document.getElementById('fabMenu');
+        const fabBtn = document.getElementById('fabMainBtn');
+        if (fabMenu && fabMenu.classList.contains('active')) {
+            toggleFabMenu(); // Use toggle function to reset icons too
+        }
+    }
+
+    // '/' to focus search
+    if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.focus();
+            searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+});

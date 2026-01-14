@@ -286,52 +286,71 @@
         </div>
     </div>
 
-    <div class="group-bottom-left">
-        <button onclick="toggleTelegramChat()" class="floating-btn hover-expand btn-telegram" title="Chat hỗ trợ"
-            style="background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M21.435 2.58198C20.935 2.06898 20.195 1.83798 19.455 1.93798L2.555 5.17098C1.565 5.35898 1.055 6.48898 1.635 7.28898C1.985 7.76898 2.505 8.08898 3.095 8.16898L7.335 8.76898C7.685 8.81898 7.995 9.07898 8.105 9.41898L9.615 14.129C9.755 14.569 10.225 14.809 10.665 14.659C10.875 14.589 11.045 14.439 11.145 14.239L12.555 11.419L16.295 14.159C16.895 14.599 17.745 14.399 18.065 13.729L22.065 3.72898C22.335 3.06898 22.015 2.29898 21.435 2.58198Z"
-                    fill="white" />
-            </svg>
-            <span class="btn-text">Dịch vụ công liên thông</span>
-        </button>
+    <div class="fab-container">
+        <div class="fab-menu" id="fabMenu">
+            <!-- 1. Telegram: Fix to open Popup -->
+            <a href="#" onclick="toggleTelegramChat(); toggleFabMenu(); return false;" class="fab-item"
+                title="Hỗ trợ Telegram" style="--i: 0; background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M21.435 2.58198C20.935 2.06898 20.195 1.83798 19.455 1.93798L2.555 5.17098C1.565 5.35898 1.055 6.48898 1.635 7.28898C1.985 7.76898 2.505 8.08898 3.095 8.16898L7.335 8.76898C7.685 8.81898 7.995 9.07898 8.105 9.41898L9.615 14.129C9.755 14.569 10.225 14.809 10.665 14.659C10.875 14.589 11.045 14.439 11.145 14.239L12.555 11.419L16.295 14.159C16.895 14.599 17.745 14.399 18.065 13.729L22.065 3.72898C22.335 3.06898 22.015 2.29898 21.435 2.58198Z"
+                        fill="white" />
+                </svg>
+                <span class="fab-label">Telegram</span>
+            </a>
 
-        <a href="https://notebooklm.google.com/notebook/5438e17c-83b3-4d69-babc-464c85c188ef" target="_blank"
-            rel="noopener noreferrer" class="floating-btn hover-expand btn-chat">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 4C4 2.9 4.9 2 6 2H18C19.1 2 20 2.9 20 4V20C20 21.1 19.1 22 18 22H6C4.9 22 4 21.1 4 20V4Z"
-                    fill="#E8F0FE" />
-                <path d="M12 6L13.5 9.5L17 11L13.5 12.5L12 16L10.5 12.5L7 11L10.5 9.5L12 6Z" fill="url(#grad1)" />
-                <defs>
-                    <linearGradient id="grad1" x1="7" y1="6" x2="17" y2="16" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#4285F4" />
-                        <stop offset="1" stop-color="#34A853" />
-                    </linearGradient>
-                </defs>
-            </svg>
-            <span class="btn-text">Hỏi đáp trực tuyến</span>
-        </a>
+            <!-- 2. AI: Close menu on click -->
+            <a href="https://notebooklm.google.com/notebook/5438e17c-83b3-4d69-babc-464c85c188ef" target="_blank"
+                rel="noopener noreferrer" class="fab-item" title="Hỏi đáp AI" onclick="toggleFabMenu()"
+                style="--i: 1; background: #fff;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4285F4" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+                    <circle cx="12" cy="5" r="2"></circle>
+                    <path d="M12 7v4"></path>
+                    <line x1="8" y1="16" x2="8" y2="16"></line>
+                    <line x1="16" y1="16" x2="16" y2="16"></line>
+                </svg>
+                <span class="fab-label">Hỏi AI</span>
+            </a>
 
-        <button onclick="openDonateModal()" class="floating-btn hover-expand btn-donate">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path
-                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                </path>
-            </svg>
-            <span class="btn-text">Động viên Admin</span>
-        </button>
+            <!-- 3. Donate: Close menu on click -->
+            <button onclick="openDonateModal(); toggleFabMenu()" class="fab-item" title="Donate"
+                style="--i: 2; background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: white;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                    </path>
+                </svg>
+                <span class="fab-label">Donate</span>
+            </button>
 
-        <button onclick="openFeedbackModal()" class="floating-btn hover-expand btn-feedback"
-            style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path
-                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
-                </path>
+            <!-- 4. Feedback: Ensure clickable and Close menu -->
+            <button onclick="openFeedbackModal(); toggleFabMenu()" class="fab-item" title="Góp ý"
+                style="--i: 3; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                    </path>
+                </svg>
+                <span class="fab-label">Góp ý</span>
+            </button>
+
+        </div>
+
+        <button class="fab-main" id="fabMainBtn" onclick="toggleFabMenu()">
+            <svg id="fabIconOpen" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
-            <span class="btn-text">Góp ý</span>
+            <svg id="fabIconClose" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
         </button>
     </div>
 
