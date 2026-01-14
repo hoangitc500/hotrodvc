@@ -287,6 +287,16 @@
     </div>
 
     <div class="group-bottom-left">
+        <button onclick="toggleTelegramChat()" class="floating-btn hover-expand btn-telegram" title="Chat hỗ trợ"
+            style="background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M21.435 2.58198C20.935 2.06898 20.195 1.83798 19.455 1.93798L2.555 5.17098C1.565 5.35898 1.055 6.48898 1.635 7.28898C1.985 7.76898 2.505 8.08898 3.095 8.16898L7.335 8.76898C7.685 8.81898 7.995 9.07898 8.105 9.41898L9.615 14.129C9.755 14.569 10.225 14.809 10.665 14.659C10.875 14.589 11.045 14.439 11.145 14.239L12.555 11.419L16.295 14.159C16.895 14.599 17.745 14.399 18.065 13.729L22.065 3.72898C22.335 3.06898 22.015 2.29898 21.435 2.58198Z"
+                    fill="white" />
+            </svg>
+            <span class="btn-text">Dịch vụ công liên thông</span>
+        </button>
+
         <a href="https://notebooklm.google.com/notebook/5438e17c-83b3-4d69-babc-464c85c188ef" target="_blank"
             rel="noopener noreferrer" class="floating-btn hover-expand btn-chat">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -300,7 +310,7 @@
                     </linearGradient>
                 </defs>
             </svg>
-            <span class="btn-text" style="color: white;">Hỏi đáp trực tuyến</span>
+            <span class="btn-text">Hỏi đáp trực tuyến</span>
         </a>
 
         <button onclick="openDonateModal()" class="floating-btn hover-expand btn-donate">
@@ -312,6 +322,7 @@
             </svg>
             <span class="btn-text">Động viên Admin</span>
         </button>
+
         <button onclick="openFeedbackModal()" class="floating-btn hover-expand btn-feedback"
             style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -397,6 +408,37 @@
     </div>
 
     <div id="toast">Đã sao chép số điện thoại!</div>
+
+    <!-- TELEGRAM WIDGET -->
+    <div class="telegram-widget">
+        <div class="telegram-popup" id="telegramPopup">
+            <div class="telegram-header">
+                <div class="header-info">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"
+                        alt="Telegram Logo">
+                    <div>
+                        <h4>Hỗ trợ đồng bộ trạng thái Dịch vụ công liên thông</h4>
+                        <span class="online-status">● Đang hoạt động</span>
+                    </div>
+                </div>
+                <button class="close-chat" onclick="toggleTelegramChat()">&times;</button>
+            </div>
+            <div class="telegram-body">
+                <div class="chat-bubble">
+                    Xin chào! 👋 <br> Bạn đang cần hỗ trợ vấn đề gì về Dịch vụ công liên thông?
+                </div>
+                <div class="chat-bubble">
+                    Bấm nút bên dưới để kết nối ngay với Bot hỗ trợ đồng bộ trạng thái 4 và trạng thái 5 nhé! 👇
+                </div>
+                <a href="https://t.me/DVCLTSync45_bot" target="_blank" class="start-chat-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="20">
+                    Chat ngay trên Telegram
+                </a>
+            </div>
+        </div>
+
+
+    </div>
 
     <script src="js/script.js"></script>
 </body>

@@ -2393,3 +2393,192 @@ to {
         margin: 0 auto;
     }
 }
+
+/* --- TELEGRAM WIDGET --- */
+/* Now just the popup container, since button is in .group-bottom-left */
+.telegram-widget {
+    position: fixed;
+    bottom: 300px;
+    /* Aligned above the button stack to prevent overlap */
+    left: 20px;
+    z-index: 1000;
+}
+
+.telegram-popup {
+    width: 350px;
+    background: rgba(255, 255, 255, 0.65);
+    /* Frosted Glass */
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transform-origin: bottom left;
+    /* Open from bottom left */
+    transform: scale(0);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+}
+
+.telegram-widget.active .telegram-popup {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.telegram-header {
+    background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.header-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-info img {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.header-info h4 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.online-status {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.close-chat {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.close-chat:hover {
+    opacity: 1;
+}
+
+.telegram-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.chat-bubble {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 12px 16px;
+    border-radius: 12px;
+    border-bottom-left-radius: 2px;
+    color: #334155;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    align-self: flex-start;
+    max-width: 90%;
+}
+
+.start-chat-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #2AABEE;
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: 0.2s;
+    margin-top: 5px;
+    box-shadow: 0 4px 10px rgba(42, 171, 238, 0.3);
+}
+
+.start-chat-btn:hover {
+    background: #229ED9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(42, 171, 238, 0.4);
+}
+
+@media (max-width: 480px) {
+    .telegram-popup {
+        width: 300px;
+    }
+}
+
+/* --- TABLE TRANSPARENCY FIXES --- */
+.support-table th {
+    background: rgba(255, 255, 255, 0.2);
+    /* Transparent Header */
+    color: #0f172a;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.table-section-header {
+    background: rgba(0, 104, 255, 0.1) !important;
+    /* Transparent Blue */
+    color: #0044cc !important;
+    font-weight: 800;
+    padding: 15px;
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+}
+
+.badge-scope {
+    background: rgba(255, 255, 255, 0.3);
+    /* Glass Badge */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #0f172a;
+}
+
+.phone-link {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.4);
+    /* Glass Button */
+    color: #ef4444;
+    /* Red text */
+    border-radius: 8px;
+    font-weight: 700;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+}
+
+.phone-link:hover {
+    background: #fff1f2;
+    border-color: #ef4444;
+    color: #ef4444 !important;
+    /* Force red text on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+}
+
+
+
+/* Button Telegram in Group */
+.btn-telegram:hover {
+    box-shadow: 0 10px 25px rgba(42, 171, 238, 0.4) !important;
+}

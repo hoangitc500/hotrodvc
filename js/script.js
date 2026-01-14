@@ -243,12 +243,12 @@ function renderTable(province, commune) {
     };
 
     if (province) {
-        const h1 = document.createElement("tr"); h1.innerHTML = `<td colspan="4" style="background:#eff6ff;font-weight:bold;color:#1e40af;padding:10px;">I. KHỐI SỞ BAN NGÀNH</td>`;
+        const h1 = document.createElement("tr"); h1.innerHTML = `<td colspan="4" class="table-section-header">I. KHỐI SỞ BAN NGÀNH</td>`;
         tableBody.appendChild(h1);
         province.forEach((i, idx) => tableBody.appendChild(createRow(i, idx)));
     }
     if (commune) {
-        const h2 = document.createElement("tr"); h2.innerHTML = `<td colspan="4" style="background:#eff6ff;font-weight:bold;color:#1e40af;padding:10px;margin-top:10px;">II. KHỐI XÃ/PHƯỜNG</td>`;
+        const h2 = document.createElement("tr"); h2.innerHTML = `<td colspan="4" class="table-section-header">II. KHỐI XÃ/PHƯỜNG</td>`;
         tableBody.appendChild(h2);
         commune.forEach((i, idx) => tableBody.appendChild(createRow(i, idx)));
     }
@@ -626,3 +626,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 });
+
+// --- TELEGRAM CHAT WIDGET ---
+function toggleTelegramChat() {
+    const widget = document.querySelector('.telegram-widget');
+    if (widget) {
+        widget.classList.toggle('active');
+    }
+}
