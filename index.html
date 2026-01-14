@@ -200,20 +200,47 @@
             </div>
         </div>
 
-        <footer class="copyright-footer">
-            <p>© 2026 <strong>Đỗ Việt Hoàng - Admin Cẩm nang Hỗ trợ</strong>.</p>
-            <div style="text-align: center;">
-                <div class="visitor-pill">
-                    <span class="visitor-label">
-                        <span class="visitor-icon">&#128065;</span> Lượt truy cập:
-                    </span>
-                    <img src="https://visitor-badge.laobi.icu/badge?page_id=hoangitc500.hotrodvc&right_color=0068ff&left_text=&left_color=ffffff&format=true"
-                        alt="Visitor Count" style="height: 20px; display: block;">
+        <footer class="glass-footer">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-brand">
+                        <img src="assets/cchc.png" alt="Logo" class="footer-logo">
+                        <h3>SUPPORT PORTAL</h3>
+                    </div>
+                    <p class="footer-desc">Cẩm nang hỗ trợ các hệ thống thông tin giải quyết TTHC cấp Bộ/Ngành - Tỉnh
+                        Ninh Bình.</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Liên kết nhanh</h4>
+                    <a href="https://dichvucong.gov.vn">Cổng Dịch vụ công Quốc gia</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Hỗ trợ</h4>
+                    <a href="#" onclick="openSupportModal(); return false;">Đầu mối hỗ trợ</a>
+                    <a href="#" onclick="openFeedbackModal(); return false;">Góp ý / Báo lỗi</a>
+                    <a href="#" onclick="openDonateModal(); return false;">Donate</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Thống kê</h4>
+                    <div class="visitor-pill">
+                        <span class="visitor-label">
+                            <span class="visitor-icon">&#128065;</span> Lượt truy cập:
+                        </span>
+                        <img src="https://visitor-badge.laobi.icu/badge?page_id=hoangitc500.hotrodvc&right_color=0068ff&left_text=&left_color=ffffff&format=true"
+                            alt="Visitor Count" style="height: 20px; display: block;">
+                    </div>
+                    <div class="refresh-btn" onclick="forceReloadData()" title="Cập nhật dữ liệu">
+                        <span class="refresh-icon">🔄</span>
+                        <span id="refreshText">Làm mới dữ liệu</span>
+                    </div>
                 </div>
             </div>
-            <div class="refresh-btn" onclick="forceReloadData()" title="Cập nhật dữ liệu mới nhất từ máy chủ">
-                <span class="refresh-icon">🔄</span>
-                <span id="refreshText">Làm mới dữ liệu</span>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 <strong>Đỗ Việt Hoàng</strong>. All rights reserved.</p>
             </div>
         </footer>
     </div>
